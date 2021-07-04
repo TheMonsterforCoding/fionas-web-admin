@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --white: #ffffff;
+  --black: #000;
+
+  --gray-50: #f7f8fa;
+  --gray-100: #e6e8eb;
+  --gray-200: #afb2b1;
+  --gray-500: #808080;
+  --gray-800: #494d4b;
+
+  --blue-100: #abfdfb;
+  --blue-200: #57fcf8;
+  --blue-300: #03fbf5;
+  --blue-400: #02a7a3;
+  --blue-500: #015351;
+
+  --pink-100: #edbbd8;
+  --pink-200: #db78b2;
+  --pink-300: #ca348c;
+  --pink-400: #86235d;
+  --pink-500: #43112e;
+}
+
+@media (max-width: 1080px) {
+  html {
+    font-size: 93.75%;
+  }
+}
+
+@media (max-width: 720) {
+  html {
+    font-size: 87.5%;
+  }
+}
+
+body {
+  background: var(--pink-100);
+}
+
+body,
+input,
+textarea,
+button {
+  font: 400 1rem Roboto, sans-serif;
+  color: var(--gray-500);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 900;
+  font-family: Roboto, sans-serif;
+  color: var(--gray-800);
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+button {
+  cursor: pointer;
+}
