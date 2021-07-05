@@ -7,7 +7,7 @@ import styles from './stylesHome.module.scss';
 export default function Home() {
   return (
     <div className={styles.containerHome}>
-      <CreateUser />
+      <h1>hpñaaaaaaa</h1>
     </div>
   )
 }
