@@ -1,133 +1,115 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useState } from 'react';
+
+import homeImg from '../../../public/home.svg'
+import arrowBottomImg from '../../../public/arrowBottom.svg'
+import formImg from '../../../public/form.svg'
+import statisticsImg from '../../../public/statistics.svg'
 
 import styles from './styles.module.scss'
 
-
 export function Sidebar() {
-  const router = useRouter();
+  const router = useRouter()
 
-  function openForm() {
-    let active = document.getElementById("activeForm");
+  function handleListForm() {
+    let active = document.getElementById('activeForm')
 
-    if (active.style.display === "block"){
-      return active.style.display = "none"
+    if (active.style.display === 'grid') {
+      return (active.style.display = 'none')
     } else {
-      return active.style.display = "block"
-    }
-
-  }
-
-  function openHome() {
-    let active = document.getElementById("activeHome");
-
-    if (active.style.display === "block"){
-      return active.style.display = "none"
-    } else {
-      return active.style.display = "block"
+      return (active.style.display = 'grid')
     }
   }
 
-  function openStatistics() {
-    let active = document.getElementById("activeStatistics");
+  function handleListStatistics() {
+    let active = document.getElementById('activeStatistics')
 
-    if (active.style.display === "block"){
-      return active.style.display = "none"
+    if (active.style.display === 'grid') {
+      return (active.style.display = 'none')
     } else {
-      return active.style.display = "block"
+      return (active.style.display = 'grid')
     }
   }
 
   return (
-    <div className={styles.sideBar}>
-      <div className={styles.adminBarSection}>
-        <h3> Kevin</h3>
-      </div>
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <header>
+          <h2>Fiona`s Pet Shop</h2>
+        </header>
 
-      <div className={styles.menuBarSection}>
-        <h3>Dashboard</h3>
+        <main>
+          <span>PANEL</span>
 
-        <ul className={styles.navSideMenu}>
-          <li>
-            <a 
-            href="#" 
-            onClick={openHome}
-            className={styles.navTitle}
-            >
-              <div className={styles.menuBox}>
-                <img className={styles.homeImg} src="home.svg" alt="Home" />
-                <span>Home</span>
-                <img className={styles.arrowBottomImg} src="arrowBottom.svg" alt="Home" />
-              </div>
-            </a>
-            <ul id="activeHome">
-              <li><a href="/">Pagina Principal</a></li>
-              <li><a href="">2</a></li>
-              <li><a href="">3</a></li>
-            </ul>
-          </li>
+          <ul className={styles.navSideMenu}>
+            {/* Home */}
+            <li>
+              <Link href="/">
+                <a>
+                  <div className={styles.menuBox}>
+                    <Image src={homeImg} alt="Home" />
+                    <span>Home</span>
+                  </div>
+                </a>
+              </Link>
+            </li>
 
-          <li>
-            <a
-            href="#"
-              onClick={openForm}
-              className={styles.navTitle}
-            >
-              <div className={styles.menuBox}>
-                <img className={styles.homeImg} src="form.svg" alt="Home" />
-                <span>
-                  Formularios
-                </span>
-                <img className={styles.arrowBottomImg} src="arrowBottom.svg" alt="Home" />
-              </div>
-            </a>
-            <ul id="activeForm">
-              <li>
-                <Link href="http://localhost:3000/posts/createUser">
+            {/* Formularios */}
+            <li>
+              <a href="#" onClick={handleListForm}>
+                <div className={styles.menuBox}>
+                  <div>
+                    <div>
+                      <Image src={formImg} alt="Home" />
+                      <span>Formularios</span>
+                    </div>
+                    <Image src={arrowBottomImg} alt="Home" />
+                  </div>
+                </div>
+              </a>
+
+              <ul id="activeForm">
+                <Link href="posts/createUser">
                   <a>Adicionar</a>
                 </Link>
-              </li>
-              <li>
                 <Link href="http://localhost:3000/posts/updateUser">
-                  <a onClick={() => router.push('/posts/updateUser')}>Atualizar</a>
+                  <a>Atualizar</a>
                 </Link>
-              </li>
-              <li>
                 <Link href="http://localhost:3000/posts/deleteUser">
                   <a>Eliminar</a>
                 </Link>
-              </li>
-              <li>
                 <Link href="http://localhost:3000/posts/readUser">
                   <a>Buscar</a>
                 </Link>
-              </li>
-            </ul>
+              </ul>
+            </li>
 
-          </li>
+            {/* Estadisticas */}
+            <li>
+              <a href="#" onClick={handleListStatistics}>
+                <div className={styles.menuBox}>
+                  <div>
+                    <div>
+                      <Image src={statisticsImg} alt="Home" />
+                      <span>Estadísticas</span>
+                    </div>
+                    <Image src={arrowBottomImg} alt="Home" />
+                  </div>
+                </div>
+              </a>
 
-          <li>
-            <a 
-            href="#" 
-            onClick={openStatistics}
-            className={styles.navTitle}
-            >
-              <div className={styles.menuBox}>
-                <img className={styles.homeImg} src="statistics.svg" alt="Home" />
-                <span>
-                  Estadísticas
-                </span>
-                <img className={styles.arrowBottomImg} src="arrowBottom.svg" alt="Home" />
-              </div>
-            </a>
-            <ul id="activeStatistics">
-              <li><a href="">1</a></li>
-              <li><a href="">2</a></li>
-              <li><a href="">3</a></li>
-            </ul>
-          </li>
-        </ul>
+              <ul id="activeStatistics">
+                <Link href="http://localhost:3000/posts/createUser">
+                  <a>Usuarios</a>
+                </Link>
+                <Link href="http://localhost:3000/posts/deleteUser">
+                  <a>Tags</a>
+                </Link>
+              </ul>
+            </li>
+          </ul>
+        </main>
       </div>
     </div>
   )

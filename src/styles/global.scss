@@ -5,14 +5,11 @@
 }
 
 :root {
-  --white: #ffffff;
+  --white: #fff;
+  --background: #fceff9;
+  --separator: #a8a8b3;
+  --text-ligh: #3b3b44;
   --black: #000;
-
-  --gray-50: #f7f8fa;
-  --gray-100: #e6e8eb;
-  --gray-200: #afb2b1;
-  --gray-500: #808080;
-  --gray-800: #494d4b;
 
   --blue-100: #abfdfb;
   --blue-200: #57fcf8;
@@ -27,20 +24,8 @@
   --pink-500: #43112e;
 }
 
-@media (max-width: 1080px) {
-  html {
-    font-size: 93.75%;
-  }
-}
-
-@media (max-width: 720) {
-  html {
-    font-size: 87.5%;
-  }
-}
-
 body {
-  background: var(--pink-200);
+  background: var(--background);
 }
 
 body,
@@ -50,7 +35,7 @@ button,
 fieldset,
 span {
   font: 400 1rem 'Roboto', sans-serif;
-  color: var(--white);
+  color: var(--black);
   border: none;
 }
 
@@ -60,9 +45,9 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 900;
+  font-weight: 700;
   font-family: Roboto, sans-serif;
-  color: var(--white);
+  color: var(--black);
 }
 
 h1 {
@@ -77,15 +62,27 @@ button {
   cursor: pointer;
 }
 
+li {
+  list-style-type: none;
+}
+
 a {
-  color: white;
+  color: var(--black);
   font-family: Roboto, sans-serif;
   font-weight: 400;
   text-decoration: none;
-  line-height: 1.4rem;
+  line-height: 2rem;
   font-size: 1rem;
 }
 
-li {
-  list-style-type: none;
+@media (max-width: 1080px) {
+  html {
+    font-size: 93.75%; // 15px
+  }
+}
+
+@media (max-width: 720px) {
+  html {
+    font-size: 87.5%; // 14px
+  }
 }

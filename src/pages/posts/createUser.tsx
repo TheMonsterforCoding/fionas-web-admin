@@ -1,13 +1,11 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import { CreateUser } from '../../components/Users/CreateUser'
+import { Sidebar } from '../../components/Sidebar'
 
-import { CreateUser } from "../../components/CreateUser"
-
-export default function createUser(request: NextApiRequest, response: NextApiResponse) {
-
+export default function createUser() {
   return (
-    <>
+    <div style={{ display: 'flex' }}>
+      <Sidebar />
       <CreateUser />
-    </>
+    </div>
   )
 }
-

@@ -1,0 +1,108 @@
+.container {
+  margin-top: 1rem;
+  background: var(--white);
+  height: calc(100vh - 1rem);
+  width: 84vw;
+  padding: 1rem;
+
+  h3 {
+    color: var(--separator);
+    margin-bottom: 1rem;
+  }
+
+  .wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 999fr;
+    gap: 1rem;
+
+    width: 100%;
+    height: calc(100vh - 4.5rem);
+    padding: 1rem;
+    background: var(--background);
+
+    span {
+      color: var(--separator);
+    }
+
+    form {
+      align-items: center;
+      justify-content: center;
+
+      padding: 0 25%;
+
+      fieldset {
+        .inputBlock {
+          display: grid;
+
+          label {
+            display: flex;
+            color: var(--separator);
+            margin: 0.5rem 0 0.5rem 0;
+            line-height: 1.5rem;
+          }
+
+          input {
+            border: none;
+            color: var(--separator);
+            border-radius: 5px;
+            font-size: 18px;
+
+            padding-left: 12px;
+            height: 2.7rem;
+          }
+
+          input::placeholder {
+            color: var(--separator);
+            font-size: 0.8rem;
+          }
+
+          .buttonSelect {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+
+            button {
+              height: 2.7rem;
+              border-radius: 0.5rem;
+              font-weight: 600;
+              background: var(--pink-100);
+              color: var(--white);
+              padding: 0 2rem;
+
+              transition: 0.2s;
+
+              &.active {
+                background: var(--pink-200);
+              }
+            }
+          }
+        }
+      }
+
+      > button {
+        margin-top: 1rem;
+        margin-left: 78%;
+
+        height: 3.125rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        background: var(--pink-200);
+        color: var(--white);
+        padding: 0 2rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border: 0;
+
+        transition: 0.2s;
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+}
