@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { FormEvent, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 
 import api from '../../../services/api'
 
@@ -17,20 +18,30 @@ export function CreateUser() {
     // Prever que la app no haga reload al mandar el formulario
     event.preventDefault()
 
-    await api.post('users', {
-      name: name,
-      email: email,
-      password: password,
-      admin: admin
-    })
-
-    alert('Cadastro realizado com susseso')
-
-    router.push('/')
+    await api
+      .post('users', {
+        name: name,
+        email: email,
+        password: password,
+        admin: admin
+      })
+      .then(function (response) {
+        console.log(response)
+        toast.success('Usuario cadastrado com susseso!')
+        router.push('/')
+      })
+      .catch(function (error) {
+        console.log(error)
+        toast.error('Dados de usuario incorreto!')
+      })
   }
 
   return (
     <div className={styles.container}>
+      <div>
+        <Toaster position="top-center" reverseOrder={false} />
+      </div>
+
       <h3>Adicionar um usuario</h3>
 
       <div className={styles.wrapper}>
