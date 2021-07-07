@@ -17,20 +17,16 @@ export function CreateUser() {
     // Prever que la app no haga reload al mandar el formulario
     event.preventDefault()
 
-    const data = new FormData()
-
-    console.log(name)
-
-    data.append('name', name)
-    data.append('email', email)
-    data.append('password', password)
-    data.append('admin', String(admin))
-
-    await api.post('users', data)
+    await api.post('users', {
+      name: name,
+      email: email,
+      password: password,
+      admin: admin
+    })
 
     alert('Cadastro realizado com susseso')
 
-    // router.push('/')
+    router.push('/')
   }
 
   return (
