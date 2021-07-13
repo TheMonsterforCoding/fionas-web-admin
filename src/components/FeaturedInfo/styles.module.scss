@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+}
+
+.content {
+  margin: 0 20px;
+  padding: 2rem;
+  border-radius: 10px;
+  cursor: pointer;
+
+  min-width: 18rem;
+
+  box-shadow: 0 0 15px -10px black;
+  -webkit-box-shadow: 0 0 15px -10px black;
+
+  .moneyContainer {
+    margin: 0.6rem 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .moneyRate {
+      display: flex;
+      align-items: center;
+
+      svg {
+        height: 30px;
+        width: 30px;
+        stroke: red;
+        stroke-width: 2.2px;
+      }
+    }
+  }
+
+  .subtitle {
+    color: var(--separator);
+  }
+}

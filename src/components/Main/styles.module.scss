@@ -1,7 +1,13 @@
 .container {
-  margin-top: 2rem;
-  background: var(--white);
-  height: calc(100vh - 1rem);
+  height: 100vh;
   width: 84vw;
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
+
+  .content {
+    margin: 2rem 0;
+
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
 }
