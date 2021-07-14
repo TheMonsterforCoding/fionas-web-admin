@@ -1,3 +1,4 @@
+import { Chart } from '../Chart'
 import { FeaturedInfo } from '../FeaturedInfo'
 import { Header } from '../Header'
 
@@ -14,7 +15,7 @@ export function Main() {
         <FeaturedInfo title="Compras" amount="450,00" rate="-0,1" />
       </div>
 
-      {/* Rechart 44:28*/}
+      <Chart />
     </div>
   )
 }
