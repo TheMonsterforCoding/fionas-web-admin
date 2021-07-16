@@ -8,13 +8,11 @@
   width: 16vw;
 
   .wrapper {
-    // background: blue;
     width: 90%;
     height: 100%;
     margin: 1rem 0;
 
     header {
-      // background: red;
       display: flex;
       align-items: center;
       gap: 1rem;
@@ -32,7 +30,6 @@
     }
 
     main {
-      // background: green;
       display: flex;
       flex-direction: column;
 
@@ -61,6 +58,7 @@
                 height: 1.2rem;
                 width: 1.2rem;
                 stroke: var(--white);
+                stroke-width: 1.7px;
               }
 
               span {

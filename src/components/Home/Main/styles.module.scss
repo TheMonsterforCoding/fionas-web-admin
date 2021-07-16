@@ -9,4 +9,11 @@
     display: flex;
     justify-content: space-between;
   }
+
+  .widget {
+    margin: 2rem 0;
+
+    display: flex;
+    gap: 2rem;
+  }
 }

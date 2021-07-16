@@ -12,64 +12,64 @@ import styles from './styles.module.scss'
 const data = [
   {
     name: 'Jan',
-    Usuarios: 10
+    Ativos: 10
   },
   {
     name: 'Fev',
-    Usuarios: 30
+    Ativos: 30
   },
   {
     name: 'Mar',
-    Usuarios: 20
+    Ativos: 20
   },
   {
     name: 'Abr',
-    Usuarios: 27
+    Ativos: 27
   },
   {
     name: 'Mai',
-    Usuarios: 18
+    Ativos: 18
   },
   {
     name: 'Jun',
-    Usuarios: 23
+    Ativos: 23
   },
   {
     name: 'Jul',
-    Usuarios: 34
+    Ativos: 34
   },
   {
     name: 'Ago',
-    Usuarios: 29
+    Ativos: 29
   },
   {
     name: 'Set',
-    Usuarios: 30
+    Ativos: 30
   },
   {
     name: 'Out',
-    Usuarios: 37
+    Ativos: 37
   },
   {
     name: 'Nov',
-    Usuarios: 34
+    Ativos: 34
   },
   {
     name: 'Dez',
-    Usuarios: 30
+    Ativos: 30
   }
 ]
 
 export function Chart() {
   return (
     <div className={styles.container}>
-      <h3>Análises de usuarios ativos</h3>
+      <h3>Análises de usuarios</h3>
 
       <ResponsiveContainer width="100%" aspect={4 / 1}>
         <LineChart data={data}>
           <XAxis dataKey="name" stroke="var(--pink-300)" />
-          <Line type="monotone" dataKey="Usuarios" stroke="var(--pink-300)" />
-          <Tooltip />
+          <Line type="monotone" dataKey="Ativos" stroke="var(--pink-300)" />
+          <Tooltip labelStyle={{ fontSize: '10px' }} />
           <CartesianGrid stroke="var(--separator)" strokeDasharray="5 5" />
         </LineChart>
       </ResponsiveContainer>
