@@ -7,8 +7,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <div style={{ display: 'flex' }}>
       <main>
-      <Sidebar />
-    </main>
+        <Sidebar />
+      </main>
 
       <Component {...pageProps} />
     </div>

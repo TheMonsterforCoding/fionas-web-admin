@@ -76,7 +76,7 @@ export function Sidebar() {
               </Link>
 
               <ul id="activeForm" className={styles.form}>
-                <Link href="posts/createUser">
+                <Link href="/posts/createUser">
                   <a>Adicionar</a>
                 </Link>
                 <Link href="/posts/updateUser">
