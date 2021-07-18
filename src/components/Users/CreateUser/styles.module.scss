@@ -72,6 +72,13 @@
 
               transition: 0.2s;
             }
+            .active {
+              background: var(--pink-200)
+            }
+
+            .disabled {
+              background: var(--pink-100);
+            }
           }
         }
       }
@@ -102,3 +109,5 @@
     }
   }
 }
+
+

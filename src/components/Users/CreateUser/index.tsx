@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 
 import api from '../../../services/api'
@@ -37,6 +37,9 @@ export function CreateUser() {
   }
 
   return (
+
+
+
     <div className={styles.container}>
       <div>
         <Toaster position="top-center" reverseOrder={false} />
@@ -91,16 +94,16 @@ export function CreateUser() {
               <div className={styles.buttonSelect}>
                 <button
                   type="button"
-                  className={`${admin ? styles.active : ''}`}
                   onClick={() => setAdmin(true)}
+                  className={admin ? styles.active : styles.disabled}
                 >
                   Sim
                 </button>
 
                 <button
                   type="button"
-                  className={`${!admin ? styles.active : ''}`}
                   onClick={() => setAdmin(false)}
+                  className={!admin ? styles.active : styles.disabled}
                 >
                   Não
                 </button>
