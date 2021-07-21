@@ -1,5 +1,16 @@
+import { ReactNode } from 'react'
+
 import styles from './styles.module.scss'
 
-export function Button() {
-  return <button className={styles.button}>Aprovar</button>
+interface ButtonProps {
+  children: ReactNode
+  color: string
+}
+
+export function Button({ children, color }: ButtonProps) {
+  return (
+    <button id={color} className={styles.button}>
+      {children}
+    </button>
+  )
 }

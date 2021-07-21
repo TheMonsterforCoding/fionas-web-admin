@@ -28,33 +28,7 @@ export function WidgetLarge() {
           <td>2 Jun 2021</td>
           <td>$122.00</td>
           <td>
-            <Button />
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <Image src={AvatarImg} alt="Avatar" />
-
-            <span>Leandro Cruz</span>
-          </td>
-          <td>2 Jun 2021</td>
-          <td>$122.00</td>
-          <td>
-            <Button />
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <Image src={AvatarImg} alt="Avatar" />
-
-            <span>Leandro Cruz</span>
-          </td>
-          <td>2 Jun 2021</td>
-          <td>$122.00</td>
-          <td>
-            <Button />
+            <Button color="white">Aprovar</Button>
           </td>
         </tr>
       </table>
