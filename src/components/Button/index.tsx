@@ -4,13 +4,8 @@ import styles from './styles.module.scss'
 
 interface ButtonProps {
   children: ReactNode
-  color: string
 }
 
-export function Button({ children, color }: ButtonProps) {
-  return (
-    <button id={color} className={styles.button}>
-      {children}
-    </button>
-  )
+export function Button({ children }: ButtonProps) {
+  return <button className={styles.button}>{children}</button>
 }

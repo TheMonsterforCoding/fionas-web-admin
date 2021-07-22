@@ -1,6 +1,7 @@
 import { Eye } from '@styled-icons/feather'
-
 import Image from 'next/image'
+
+import { Button } from '../../Button'
 
 import AvatarImg from '../../../../public/avatar.jpg'
 
@@ -22,10 +23,10 @@ export function WidgetSmall() {
             </div>
           </div>
 
-          <button>
+          <Button>
             <Eye />
             Ver
-          </button>
+          </Button>
         </li>
 
         <li className={styles.item}>
@@ -38,10 +39,10 @@ export function WidgetSmall() {
             </div>
           </div>
 
-          <button>
+          <Button>
             <Eye />
             Ver
-          </button>
+          </Button>
         </li>
 
         <li className={styles.item}>
@@ -54,10 +55,10 @@ export function WidgetSmall() {
             </div>
           </div>
 
-          <button>
+          <Button>
             <Eye />
             Ver
-          </button>
+          </Button>
         </li>
 
         <li className={styles.item}>
@@ -70,10 +71,10 @@ export function WidgetSmall() {
             </div>
           </div>
 
-          <button>
+          <Button>
             <Eye />
             Ver
-          </button>
+          </Button>
         </li>
 
         <li className={styles.item}>
@@ -86,10 +87,10 @@ export function WidgetSmall() {
             </div>
           </div>
 
-          <button>
+          <Button>
             <Eye />
             Ver
-          </button>
+          </Button>
         </li>
       </ul>
     </div>

@@ -1,7 +1,5 @@
 import Image from 'next/image'
 
-import { Button } from '../../Button'
-
 import AvatarImg from '../../../../public/avatar.jpg'
 
 import styles from './styles.module.scss'
@@ -9,29 +7,58 @@ import styles from './styles.module.scss'
 export function WidgetLarge() {
   return (
     <div className={styles.container}>
-      <h3>Novos Clientes Registrados</h3>
+      <h3>Ultimas Transações</h3>
 
-      <table className="table">
-        <tr>
-          <th>Custumer</th>
-          <th>Date</th>
-          <th>Amount</th>
-          <th>Status</th>
-        </tr>
+      <div className={styles.table}>
+        <div className={styles.lineTitle}>
+          <h4>Cliente</h4>
+          <h4>Data</h4>
+          <h4>Hora</h4>
+          <h4>Valor</h4>
+        </div>
 
-        <tr>
-          <td>
+        <div className={styles.line}>
+          <div>
             <Image src={AvatarImg} alt="Avatar" />
 
-            <span>Leandro Cruz</span>
-          </td>
-          <td>2 Jun 2021</td>
-          <td>$122.00</td>
-          <td>
-            <Button color="white">Aprovar</Button>
-          </td>
-        </tr>
-      </table>
+            <div className={styles.info}>
+              <span className={styles.name}>Tito Saavedra</span>
+              <span className={styles.moreInfo}>Software Enginner</span>
+            </div>
+          </div>
+          <span>2 Jun 2021</span>
+          <span>10:45</span>
+          <span>R$ 1096,12</span>
+        </div>
+
+        <div className={styles.line}>
+          <div>
+            <Image src={AvatarImg} alt="Avatar" />
+
+            <div className={styles.info}>
+              <span className={styles.name}>Hector Barrios</span>
+              <span className={styles.moreInfo}>Software Enginner</span>
+            </div>
+          </div>
+          <span>4 Jun 2021</span>
+          <span>12:05</span>
+          <span>R$ 122,00</span>
+        </div>
+
+        <div className={styles.line}>
+          <div>
+            <Image src={AvatarImg} alt="Avatar" />
+
+            <div className={styles.info}>
+              <span className={styles.name}>Leandro Cruz</span>
+              <span className={styles.moreInfo}>Software Enginner</span>
+            </div>
+          </div>
+          <span>4 Jun 2021</span>
+          <span>20:12</span>
+          <span>R$ 97,30</span>
+        </div>
+      </div>
     </div>
   )
 }
