@@ -1,8 +1,8 @@
-import { Eye } from '@styled-icons/feather'
 import Image from 'next/image'
 
 import { Button } from '../../Button'
 
+import { Eye } from '@styled-icons/feather'
 import AvatarImg from '../../../../public/avatar.jpg'
 
 import styles from './styles.module.scss'
