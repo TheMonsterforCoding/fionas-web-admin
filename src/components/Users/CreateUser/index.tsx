@@ -1,26 +1,21 @@
+import { FormEvent } from 'hoist-non-react-statics/node_modules/@types/react'
 import { useState } from 'react'
 import { DataGrid } from '@material-ui/data-grid'
 import Modal from 'react-modal'
+import { X } from '@styled-icons/feather'
 
-// import { Button } from '../../Button'
+import { Button } from '../../Button'
 import { Header } from '../../Header'
 
 import styles from './styles.module.scss'
 
-// interface ParamsProps {
-//   params: HTMLAttributes
-// }
+interface CreateUserProps {
+  isOpen: boolean
+  onRequestClose: () => void
+}
 
-export function CreateUser() {
-  const [ isNewUserModalOpen, setIsNewUserModalOpen ] = useState(false)
-
-  function handleOpenCreateUserModal() {
-    setIsNewUserModalOpen(true)
-  }
-
-  function handleCloseCreateUserModal() {
-    setIsNewUserModalOpen(false)
-  }
+export function CreateUser({ isOpen, onRequestClose }: CreateUserProps) {
+  const [openModal, setOpenModal] = useState(false)
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
@@ -153,14 +148,43 @@ export function CreateUser() {
     }
   ]
 
+  // function handleOpenNewUserModal(event: FormEvent) {
+  //   event.preventDefault()
+
+  //   onRequestClose()
+  // }
+
+  function handleOpenModal() {
+    setOpenModal(true)
+  }
+  function handleCloseModal() {
+    setOpenModal(false)
+  }
+
   return (
     <div className={styles.container}>
       <Header />
 
-      <Modal
-        isOpen={isNewUserModalOpen}
-      >
-        <h1>Criar usuario</h1>
+      <Modal isOpen={openModal}>
+        <button
+          type="button"
+          onClick={onRequestClose}
+          className="react-modal-close"
+        >
+          <X />
+        </button>
+
+        <div className={styles.containerModal}>
+          <h2>Cadastrar transacao</h2>
+
+          <input placeholder="Titulo" />
+
+          <input type="number" placeholder="Valor" />
+
+          <input placeholder="Categoria" />
+
+          <Button type="submit">Cadastrar</Button>
+        </div>
       </Modal>
 
       <div className={styles.content}>
@@ -171,9 +195,8 @@ export function CreateUser() {
           checkboxSelection
         />
 
-        <button onClick={handleOpenCreateUserModal} >Criar</button>
-        {/* <Button onClick={haNewenCreateUserModal} >Crear</Button> */}
-        </div>
+        <Button onClick={handleOpenModal}>Crear</Button>
+      </div>
     </div>
   )
 }
