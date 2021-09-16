@@ -1,16 +1,27 @@
+import { useState } from 'react'
 import { DataGrid } from '@material-ui/data-grid'
-import { Button } from '../../Button'
-import { Header } from '../../Header'
+import Modal from 'react-modal'
 
-import AvatarImg from '../../../public/avatar.jpg'
+// import { Button } from '../../Button'
+import { Header } from '../../Header'
 
 import styles from './styles.module.scss'
 
-interface ParamsProps {
-  params: HTMLAttributes
-}
+// interface ParamsProps {
+//   params: HTMLAttributes
+// }
 
 export function CreateUser() {
+  const [ isNewUserModalOpen, setIsNewUserModalOpen ] = useState(false)
+
+  function handleOpenCreateUserModal() {
+    setIsNewUserModalOpen(true)
+  }
+
+  function handleCloseCreateUserModal() {
+    setIsNewUserModalOpen(false)
+  }
+
   const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
     {
@@ -146,6 +157,12 @@ export function CreateUser() {
     <div className={styles.container}>
       <Header />
 
+      <Modal
+        isOpen={isNewUserModalOpen}
+      >
+        <h1>Criar usuario</h1>
+      </Modal>
+
       <div className={styles.content}>
         <DataGrid
           rows={rows}
@@ -154,8 +171,9 @@ export function CreateUser() {
           checkboxSelection
         />
 
-        <Button>Crear</Button>
-      </div>
+        <button onClick={handleOpenCreateUserModal} >Criar</button>
+        {/* <Button onClick={haNewenCreateUserModal} >Crear</Button> */}
+        </div>
     </div>
   )
 }
