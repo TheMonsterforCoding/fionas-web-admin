@@ -148,16 +148,15 @@ export function CreateUser({ isOpen, onRequestClose }: CreateUserProps) {
     }
   ]
 
-  // function handleOpenNewUserModal(event: FormEvent) {
-  //   event.preventDefault()
+  function handleOpenModal(event: FormEvent) {
+    event.preventDefault()
 
-  //   onRequestClose()
-  // }
-
-  function handleOpenModal() {
     setOpenModal(true)
   }
-  function handleCloseModal() {
+
+  function handleCloseModal(event: FormEvent) {
+    event.preventDefault()
+
     setOpenModal(false)
   }
 
@@ -165,16 +164,21 @@ export function CreateUser({ isOpen, onRequestClose }: CreateUserProps) {
     <div className={styles.container}>
       <Header />
 
-      <Modal isOpen={openModal}>
+      <Modal
+        isOpen={openModal}
+        onRequestClose={handleCloseModal}
+        overlayClassName={styles.reacModalOverlay}
+        className={styles.reactModalContent}
+      >
         <button
           type="button"
-          onClick={onRequestClose}
+          onClick={handleCloseModal}
           className="react-modal-close"
         >
           <X />
         </button>
 
-        <div className={styles.containerModal}>
+        <form className={styles.formContainer}>
           <h2>Cadastrar transacao</h2>
 
           <input placeholder="Titulo" />
@@ -184,7 +188,7 @@ export function CreateUser({ isOpen, onRequestClose }: CreateUserProps) {
           <input placeholder="Categoria" />
 
           <Button type="submit">Cadastrar</Button>
-        </div>
+        </form>
       </Modal>
 
       <div className={styles.content}>
