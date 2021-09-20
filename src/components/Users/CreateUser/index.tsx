@@ -167,8 +167,8 @@ export function CreateUser({ isOpen, onRequestClose }: CreateUserProps) {
       <Modal
         isOpen={openModal}
         onRequestClose={handleCloseModal}
-        overlayClassName={styles.reacModalOverlay}
-        className={styles.reactModalContent}
+        overlayClassName='reacModalOverlay'
+        className='reactModalContent'
       >
         <button
           type="button"
