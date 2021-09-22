@@ -1,8 +1,8 @@
-import { FormEvent } from 'hoist-non-react-statics/node_modules/@types/react'
 import { useState } from 'react'
+import Link from 'next/link'
+
 import { DataGrid } from '@material-ui/data-grid'
-import Modal from 'react-modal'
-import { X } from '@styled-icons/feather'
+import { Edit2, Trash2 } from '@styled-icons/feather'
 
 import { Button } from '../../Button'
 import { Header } from '../../Header'
@@ -15,18 +15,18 @@ interface CreateUserProps {
 }
 
 export function CreateUser({ isOpen, onRequestClose }: CreateUserProps) {
-  const [openModal, setOpenModal] = useState(false)
+  // const [openModal, setOpenModal] = useState(false)
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
     {
       field: 'user',
       headerName: 'Usuario',
-      width: 200,
+      width: 250,
       renderCell: params => {
         return (
-          <div className={styles.user}>
-            <img src={params.row.avatar} alt="" />
+          <div className={styles.columnUserName}>
+            <img src={params.row.avatar} alt="Avatar" />
             {params.row.name}
           </div>
         )
@@ -43,6 +43,21 @@ export function CreateUser({ isOpen, onRequestClose }: CreateUserProps) {
       field: 'status',
       headerName: 'Status',
       width: 150
+    },
+    {
+      field: 'action',
+      headerName: 'Action',
+      width: 150,
+      renderCell: params => {
+        return (
+          <>
+            <Link href={'/user/' + params.row.id} >
+              <Edit2 className={styles.columnUserButtonEdit} />
+            </Link>
+            <Trash2 className={styles.columnUserButtonDelete} />
+          </>
+        )
+      }
     }
   ]
 
@@ -148,27 +163,42 @@ export function CreateUser({ isOpen, onRequestClose }: CreateUserProps) {
     }
   ]
 
-  function handleOpenModal(event: FormEvent) {
-    event.preventDefault()
+  const [data, setData] = useState(rows)
 
-    setOpenModal(true)
-  }
+  // function handleOpenModal(event: FormEvent) {
+  //   event.preventDefault()
 
-  function handleCloseModal(event: FormEvent) {
-    event.preventDefault()
+  //   setOpenModal(true)
+  // }
 
-    setOpenModal(false)
-  }
+  // function handleCloseModal(event: FormEvent) {
+  //   event.preventDefault()
+
+  //   setOpenModal(false)
+  // }
 
   return (
     <div className={styles.container}>
       <Header />
 
-      <Modal
+      <div className={styles.content}>
+        <DataGrid
+          rows={data}
+          columns={columns}
+          pageSize={9}
+          checkboxSelection
+          disableSelectionOnClick
+        />
+
+        {/* <Button onClick={handleOpenModal}>Crear</Button> */}
+        <Button>Crear</Button>
+      </div>
+
+      {/* <Modal
         isOpen={openModal}
         onRequestClose={handleCloseModal}
-        overlayClassName='reacModalOverlay'
-        className='reactModalContent'
+        overlayClassName="reacModalOverlay"
+        className="reactModalContent"
       >
         <button
           type="button"
@@ -189,18 +219,7 @@ export function CreateUser({ isOpen, onRequestClose }: CreateUserProps) {
 
           <Button type="submit">Cadastrar</Button>
         </form>
-      </Modal>
-
-      <div className={styles.content}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={9}
-          checkboxSelection
-        />
-
-        <Button onClick={handleOpenModal}>Crear</Button>
-      </div>
+      </Modal> */}
     </div>
   )
 }

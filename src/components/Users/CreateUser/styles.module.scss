@@ -10,10 +10,10 @@
   }
 }
 
-.user {
+.columnUserName {
   display: flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 1rem;
 
   img {
     width: 35px;
@@ -22,48 +22,67 @@
   }
 }
 
-.reacModalOverlay {
-  background-color: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+.columnUserButtonEdit {
+  width: 26px;
+  height: 26px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  fill: yellow;
+  cursor: pointer;
+
+  margin-right: 1rem;
 }
 
-.reacModalContent {
-  width: 100%;
-  max-width: 576px;
-  background: var(--background);
-  padding: 3rem;
-  position: relative;
-  border-radius: 0.25rem;
+.columnUserButtonDelete {
+  width: 26px;
+  height: 26px;
+
+  stroke-width: 2px;
+  color: red;
+  cursor: pointer;
 }
 
-.formContainer {
-  h2 {
-    color: black;
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-  }
+// .reacModalOverlay {
+//   background-color: rgba(0, 0, 0, 0.5);
+//   position: fixed;
+//   top: 0;
+//   bottom: 0;
+//   right: 0;
+//   left: 0;
 
-  input {
-    width: 100%;
-    padding: 0 1.5rem;
-    height: 4rem;
-    border-radius: 0.25rem;
-    border: 1px solid #d7d7d7;
-    background: #e7e9ee;
-    font-weight: 400;
-    font-size: 1rem;
-    margin-bottom: 1rem;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
 
-    &::placeholder {
-      color: var(--text-body);
-    }
-  }
-}
+// .reacModalContent {
+//   width: 100%;
+//   max-width: 576px;
+//   background: var(--background);
+//   padding: 3rem;
+//   position: relative;
+//   border-radius: 0.25rem;
+// }
+
+// .formContainer {
+//   h2 {
+//     color: black;
+//     font-size: 1.5rem;
+//     margin-bottom: 2rem;
+//   }
+
+//   input {
+//     width: 100%;
+//     padding: 0 1.5rem;
+//     height: 4rem;
+//     border-radius: 0.25rem;
+//     border: 1px solid #d7d7d7;
+//     background: #e7e9ee;
+//     font-weight: 400;
+//     font-size: 1rem;
+//     margin-bottom: 1rem;
+
+//     &::placeholder {
+//       color: var(--text-body);
+//     }
+//   }
+// }
