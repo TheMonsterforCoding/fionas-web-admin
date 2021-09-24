@@ -9,12 +9,22 @@ import { Header } from '../../Header'
 
 import styles from './styles.module.scss'
 
-interface CreateUserProps {
-  isOpen: boolean
-  onRequestClose: () => void
+type RowProps = {
+  id: number
+  avatar: string
+  name: string
+  email: string
+  age: number
+  status: string
 }
 
-export function CreateUser({ isOpen, onRequestClose }: CreateUserProps) {
+interface ActionProps {
+  displayName: string
+  children: React.ReactNode
+  row: RowProps
+}
+
+export function CreateUser() {
   // const [openModal, setOpenModal] = useState(false)
 
   const columns = [
@@ -48,10 +58,10 @@ export function CreateUser({ isOpen, onRequestClose }: CreateUserProps) {
       field: 'action',
       headerName: 'Action',
       width: 150,
-      renderCell: params => {
+      renderCell: (params: ActionProps) => {
         return (
           <>
-            <Link href={'/user/' + params.row.id} >
+            <Link passHref href={'/user/' + params.row.id}>
               <Edit2 className={styles.columnUserButtonEdit} />
             </Link>
             <Trash2 className={styles.columnUserButtonDelete} />

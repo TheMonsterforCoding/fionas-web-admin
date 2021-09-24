@@ -1,4 +1,4 @@
-import { Header } from '../../Header'
+import { Header } from '../Header'
 import { FeaturedInfo } from '../FeaturedInfo'
 import { Chart } from '../Chart'
 import { WidgetSmall } from '../WidgetSmall'
@@ -6,7 +6,7 @@ import { WidgetLarge } from '../WidgetLarge'
 
 import styles from './styles.module.scss'
 
-export function Main() {
+export function Home() {
   return (
     <div className={styles.container}>
       <Header />

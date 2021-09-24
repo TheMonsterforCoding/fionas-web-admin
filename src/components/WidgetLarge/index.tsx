@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import AvatarImg from '../../../../public/avatar.jpg'
+import AvatarImg from '../../../public/avatar.jpg'
 
 import styles from './styles.module.scss'
 

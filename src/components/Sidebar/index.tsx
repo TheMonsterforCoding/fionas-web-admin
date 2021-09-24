@@ -1,34 +1,31 @@
-import { Home, Figma, Compass, ChevronDown } from '@styled-icons/feather'
+import { Home, User, Compass } from '@styled-icons/feather'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 
 import LogoImg from '../../../public/dog.svg'
 
 import styles from './styles.module.scss'
 
 export function Sidebar() {
-  const router = useRouter()
+  // function handleListForm() {
+  //   let active = document.getElementById('activeForm')
 
-  function handleListForm() {
-    let active = document.getElementById('activeForm')
+  //   if (active.style.display === 'grid') {
+  //     return (active.style.display = 'none')
+  //   } else {
+  //     return (active.style.display = 'grid')
+  //   }
+  // }
 
-    if (active.style.display === 'grid') {
-      return (active.style.display = 'none')
-    } else {
-      return (active.style.display = 'grid')
-    }
-  }
+  // function handleListStatistics() {
+  //   let active = document.getElementById('activeStatistics')
 
-  function handleListStatistics() {
-    let active = document.getElementById('activeStatistics')
-
-    if (active.style.display === 'grid') {
-      return (active.style.display = 'none')
-    } else {
-      return (active.style.display = 'grid')
-    }
-  }
+  //   if (active.style.display === 'grid') {
+  //     return (active.style.display = 'none')
+  //   } else {
+  //     return (active.style.display = 'grid')
+  //   }
+  // }
 
   return (
     <div className={styles.container}>
@@ -43,10 +40,11 @@ export function Sidebar() {
 
           <ul className={styles.containerNavigator}>
             {/* Home */}
-            <li className={styles.active}>
+            <li>
               <Link href="/" passHref>
                 <a>
-                  <div id={styles.menuBox} className={styles.active}>
+                  {/* <div id={styles.menuBox} className={styles.active}> */}
+                  <div id={styles.menuBox}>
                     <div className={styles.content}>
                       <div className={styles.contentLeft}>
                         <Home />
@@ -59,61 +57,39 @@ export function Sidebar() {
               </Link>
             </li>
 
-            {/* Formularios */}
+            {/* Users */}
             <li>
               <Link href="#">
-                <a onClick={handleListForm}>
+                <a>
                   <div id={styles.menuBox}>
                     <div className={styles.content}>
                       <div className={styles.contentLeft}>
-                        <Figma />
-                        <span>Formularios</span>
+                        <User />
+                        <span>Users</span>
                       </div>
-                      <ChevronDown />
+                      <></>
                     </div>
                   </div>
                 </a>
               </Link>
-
-              <ul id="activeForm" className={styles.form}>
-                <Link href="/posts/createUser">
-                  <a>Adicionar</a>
-                </Link>
-                <Link href="/posts/updateUser">
-                  <a>Atualizar</a>
-                </Link>
-                <Link href="/posts/deleteUser">
-                  <a>Eliminar</a>
-                </Link>
-                <Link href="/posts/readUser">
-                  <a>Buscar</a>
-                </Link>
-              </ul>
             </li>
 
-            {/* Estadisticas */}
+            {/* Statics */}
             <li>
-              <a href="#" onClick={handleListStatistics}>
+              <Link href="#">
+              <a href="#">
                 <div id={styles.menuBox}>
                   <div className={styles.content}>
                     <div className={styles.contentLeft}>
                       <Compass />
                       <span>Estadísticas</span>
                     </div>
-                    <ChevronDown />
                   </div>
                 </div>
               </a>
-
-              <ul id="activeStatistics" className={styles.form}>
-                <Link href="/posts/createUser">
-                  <a>Usuarios</a>
-                </Link>
-                <Link href="/posts/deleteUser">
-                  <a>Tags</a>
-                </Link>
-              </ul>
+              </Link>
             </li>
+
           </ul>
         </main>
       </div>

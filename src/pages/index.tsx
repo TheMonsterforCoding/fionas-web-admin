@@ -1,9 +1,9 @@
-import { Main } from '../components/Home/Main'
+import { Home } from '../components/Home'
 
-export default function Home() {
+export default function Main() {
   return (
     <>
-      <Main />
+      <Home />
     </>
   )
 }
