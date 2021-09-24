@@ -1,9 +1,9 @@
-import { CreateUser } from '../../components/Users/CreateUser'
+import { Users } from '../../components/Users'
 
 export default function createUser() {
   return (
     <div style={{ display: 'flex' }}>
-      <CreateUser />
+      <Users />
     </div>
   )
 }

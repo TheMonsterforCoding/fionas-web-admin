@@ -43,8 +43,7 @@ export function Sidebar() {
             <li>
               <Link href="/" passHref>
                 <a>
-                  {/* <div id={styles.menuBox} className={styles.active}> */}
-                  <div id={styles.menuBox}>
+                  <div id={styles.menuBox} className={styles.active}>
                     <div className={styles.content}>
                       <div className={styles.contentLeft}>
                         <Home />
@@ -59,7 +58,7 @@ export function Sidebar() {
 
             {/* Users */}
             <li>
-              <Link href="#">
+              <Link href="/posts/listUser" passHref>
                 <a>
                   <div id={styles.menuBox}>
                     <div className={styles.content}>
@@ -89,7 +88,6 @@ export function Sidebar() {
               </a>
               </Link>
             </li>
-
           </ul>
         </main>
       </div>
