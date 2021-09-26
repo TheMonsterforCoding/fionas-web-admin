@@ -7,6 +7,12 @@
     display: flex;
     gap: 1rem;
     height: 80vh;
+
+    button {
+      svg {
+        stroke-width: 3px;
+      }
+    }
   }
 }
 
@@ -42,10 +48,30 @@
   cursor: pointer;
 }
 
-.user {
-  padding: 1rem;
+.Modal {
+  position: absolute;
+  top: 4.5rem;
+  left: 16rem;
+  right: 16rem;
+  bottom: 4.5rem;
+  background-color: var(--background);
+  border-radius: 0.5rem;
+}
 
-  header {
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.wrapper {
+  padding: 0 1rem 0 2rem;
+
+  .userHeader {
+    padding: 1rem 0 1.5rem 0;
     display: flex;
     justify-content: space-between;
   }
@@ -56,7 +82,6 @@
 
   .userShow {
     flex: 1;
-    margin: 0 1rem 0 1rem;
 
     header {
       display: flex;
@@ -66,6 +91,7 @@
         width: 42.5px;
         height: 42.5px;
         border-radius: 50%;
+        object-fit: cover;
       }
 
       .userShowHeaderInfo {
@@ -89,7 +115,7 @@
       margin-top: 1rem;
 
       .titleMain {
-        font-weight: 600;
+        font-weight: 500;
         color: var(--separator);
       }
 
@@ -116,8 +142,80 @@
 
   .userUpdate {
     flex: 2;
-    background: var(--separator);
-    padding: 2rem;
     margin-right: 1rem;
+    border-left: 1px solid var(--separator);
+    padding-left: 2rem;
+
+    form {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+
+      .formLeft {
+        .updateItem {
+          display: flex;
+          flex-direction: column;
+
+          label {
+            margin-bottom: 0.3rem;
+            font-size: 0.875rem;
+          }
+
+          input {
+            border: none;
+            width: 300px;
+            height: 1.875rem;
+            background: var(--background);
+            border-bottom: 1px solid var(--separator);
+
+            margin-bottom: 1rem;
+          }
+
+          input:focus {
+            box-shadow: 0 0 0 0;
+            border: 0 none;
+            outline: 0;
+          }
+        }
+      }
+
+      .formRight {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .formImgContainer {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+
+          img {
+            width: 10rem;
+            height: 12rem;
+            border-radius: 1rem;
+            object-fit: cover;
+          }
+
+          label {
+            cursor: pointer;
+
+            svg {
+              height: 20px;
+              width: 20px;
+              stroke-width: 2px;
+            }
+          }
+        }
+
+        button {
+          display: flex;
+          justify-content: center;
+
+          svg {
+            fill: #fff;
+          }
+        }
+      }
+    }
   }
 }
