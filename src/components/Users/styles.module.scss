@@ -23,11 +23,101 @@
 }
 
 .columnUserButtonEdit {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
 
   fill: #fff;
   cursor: pointer;
 
   margin-right: 1rem;
+}
+
+/******* Modal *******/
+.buttonClose {
+  height: 24px;
+  width: 24px;
+  color: var(--separator);
+  stroke-width: 2px;
+
+  cursor: pointer;
+}
+
+.user {
+  padding: 1rem;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.userContainer {
+  display: flex;
+
+  .userShow {
+    flex: 1;
+    margin: 0 1rem 0 1rem;
+
+    header {
+      display: flex;
+      gap: 0.5rem;
+
+      img {
+        width: 42.5px;
+        height: 42.5px;
+        border-radius: 50%;
+      }
+
+      .userShowHeaderInfo {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        .name {
+          font-weight: 600;
+          margin-bottom: 4px;
+        }
+
+        .moreInfo {
+          font-weight: 300;
+          color: var(--separator);
+        }
+      }
+    }
+
+    main {
+      margin-top: 1rem;
+
+      .titleMain {
+        font-weight: 600;
+        color: var(--separator);
+      }
+
+      .userInfo {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+
+        svg {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+
+        span {
+          margin-left: 0.5rem;
+        }
+      }
+
+      .titleMain + .userInfo {
+        margin-top: 0.5rem;
+      }
+    }
+  }
+
+  .userUpdate {
+    flex: 2;
+    background: var(--separator);
+    padding: 2rem;
+    margin-right: 1rem;
+  }
 }

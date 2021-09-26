@@ -1,10 +1,14 @@
+import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
+import Modal from 'react-modal'
 
 import { DataGrid } from '@material-ui/data-grid'
-import { Edit2, Trash2 } from '@styled-icons/feather'
+import { Edit2, X, User, Mail, Users as Gen, Watch, ToggleLeft, UserCheck } from '@styled-icons/feather'
 
 import { Button } from '../Button'
 import { Header } from '../Header'
+import AvatarImg from '../../../public/avatar.jpg'
 
 import styles from './styles.module.scss'
 
@@ -173,6 +177,16 @@ export function Users() {
     }
   ]
 
+  const [isOpenModalUser, setIsOpenModalUser] = useState(false)
+
+  function handleOpenModal() {
+    setIsOpenModalUser(true)
+  }
+
+  function handleCloseModal() {
+    setIsOpenModalUser(false)
+  }
+
   return (
     <div className={styles.container}>
       <Header />
@@ -186,7 +200,59 @@ export function Users() {
           disableSelectionOnClick
         />
 
-        <Button>Crear</Button>
+        <Button onClick={handleOpenModal}>Crear</Button>
+
+        <Modal isOpen={isOpenModalUser} onRequestClose={handleCloseModal}>
+          <div className={styles.user}>
+            <header>
+              <h1>Edit User</h1>
+              <X className={styles.buttonClose} onClick={handleCloseModal} />
+            </header>
+          </div>
+
+          <div className={styles.userContainer}>
+            <div className={styles.userShow}>
+              <header>
+                <Image src={AvatarImg} alt="Avatar" />
+                <div className={styles.userShowHeaderInfo}>
+                  <span className={styles.name}>Leandro Cruz</span>
+                  <span className={styles.moreInfo}>Software Engineer</span>
+                </div>
+              </header>
+
+              <main>
+                <span className={styles.titleMain}>Account Details</span>
+                <div className={styles.userInfo}>
+                  <User />
+                  <span>Leandro Cruz</span>
+                </div>
+                <div className={styles.userInfo}>
+                  <Gen />
+                  <span>masculino</span>
+                </div>
+                <div className={styles.userInfo}>
+                  <Watch />
+                  <span>24 anos</span>
+                </div>
+                <span className={styles.titleMain}>Contact Details</span>
+                <div className={styles.userInfo}>
+                  <Mail />
+                  <span>leandro.cruz@hotmail.com</span>
+                </div>
+                <div className={styles.userInfo}>
+                  <UserCheck />
+                  <span>admin: sim</span>
+                </div>
+                <div className={styles.userInfo}>
+                  <ToggleLeft />
+                  <span>estado: activo</span>
+                </div>
+              </main>
+            </div>
+
+            <div className={styles.userUpdate}></div>
+          </div>
+        </Modal>
       </div>
     </div>
   )
