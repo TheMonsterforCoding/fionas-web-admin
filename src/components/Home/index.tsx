@@ -1,4 +1,3 @@
-import { Header } from '../Header'
 import { FeaturedInfo } from '../FeaturedInfo'
 import { Chart } from '../Chart'
 import { WidgetSmall } from '../WidgetSmall'
@@ -9,8 +8,6 @@ import styles from './styles.module.scss'
 export function Home() {
   return (
     <div className={styles.container}>
-      <Header />
-
       <div className={styles.content}>
         <FeaturedInfo title="Receita" amount="1022,42" rate="-1,2" />
         <FeaturedInfo title="Ventas" amount="790,20" rate="-0,3" />

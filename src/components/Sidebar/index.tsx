@@ -7,26 +7,6 @@ import LogoImg from '../../../public/dog.svg'
 import styles from './styles.module.scss'
 
 export function Sidebar() {
-  // function handleListForm() {
-  //   let active = document.getElementById('activeForm')
-
-  //   if (active.style.display === 'grid') {
-  //     return (active.style.display = 'none')
-  //   } else {
-  //     return (active.style.display = 'grid')
-  //   }
-  // }
-
-  // function handleListStatistics() {
-  //   let active = document.getElementById('activeStatistics')
-
-  //   if (active.style.display === 'grid') {
-  //     return (active.style.display = 'none')
-  //   } else {
-  //     return (active.style.display = 'grid')
-  //   }
-  // }
-
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>

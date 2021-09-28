@@ -1,9 +1,28 @@
+import { useState } from 'react'
+
+import { UpdateUserModal } from '../../components/UpdateUserModal'
+
 import { Users } from '../../components/Users'
 
 export default function createUser() {
+  const [isUpdateUserModal, setIsUpdateUserModal] = useState(false)
+
+  function handleOpenUpdateUserModal() {
+    setIsUpdateUserModal(true)
+  }
+
+  function handleCloseUpdateUserModal() {
+    setIsUpdateUserModal(false)
+  }
+
   return (
     <div style={{ display: 'flex' }}>
-      <Users />
+      <Users onOpenUpdateUserModal={handleOpenUpdateUserModal} />
+
+      <UpdateUserModal
+        isOpen={isUpdateUserModal}
+        onRequestClose={handleCloseUpdateUserModal}
+      />
     </div>
   )
 }
