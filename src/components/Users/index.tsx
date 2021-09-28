@@ -75,7 +75,7 @@ export function Users() {
           <>
             {/* <Link passHref href={'/user/' + params.row.id}> */}
             <Link passHref href="#">
-              <Button onClick={handleOpenModal} >
+              <Button onClick={handleOpenUpdateUserModal}>
                 <Edit2 className={styles.columnUserButtonEdit} />
                 Editar
               </Button>
@@ -188,14 +188,14 @@ export function Users() {
     }
   ]
 
-  const [isOpenModalUser, setIsOpenModalUser] = useState(false)
+  const [isUpdateUserModal, setIsUpdateUserModal] = useState(false)
 
-  function handleOpenModal() {
-    setIsOpenModalUser(true)
+  function handleOpenUpdateUserModal() {
+    setIsUpdateUserModal(true)
   }
 
-  function handleCloseModal() {
-    setIsOpenModalUser(false)
+  function handleCloseUpdateUserModal() {
+    setIsUpdateUserModal(false)
   }
 
   return (
@@ -211,21 +211,21 @@ export function Users() {
           disableSelectionOnClick
         />
 
-        <Button onClick={handleOpenModal}>
+        <Button onClick={handleOpenUpdateUserModal}>
           <UserPlus />
           Criar
         </Button>
 
         <Modal
-          isOpen={isOpenModalUser}
-          onRequestClose={handleCloseModal}
+          isOpen={isUpdateUserModal}
+          onRequestClose={handleCloseUpdateUserModal}
           className={styles.Modal}
           overlayClassName={styles.Overlay}
         >
           <div className={styles.wrapper}>
             <div className={styles.userHeader}>
-                <h2>Editar Usuario</h2>
-                <X className={styles.buttonClose} onClick={handleCloseModal} />
+              <h2>Editar Usuario</h2>
+              <X className={styles.buttonClose} onClick={handleCloseUpdateUserModal} />
             </div>
 
             <div className={styles.userContainer}>
@@ -280,7 +280,14 @@ export function Users() {
                     </div>
                     <div className={styles.updateItem}>
                       <label>Gênero</label>
-                      <input type="text" placeholder="Masculino / Femenino" />
+                      <div className={styles.selectTypeContainer}>
+                        <button onClick={() => {}}>
+                          <span>Masculino</span>
+                        </button>
+                        <button onClick={() => {}} className={styles.active}>
+                          <span>Feminino</span>
+                        </button>
+                      </div>
                     </div>
                     <div className={styles.updateItem}>
                       <label>Edade</label>
@@ -299,11 +306,25 @@ export function Users() {
                     </div>
                     <div className={styles.updateItem}>
                       <label>Admin</label>
-                      <input type="text" placeholder="Sim / Não" />
+                      <div className={styles.selectTypeContainer}>
+                        <button onClick={() => {}}>
+                          <span>Sim</span>
+                        </button>
+                        <button onClick={() => {}} className={styles.active}>
+                          <span>Não</span>
+                        </button>
+                      </div>
                     </div>
                     <div className={styles.updateItem}>
                       <label>Estado</label>
-                      <input type="text" placeholder="Ativo / Inativo" />
+                      <div className={styles.selectTypeContainer}>
+                        <button onClick={() => {}}>
+                          <span>Ativo</span>
+                        </button>
+                        <button onClick={() => {}} className={styles.active}>
+                          <span>Inativo</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
 
