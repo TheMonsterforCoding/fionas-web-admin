@@ -4,7 +4,7 @@ import { UpdateUserModal } from '../../components/UpdateUserModal'
 
 import { Users } from '../../components/Users'
 
-export default function createUser() {
+export default function listUser() {
   const [isUpdateUserModal, setIsUpdateUserModal] = useState(false)
 
   function handleOpenUpdateUserModal() {
