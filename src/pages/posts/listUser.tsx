@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { UpdateUserModal } from '../../components/UpdateUserModal'
+import { UpdateUserModal } from '../../components/Modal/UpdateUserModal'
 
 import { Users } from '../../components/Users'
 
