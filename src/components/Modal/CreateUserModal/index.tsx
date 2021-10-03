@@ -1,21 +1,16 @@
 import { useState } from 'react'
 import Modal from 'react-modal'
 
-export function CreateUserModal() {
-  const [isCreateUserModal, setIsCreateUserModal ] = useState(false)
+interface CreateUserModalProps {
+  isOpen: boolean
+  onRequestClose: () => void
+}
 
-  function handleOpenCreateUserModal() {
-    setIsCreateUserModal(true)
-  }
-
-  function handleCloseCreateUserModal() {
-    setIsCreateUserModal(false)
-  }
-
+export function CreateUserModal({ isOpen, onRequestClose }: CreateUserModalProps) {
   return (
     <Modal
-      isOpen={isCreateUserModal}
-      onRequestClose={handleCloseCreateUserModal}
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
     >
       <h1>Create User Modal</h1>
     </Modal>

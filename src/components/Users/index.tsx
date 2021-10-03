@@ -9,9 +9,10 @@ import styles from './styles.module.scss'
 
 interface UsersProps {
   onOpenUpdateUserModal: () => void
+  onOpenCreateUserModal: () => void
 }
 
-export function Users({ onOpenUpdateUserModal }: UsersProps) {
+export function Users({ onOpenUpdateUserModal, onOpenCreateUserModal }: UsersProps) {
   const rows: GridRowsProp = [
     {
       id: 1,
@@ -101,7 +102,7 @@ export function Users({ onOpenUpdateUserModal }: UsersProps) {
           className={styles.datagrid}
         />
 
-        <Button onClick={onOpenUpdateUserModal}>
+        <Button onClick={onOpenCreateUserModal}>
           <UserPlus />
           Criar
         </Button>
