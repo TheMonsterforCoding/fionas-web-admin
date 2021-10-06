@@ -9,9 +9,10 @@ import styles from './styles.module.scss'
 
 interface PetsProps {
   onOpenUpdatePetModal: () => void
+  onOpenCreatePetModal: () => void
 }
 
-export function Pets({ onOpenUpdatePetModal }: PetsProps) {
+export function Pets({ onOpenUpdatePetModal, onOpenCreatePetModal }: PetsProps) {
   const rows: GridRowsProp = [
     {
       id: 1,
@@ -101,7 +102,7 @@ export function Pets({ onOpenUpdatePetModal }: PetsProps) {
           className={styles.datagrid}
         />
 
-        <Button onClick={onOpenUpdatePetModal}>
+        <Button onClick={onOpenCreatePetModal}>
           <Heart />
           Criar
         </Button>
