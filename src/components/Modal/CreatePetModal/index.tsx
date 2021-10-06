@@ -1,21 +1,16 @@
 import { useState } from 'react'
 import Modal from 'react-modal'
 
-export function CreatePetModal() {
-  const [isCreatePetModal, setIsCreatePetModal ] = useState(false)
+interface CreatePetModalProps {
+  isOpen: boolean
+  onRequestClose: () => void
+}
 
-  function handleOpenCreatePetModal() {
-    setIsCreatePetModal(true)
-  }
-
-  function handleCloseCreatePetModal() {
-    setIsCreatePetModal(false)
-  }
-
+export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) {
   return (
     <Modal
-      isOpen={isCreatePetModal}
-      onRequestClose={handleCloseCreatePetModal}
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
     >
       <h1>Create Pet Modal</h1>
     </Modal>

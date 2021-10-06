@@ -1,21 +1,15 @@
-import { useState } from 'react'
 import Modal from 'react-modal'
 
-export function UpdatePetModal() {
-  const [isUpdatePetModal, setIsUpdatePetModal ] = useState(false)
+interface UpdatePetModalProps {
+  isOpen: boolean
+  onRequestClose: () => void
+}
 
-  function handleOpenUpdatePetModal() {
-    setIsUpdatePetModal(true)
-  }
-
-  function handleCloseUpdatePetModal() {
-    setIsUpdatePetModal(false)
-  }
-
+export function UpdatePetModal({ isOpen, onRequestClose }: UpdatePetModalProps) {
   return (
     <Modal
-      isOpen={isUpdatePetModal}
-      onRequestClose={handleCloseUpdatePetModal}
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
     >
       <h1>Update Pet Modal</h1>
     </Modal>
