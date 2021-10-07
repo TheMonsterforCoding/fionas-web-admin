@@ -1,5 +1,8 @@
-import { useState } from 'react'
 import Modal from 'react-modal'
+
+import { X } from '@styled-icons/feather'
+
+import styles from './styles.module.scss'
 
 interface CreatePetModalProps {
   isOpen: boolean
@@ -11,8 +14,16 @@ export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) 
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
+      className={styles.Modal}
+      overlayClassName={styles.Overlay}
     >
-      <h1>Create Pet Modal</h1>
+      <div className={styles.wrapper}>
+        <header>
+          <h2>Criar Pet</h2>
+          <X className={styles.buttonClose} onClick={onRequestClose} />
+        </header>
+
+      </div>
     </Modal>
   )
 }
