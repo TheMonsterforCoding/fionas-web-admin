@@ -2,7 +2,7 @@ import { Home, User, Compass, PieChart, Heart } from '@styled-icons/feather'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import LogoImg from '../../../public/dog.svg'
+import LogoImg from '../../../public/fionas.png'
 
 import styles from './styles.module.scss'
 

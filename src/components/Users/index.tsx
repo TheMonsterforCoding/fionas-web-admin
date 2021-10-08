@@ -77,7 +77,6 @@ export function Users({ onOpenUpdateUserModal, onOpenCreateUserModal }: UsersPro
       renderCell: props => {
         return (
           <>
-            {/* <Link passHref href={'/user/' + props.row.id}> */}
             <Link passHref href="#">
               <Button onClick={onOpenUpdateUserModal}>
                 <Edit2 className={styles.columnUserButtonEdit} />
