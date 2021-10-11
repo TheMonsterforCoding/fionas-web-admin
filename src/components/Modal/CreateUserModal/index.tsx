@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, FormEvent } from 'react'
 import Modal from 'react-modal'
 import Image from 'next/dist/client/image'
 
@@ -14,10 +14,18 @@ interface CreateUserModalProps {
   onRequestClose: () => void
 }
 
+interface GenderProps {
+  isActive: boolean
+  activeColor: 'blue' | 'pink'
+}
+
 export function CreateUserModal({
   isOpen,
   onRequestClose
 }: CreateUserModalProps) {
+  const [toggleGender, setToggleGender] = useState(false)
+  const [toggleState, setToggleState] = useState(false)
+
   const [cpf, setCpf] = useState('')
   const [avatar, setAvatar] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -27,7 +35,29 @@ export function CreateUserModal({
   const [mail, setMail] = useState('')
   const [mobileNumber, setMobileNumber] = useState('')
   const [password, setPassword] = useState('')
+  const [password2, setPassword2] = useState('')
   const [state, setState] = useState(false)
+
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault()
+
+    const data = {
+      cpf: cpf,
+      avatar: avatar,
+      firstName: firstName,
+      lastName: lastName,
+      genderId: genderId,
+      address: address,
+      mail: mail,
+      mobileNumber: mobileNumber,
+      password: password,
+      password2: password2,
+      state: state
+    }
+
+    console.log(data)
+
+  }
 
   return (
     <Modal
@@ -42,7 +72,7 @@ export function CreateUserModal({
           <X className={styles.buttonClose} onClick={onRequestClose} />
         </header>
 
-        <form onSubmit={() => {}}>
+        <form onSubmit={handleSubmit}>
           <fieldset>
             <div className={styles.userCreateLeft}>
               <div className={styles.inputBlock}>
@@ -53,18 +83,6 @@ export function CreateUserModal({
                   value={cpf}
                   onChange={event => setCpf(event.target.value)}
                   placeholder="CPF"
-                  required
-                />
-              </div>
-
-              <div className={styles.inputBlock}>
-                <label htmlFor="avatar">Avatar</label>
-                <input
-                  type="text"
-                  id="avatar"
-                  value={avatar}
-                  onChange={event => setAvatar(event.target.value)}
-                  placeholder="Avatar"
                   required
                 />
               </div>
@@ -94,30 +112,6 @@ export function CreateUserModal({
               </div>
 
               <div className={styles.inputBlock}>
-                <label htmlFor="genderId">Gênero</label>
-
-                <div className={styles.selectTypeContainer}>
-                  <button
-                    type="button"
-                    onClick={() => setGenderId(true)}
-                    className={styles.active}
-                  >
-                    Masculino
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setGenderId(false)}
-                    // className={!masc ? styles.active : styles.disabled}
-                  >
-                    Femenino
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className={styles.userCreateRight}>
-              <div className={styles.inputBlock}>
                 <label htmlFor="address">Endereço</label>
                 <input
                   type="text"
@@ -129,6 +123,30 @@ export function CreateUserModal({
                 />
               </div>
 
+              <div className={styles.inputBlock}>
+                <label htmlFor="genderId">Gênero</label>
+
+                <div className={styles.selectTypeContainer}>
+                  <button
+                    type="button"
+                    onClick={() => setGenderId(true)}
+                    className={genderId ? styles.active : styles.disabled}
+                  >
+                    Masculino
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setGenderId(false)}
+                    className={!genderId ? styles.active : styles.innactive}
+                  >
+                    Femenino
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.userCreateRight}>
               <div className={styles.inputBlock}>
                 <label htmlFor="mail">Email</label>
                 <input
@@ -156,10 +174,22 @@ export function CreateUserModal({
               <div className={styles.inputBlock}>
                 <label htmlFor="password">Contrasenha</label>
                 <input
-                  type="text"
+                  type="password"
                   id="password"
                   value={password}
                   onChange={event => setPassword(event.target.value)}
+                  placeholder="Contrasenha"
+                  required
+                />
+              </div>
+
+              <div className={styles.inputBlock}>
+                <label htmlFor="password2">Repetir contrasenha</label>
+                <input
+                  type="password"
+                  id="password"
+                  value={password2}
+                  onChange={event => setPassword2(event.target.value)}
                   placeholder="Contrasenha"
                   required
                 />
@@ -172,7 +202,7 @@ export function CreateUserModal({
                   <button
                     type="button"
                     onClick={() => setState(true)}
-                    className={styles.active}
+                    className={state ? styles.active : styles.disabled}
                   >
                     Ativo
                   </button>
@@ -180,7 +210,7 @@ export function CreateUserModal({
                   <button
                     type="button"
                     onClick={() => setState(false)}
-                    // className={!act ? styles.active : styles.disabled}
+                    className={!state ? styles.active : styles.disabled}
                   >
                     Inativo
                   </button>
@@ -189,19 +219,19 @@ export function CreateUserModal({
             </div>
 
             <div className={styles.formRight}>
-                <div className={styles.formImgContainer}>
-                  <Image src={UserDefault} alt="Avatar" />
-                  <label htmlFor="file">
-                    <Upload />
-                  </label>
-                  <input type="file" id="file" style={{ display: 'none' }} />
-                </div>
-
-                <Button type="submit">
-                  <UserPlus />
-                  Criar
-                </Button>
+              <div className={styles.formImgContainer}>
+                <Image src={UserDefault} alt="Avatar" />
+                <label htmlFor="file">
+                  <Upload />
+                </label>
+                <input type="file" id="file" style={{ display: 'none' }} />
               </div>
+
+              <Button type="submit">
+                <UserPlus />
+                Criar
+              </Button>
+            </div>
           </fieldset>
         </form>
       </div>
