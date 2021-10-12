@@ -1,0 +1,42 @@
+.buttonClose {
+  height: 24px;
+  width: 24px;
+  color: var(--separator);
+  stroke-width: 2px;
+
+  cursor: pointer;
+}
+
+.Modal {
+  --height: calc(100vh - 660px);
+  --width: calc(100vw - 1000px);
+
+  position: absolute;
+  top: calc(var(--height) / 2);
+  left: calc(var(--width) / 2);
+  right: auto;
+  bottom: auto;
+  width: 1000px;
+  height: 660px;
+  background-color: var(--background);
+  border-radius: 0.5rem;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.wrapper {
+  padding: 0 1rem 0 2rem;
+
+  header {
+    padding: 1rem 0 1.5rem 0;
+    display: flex;
+    justify-content: space-between;
+  }
+}

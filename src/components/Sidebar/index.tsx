@@ -1,32 +1,12 @@
-import { Home, User, Compass } from '@styled-icons/feather'
+import { Home, User, Compass, PieChart, Heart } from '@styled-icons/feather'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import LogoImg from '../../../public/dog.svg'
+import LogoImg from '../../../public/fionas.png'
 
 import styles from './styles.module.scss'
 
 export function Sidebar() {
-  // function handleListForm() {
-  //   let active = document.getElementById('activeForm')
-
-  //   if (active.style.display === 'grid') {
-  //     return (active.style.display = 'none')
-  //   } else {
-  //     return (active.style.display = 'grid')
-  //   }
-  // }
-
-  // function handleListStatistics() {
-  //   let active = document.getElementById('activeStatistics')
-
-  //   if (active.style.display === 'grid') {
-  //     return (active.style.display = 'none')
-  //   } else {
-  //     return (active.style.display = 'grid')
-  //   }
-  // }
-
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -73,6 +53,23 @@ export function Sidebar() {
               </Link>
             </li>
 
+            {/* Pets */}
+            <li>
+              <Link href="/posts/listPet" passHref>
+                <a>
+                  <div id={styles.menuBox}>
+                    <div className={styles.content}>
+                      <div className={styles.contentLeft}>
+                        <Heart />
+                        <span>Pets</span>
+                      </div>
+                      <></>
+                    </div>
+                  </div>
+                </a>
+              </Link>
+            </li>
+
             {/* Statics */}
             <li>
               <Link href="#">
@@ -80,7 +77,7 @@ export function Sidebar() {
                 <div id={styles.menuBox}>
                   <div className={styles.content}>
                     <div className={styles.contentLeft}>
-                      <Compass />
+                      <PieChart />
                       <span>Estadísticas</span>
                     </div>
                   </div>

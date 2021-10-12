@@ -1,18 +1,18 @@
 import Link from 'next/link'
 
 import { DataGrid, GridRowsProp, GridColDef } from '@material-ui/data-grid'
-import { Edit2, UserPlus } from '@styled-icons/feather'
+import { Edit2, Heart } from '@styled-icons/feather'
 
 import { Button } from '../Button'
 
 import styles from './styles.module.scss'
 
-interface UsersProps {
-  onOpenUpdateUserModal: () => void
-  onOpenCreateUserModal: () => void
+interface PetsProps {
+  onOpenUpdatePetModal: () => void
+  onOpenCreatePetModal: () => void
 }
 
-export function Users({ onOpenUpdateUserModal, onOpenCreateUserModal }: UsersProps) {
+export function Pets({ onOpenUpdatePetModal, onOpenCreatePetModal }: PetsProps) {
   const rows: GridRowsProp = [
     {
       id: 1,
@@ -77,8 +77,9 @@ export function Users({ onOpenUpdateUserModal, onOpenCreateUserModal }: UsersPro
       renderCell: props => {
         return (
           <>
+            {/* <Link passHref href={'/user/' + props.row.id}> */}
             <Link passHref href="#">
-              <Button onClick={onOpenUpdateUserModal}>
+              <Button onClick={onOpenUpdatePetModal}>
                 <Edit2 className={styles.columnUserButtonEdit} />
                 Editar
               </Button>
@@ -101,8 +102,8 @@ export function Users({ onOpenUpdateUserModal, onOpenCreateUserModal }: UsersPro
           className={styles.datagrid}
         />
 
-        <Button onClick={onOpenCreateUserModal}>
-          <UserPlus />
+        <Button onClick={onOpenCreatePetModal}>
+          <Heart />
           Criar
         </Button>
       </div>

@@ -3,6 +3,7 @@
   box-shadow: 0 0 15px -10px black;
   -webkit-box-shadow: 0 0 15px -10px black;
   padding: 2rem;
+  min-width: 330px;
 
   .item {
     display: flex;
@@ -15,8 +16,8 @@
       gap: 0.5rem;
 
       img {
-        width: 42.5px;
-        height: 42.5px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
       }
 
