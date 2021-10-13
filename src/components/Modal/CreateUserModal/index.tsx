@@ -14,36 +14,31 @@ interface CreateUserModalProps {
   onRequestClose: () => void
 }
 
-interface GenderProps {
-  isActive: boolean
-  activeColor: 'blue' | 'pink'
-}
-
 export function CreateUserModal({
   isOpen,
   onRequestClose
 }: CreateUserModalProps) {
-  const [toggleGender, setToggleGender] = useState(false)
-  const [toggleState, setToggleState] = useState(false)
-
   const [cpf, setCpf] = useState('')
   const [avatar, setAvatar] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [genderId, setGenderId] = useState(false)
+  const [yearOfBirth, setYearOfBirth] = useState('')
   const [address, setAddress] = useState('')
   const [mail, setMail] = useState('')
   const [mobileNumber, setMobileNumber] = useState('')
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
   const [state, setState] = useState(false)
+  const [admin, setAdmin] = useState(false)
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
     const data = {
       cpf: cpf,
-      avatar: avatar,
+      // avatar: avatar,
+      avatar: 'https://lh3.googleusercontent.com/a-/AOh14GgJDGOETWdTK25Wqtaed4UofMsYehhJCk1TrGfElg=s360-p-rw-no',
       firstName: firstName,
       lastName: lastName,
       genderId: genderId,
@@ -52,7 +47,8 @@ export function CreateUserModal({
       mobileNumber: mobileNumber,
       password: password,
       password2: password2,
-      state: state
+      state: state,
+      admin: admin
     }
 
     console.log(data)
@@ -75,6 +71,7 @@ export function CreateUserModal({
         <form onSubmit={handleSubmit}>
           <fieldset>
             <div className={styles.userCreateLeft}>
+              <span className={styles.subtitleUserCreate}>Detalhes do Usuario</span>
               <div className={styles.inputBlock}>
                 <label htmlFor="cpf">CPF</label>
                 <input
@@ -112,13 +109,13 @@ export function CreateUserModal({
               </div>
 
               <div className={styles.inputBlock}>
-                <label htmlFor="address">Endereço</label>
+                <label htmlFor="yearOfBirth">Ano de Nacimento</label>
                 <input
                   type="text"
-                  id="address"
-                  value={address}
-                  onChange={event => setAddress(event.target.value)}
-                  placeholder="Endereço"
+                  id="yearOfBirth"
+                  value={yearOfBirth}
+                  onChange={event => setYearOfBirth(event.target.value)}
+                  placeholder="Ano de nascimento"
                   required
                 />
               </div>
@@ -144,32 +141,6 @@ export function CreateUserModal({
                   </button>
                 </div>
               </div>
-            </div>
-
-            <div className={styles.userCreateRight}>
-              <div className={styles.inputBlock}>
-                <label htmlFor="mail">Email</label>
-                <input
-                  type="text"
-                  id="mail"
-                  value={mail}
-                  onChange={event => setMail(event.target.value)}
-                  placeholder="Email"
-                  required
-                />
-              </div>
-
-              <div className={styles.inputBlock}>
-                <label htmlFor="mobileNumber">Número celular</label>
-                <input
-                  type="text"
-                  id="mobileNumber"
-                  value={mobileNumber}
-                  onChange={event => setMobileNumber(event.target.value)}
-                  placeholder="Número celular"
-                  required
-                />
-              </div>
 
               <div className={styles.inputBlock}>
                 <label htmlFor="password">Contrasenha</label>
@@ -194,7 +165,47 @@ export function CreateUserModal({
                   required
                 />
               </div>
+            </div>
 
+            <div className={styles.userCreateCenter}>
+              <span className={styles.subtitleUserCreate}>Contato e localização</span>
+              <div className={styles.inputBlock}>
+                <label htmlFor="address">Endereço</label>
+                <input
+                  type="text"
+                  id="address"
+                  value={address}
+                  onChange={event => setAddress(event.target.value)}
+                  placeholder="Endereço"
+                  required
+                />
+              </div>
+
+              <div className={styles.inputBlock}>
+                <label htmlFor="mail">Email</label>
+                <input
+                  type="text"
+                  id="mail"
+                  value={mail}
+                  onChange={event => setMail(event.target.value)}
+                  placeholder="Email"
+                  required
+                />
+              </div>
+
+              <div className={styles.inputBlock}>
+                <label htmlFor="mobileNumber">Número celular</label>
+                <input
+                  type="text"
+                  id="mobileNumber"
+                  value={mobileNumber}
+                  onChange={event => setMobileNumber(event.target.value)}
+                  placeholder="Número celular"
+                  required
+                />
+              </div>
+
+              <span className={styles.subtitleUserCreate}>Detalhes da conta</span>
               <div className={styles.inputBlock}>
                 <label htmlFor="state">Estado</label>
 
@@ -216,15 +227,41 @@ export function CreateUserModal({
                   </button>
                 </div>
               </div>
+
+              <div className={styles.inputBlock}>
+                <label htmlFor="admin">Admin</label>
+
+                <div className={styles.selectTypeContainer}>
+                  <button
+                    type="button"
+                    onClick={() => setAdmin(true)}
+                    className={admin ? styles.active : styles.disabled}
+                  >
+                    Sim
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setAdmin(false)}
+                    className={!admin ? styles.active : styles.disabled}
+                  >
+                    Não
+                  </button>
+                </div>
+              </div>
             </div>
 
-            <div className={styles.formRight}>
+            <div className={styles.userCreateRight}>
               <div className={styles.formImgContainer}>
                 <Image src={UserDefault} alt="Avatar" />
                 <label htmlFor="file">
                   <Upload />
                 </label>
-                <input type="file" id="file" style={{ display: 'none' }} />
+                <input
+                  type="file"
+                  id="file"
+                  style={{ display: 'none' }}
+                />
               </div>
 
               <Button type="submit">

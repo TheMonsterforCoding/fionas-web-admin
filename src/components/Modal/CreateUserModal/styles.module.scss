@@ -8,7 +8,7 @@
 }
 
 .Modal {
-  --height: calc(100vh - 500px);
+  --height: calc(100vh - 600px);
   --width: calc(100vw - 1000px);
 
   position: absolute;
@@ -17,7 +17,7 @@
   right: auto;
   bottom: auto;
   width: 1000px;
-  height: 500px;
+  height: 600px;
   background-color: var(--background);
   border-radius: 0.5rem;
 }
@@ -46,8 +46,15 @@
 
     fieldset {
       display: flex;
-      height: 400px;
-      gap: 2rem;
+      gap: 4rem;
+    }
+
+    .subtitleUserCreate {
+      display: flex;
+      justify-content: center;
+      padding-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--separator);
     }
 
     .inputBlock {
@@ -102,7 +109,7 @@
       }
     }
 
-    .formRight {
+    .userCreateRight {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
