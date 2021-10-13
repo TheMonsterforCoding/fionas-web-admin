@@ -1,6 +1,8 @@
 import { useState, FormEvent } from 'react'
 import Modal from 'react-modal'
 import Image from 'next/dist/client/image'
+import { useRouter } from 'next/router'
+import toast, { Toaster } from 'react-hot-toast'
 
 import { Button } from '../../Button'
 
@@ -8,6 +10,8 @@ import { X, Upload, UserPlus } from '@styled-icons/feather'
 import UserDefault from '../../../../public/userDefault.png'
 
 import styles from './styles.module.scss'
+
+import api from '../../../services/api'
 
 interface CreateUserModalProps {
   isOpen: boolean
@@ -18,41 +22,67 @@ export function CreateUserModal({
   isOpen,
   onRequestClose
 }: CreateUserModalProps) {
+  const router = useRouter()
+
   const [cpf, setCpf] = useState('')
   const [avatar, setAvatar] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [genderId, setGenderId] = useState(false)
+  const [password, setPassword] = useState('')
+  const [password2, setPassword2] = useState('')
   const [yearOfBirth, setYearOfBirth] = useState('')
   const [address, setAddress] = useState('')
   const [mail, setMail] = useState('')
   const [mobileNumber, setMobileNumber] = useState('')
-  const [password, setPassword] = useState('')
-  const [password2, setPassword2] = useState('')
   const [state, setState] = useState(false)
   const [admin, setAdmin] = useState(false)
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
-    const data = {
+    // const data = {
+    //   cpf: cpf,
+    //   avatar: 'https://lh3.googleusercontent.com/a-/AOh14GgJDGOETWdTK25Wqtaed4UofMsYehhJCk1TrGfElg=s360-p-rw-no',
+    //   firstName: firstName,
+    //   lastName: lastName,
+    //   yearOfBirth: yearOfBirth,
+    //   genderId: genderId,
+    //   address: address,
+    //   mail: mail,
+    //   mobileNumber: mobileNumber,
+    //   password: password,
+    //   // password2: password2,
+    //   state: state,
+    //   admin: admin
+    // }
+
+    // console.log(data)
+
+    await api
+    .post('/users', {
       cpf: cpf,
-      // avatar: avatar,
       avatar: 'https://lh3.googleusercontent.com/a-/AOh14GgJDGOETWdTK25Wqtaed4UofMsYehhJCk1TrGfElg=s360-p-rw-no',
       firstName: firstName,
       lastName: lastName,
       genderId: genderId,
+      password: password,
+      yearOfBirth: yearOfBirth,
       address: address,
       mail: mail,
       mobileNumber: mobileNumber,
-      password: password,
-      password2: password2,
       state: state,
       admin: admin
-    }
-
-    console.log(data)
-
+    })
+    .then(function (response) {
+      console.log(response)
+      toast.success('Usuario cadastrado com susseso!')
+      router.push('/posts/listUser')
+    })
+    .catch(function (error) {
+      console.log(error)
+      toast.error('Dados de usuario incorreto!')
+    })
   }
 
   return (
@@ -63,6 +93,10 @@ export function CreateUserModal({
       overlayClassName={styles.Overlay}
     >
       <div className={styles.wrapper}>
+        <div>
+          <Toaster position="top-center" reverseOrder={false} />
+        </div>
+
         <header>
           <h2>Criar Usuario</h2>
           <X className={styles.buttonClose} onClick={onRequestClose} />
@@ -158,7 +192,7 @@ export function CreateUserModal({
                 <label htmlFor="password2">Repetir contrasenha</label>
                 <input
                   type="password"
-                  id="password"
+                  id="password2"
                   value={password2}
                   onChange={event => setPassword2(event.target.value)}
                   placeholder="Contrasenha"
