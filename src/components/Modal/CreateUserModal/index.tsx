@@ -25,7 +25,7 @@ export function CreateUserModal({
   const router = useRouter()
 
   const [cpf, setCpf] = useState('')
-  const [avatar, setAvatar] = useState('')
+  // const [avatar, setAvatar] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [genderId, setGenderId] = useState(false)
@@ -40,24 +40,6 @@ export function CreateUserModal({
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
-
-    // const data = {
-    //   cpf: cpf,
-    //   avatar: 'https://lh3.googleusercontent.com/a-/AOh14GgJDGOETWdTK25Wqtaed4UofMsYehhJCk1TrGfElg=s360-p-rw-no',
-    //   firstName: firstName,
-    //   lastName: lastName,
-    //   yearOfBirth: yearOfBirth,
-    //   genderId: genderId,
-    //   address: address,
-    //   mail: mail,
-    //   mobileNumber: mobileNumber,
-    //   password: password,
-    //   // password2: password2,
-    //   state: state,
-    //   admin: admin
-    // }
-
-    // console.log(data)
 
     await api
     .post('/users', {
@@ -77,7 +59,7 @@ export function CreateUserModal({
     .then(function (response) {
       console.log(response)
       toast.success('Usuario cadastrado com susseso!')
-      router.push('/posts/listUser')
+      onRequestClose()
     })
     .catch(function (error) {
       console.log(error)

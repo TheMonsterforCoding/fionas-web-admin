@@ -44,7 +44,7 @@ export function Users({
       setUsers(response.data)
     })
     // .then((response => console.log(response.data)))
-  }, [])
+  }, [users])
 
   const columns: GridColDef[] = [
     {
