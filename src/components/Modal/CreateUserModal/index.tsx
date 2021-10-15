@@ -1,7 +1,6 @@
 import { useState, FormEvent } from 'react'
 import Modal from 'react-modal'
 import Image from 'next/dist/client/image'
-import { useRouter } from 'next/router'
 import toast, { Toaster } from 'react-hot-toast'
 
 import { Button } from '../../Button'
@@ -22,8 +21,6 @@ export function CreateUserModal({
   isOpen,
   onRequestClose
 }: CreateUserModalProps) {
-  const router = useRouter()
-
   const [cpf, setCpf] = useState('')
   // const [avatar, setAvatar] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -59,6 +56,20 @@ export function CreateUserModal({
     .then(function (response) {
       console.log(response)
       toast.success('Usuario cadastrado com susseso!')
+
+      setCpf('')
+      setFirstName('')
+      setLastName('')
+      setGenderId(false)
+      setPassword('')
+      setPassword2('')
+      setYearOfBirth('')
+      setAddress('')
+      setMail('')
+      setMobileNumber('')
+      setState(false)
+      setAdmin(false)
+
       onRequestClose()
     })
     .catch(function (error) {
