@@ -1,80 +1,83 @@
 import Link from 'next/link'
+import { useState, useEffect } from 'react'
 
-import { DataGrid, GridRowsProp, GridColDef } from '@material-ui/data-grid'
+import { DataGrid, GridColDef } from '@material-ui/data-grid'
 import { Edit2, UserPlus } from '@styled-icons/feather'
 
 import { Button } from '../Button'
 
 import styles from './styles.module.scss'
 
+import api from '../../services/api'
+
 interface UsersProps {
   onOpenUpdateUserModal: () => void
   onOpenCreateUserModal: () => void
 }
 
-export function Users({ onOpenUpdateUserModal, onOpenCreateUserModal }: UsersProps) {
-  const rows: GridRowsProp = [
-    {
-      id: 1,
-      avatar:
-        'https://avatars.githubusercontent.com/u/59587859?s=400&u=e2c61934c682f1bc9a5d07dfb9cb172bf3cf8b9c&v=4',
-      name: 'Leandro Cruz',
-      email: 'lcruz@hotmail.com',
-      age: 24,
-      status: 'active'
-    },
-    {
-      id: 2,
-      avatar:
-        'https://avatars.githubusercontent.com/u/59587859?s=400&u=e2c61934c682f1bc9a5d07dfb9cb172bf3cf8b9c&v=4',
-      name: 'Kevin Cruz',
-      email: 'kcruz@hotmail.com',
-      age: 25,
-      status: 'active'
-    },
-    {
-      id: 3,
-      avatar:
-        'https://avatars.githubusercontent.com/u/59587859?s=400&u=e2c61934c682f1bc9a5d07dfb9cb172bf3cf8b9c&v=4',
-      name: 'Jonathan Cruz',
-      email: 'jcruz@hotmail.com',
-      age: 27,
-      status: 'active'
-    }
-  ]
+interface UserType {
+  // id: string
+  cpf: string
+  // avatar: string
+  firstName: string
+  lastName: string
+  // genderId: boolean
+  // password: string
+  // yearOfBirth: string
+  // address: string
+  // mail: string
+  // mobileNumber: string
+  state: boolean
+  admin: boolean
+  // createdAt: string
+  // updated_at: string
+}
+
+export function Users({
+  onOpenUpdateUserModal,
+  onOpenCreateUserModal
+}: UsersProps) {
+  const [users, setUsers] = useState<UserType[]>([])
+
+  useEffect(() => {
+    api.get('/users').then((response) => {
+      setUsers(response.data)
+    })
+    // .then((response => console.log(response.data)))
+  }, [])
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 100 },
     {
-      field: 'user',
-      headerName: 'Usuario',
-      width: 250,
-      renderCell: params => {
-        return (
-          <div className={styles.columnUserName}>
-            <img src={params.row.avatar} alt="Avatar" />
-            {params.row.name}
-          </div>
-        )
-      }
+      field: 'cpf',
+      headerName: 'CPF',
+      width: 125
     },
-    { field: 'email', headerName: 'Email', width: 200 },
     {
-      field: 'age',
-      headerName: 'Age',
+      field: 'firstName',
+      headerName: 'Nome',
       type: 'number',
-      width: 100
+      width: 125
     },
     {
-      field: 'status',
-      headerName: 'Status',
+      field: 'lastName',
+      headerName: 'Sobrenome',
+      width: 150
+    },
+    {
+      field: 'admin',
+      headerName: 'Admin',
+      width: 150
+    },
+    {
+      field: 'state',
+      headerName: 'Estado',
       width: 150
     },
     {
       field: 'action',
-      headerName: 'Action',
+      headerName: 'Ação',
       width: 150,
-      renderCell: props => {
+      renderCell: () => {
         return (
           <>
             <Link passHref href="#">
@@ -93,7 +96,7 @@ export function Users({ onOpenUpdateUserModal, onOpenCreateUserModal }: UsersPro
     <div className={styles.container}>
       <div className={styles.content}>
         <DataGrid
-          rows={rows}
+          rows={users}
           columns={columns}
           pageSize={9}
           checkboxSelection
