@@ -1,6 +1,7 @@
 import { useState, FormEvent } from 'react'
 import Modal from 'react-modal'
 import Image from 'next/dist/client/image'
+import toast, { Toaster } from 'react-hot-toast'
 
 import { Button } from '../../Button'
 
@@ -9,54 +10,72 @@ import UserDefault from '../../../../public/userDefault.png'
 
 import styles from './styles.module.scss'
 
+import api from '../../../services/api'
+
 interface CreateUserModalProps {
   isOpen: boolean
   onRequestClose: () => void
-}
-
-interface GenderProps {
-  isActive: boolean
-  activeColor: 'blue' | 'pink'
 }
 
 export function CreateUserModal({
   isOpen,
   onRequestClose
 }: CreateUserModalProps) {
-  const [toggleGender, setToggleGender] = useState(false)
-  const [toggleState, setToggleState] = useState(false)
-
   const [cpf, setCpf] = useState('')
-  const [avatar, setAvatar] = useState('')
+  // const [avatar, setAvatar] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [genderId, setGenderId] = useState(false)
+  const [password, setPassword] = useState('')
+  const [password2, setPassword2] = useState('')
+  const [yearOfBirth, setYearOfBirth] = useState('')
   const [address, setAddress] = useState('')
   const [mail, setMail] = useState('')
   const [mobileNumber, setMobileNumber] = useState('')
-  const [password, setPassword] = useState('')
-  const [password2, setPassword2] = useState('')
   const [state, setState] = useState(false)
+  const [admin, setAdmin] = useState(false)
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
-    const data = {
+    await api
+    .post('/users', {
       cpf: cpf,
-      avatar: avatar,
+      avatar: 'https://lh3.googleusercontent.com/a-/AOh14GgJDGOETWdTK25Wqtaed4UofMsYehhJCk1TrGfElg=s360-p-rw-no',
       firstName: firstName,
       lastName: lastName,
       genderId: genderId,
+      password: password,
+      yearOfBirth: yearOfBirth,
       address: address,
       mail: mail,
       mobileNumber: mobileNumber,
-      password: password,
-      password2: password2,
-      state: state
-    }
+      state: state,
+      admin: admin
+    })
+    .then(function (response) {
+      console.log(response)
+      toast.success('Usuario cadastrado com susseso!')
 
-    console.log(data)
+      setCpf('')
+      setFirstName('')
+      setLastName('')
+      setGenderId(false)
+      setPassword('')
+      setPassword2('')
+      setYearOfBirth('')
+      setAddress('')
+      setMail('')
+      setMobileNumber('')
+      setState(false)
+      setAdmin(false)
 
+      onRequestClose()
+    })
+    .catch(function (error) {
+      console.log(error)
+      toast.error('Dados de usuario incorreto!')
+    })
   }
 
   return (
@@ -67,6 +86,10 @@ export function CreateUserModal({
       overlayClassName={styles.Overlay}
     >
       <div className={styles.wrapper}>
+        <div>
+          <Toaster position="top-center" reverseOrder={false} />
+        </div>
+
         <header>
           <h2>Criar Usuario</h2>
           <X className={styles.buttonClose} onClick={onRequestClose} />
@@ -75,6 +98,7 @@ export function CreateUserModal({
         <form onSubmit={handleSubmit}>
           <fieldset>
             <div className={styles.userCreateLeft}>
+              <span className={styles.subtitleUserCreate}>Detalhes do Usuario</span>
               <div className={styles.inputBlock}>
                 <label htmlFor="cpf">CPF</label>
                 <input
@@ -112,13 +136,13 @@ export function CreateUserModal({
               </div>
 
               <div className={styles.inputBlock}>
-                <label htmlFor="address">Endereço</label>
+                <label htmlFor="yearOfBirth">Ano de Nacimento</label>
                 <input
                   type="text"
-                  id="address"
-                  value={address}
-                  onChange={event => setAddress(event.target.value)}
-                  placeholder="Endereço"
+                  id="yearOfBirth"
+                  value={yearOfBirth}
+                  onChange={event => setYearOfBirth(event.target.value)}
+                  placeholder="Ano de nascimento"
                   required
                 />
               </div>
@@ -144,9 +168,46 @@ export function CreateUserModal({
                   </button>
                 </div>
               </div>
+
+              <div className={styles.inputBlock}>
+                <label htmlFor="password">Contrasenha</label>
+                <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={event => setPassword(event.target.value)}
+                  placeholder="Contrasenha"
+                  required
+                />
+              </div>
+
+              <div className={styles.inputBlock}>
+                <label htmlFor="password2">Repetir contrasenha</label>
+                <input
+                  type="password"
+                  id="password2"
+                  value={password2}
+                  onChange={event => setPassword2(event.target.value)}
+                  placeholder="Contrasenha"
+                  required
+                />
+              </div>
             </div>
 
-            <div className={styles.userCreateRight}>
+            <div className={styles.userCreateCenter}>
+              <span className={styles.subtitleUserCreate}>Contato e localização</span>
+              <div className={styles.inputBlock}>
+                <label htmlFor="address">Endereço</label>
+                <input
+                  type="text"
+                  id="address"
+                  value={address}
+                  onChange={event => setAddress(event.target.value)}
+                  placeholder="Endereço"
+                  required
+                />
+              </div>
+
               <div className={styles.inputBlock}>
                 <label htmlFor="mail">Email</label>
                 <input
@@ -171,30 +232,7 @@ export function CreateUserModal({
                 />
               </div>
 
-              <div className={styles.inputBlock}>
-                <label htmlFor="password">Contrasenha</label>
-                <input
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={event => setPassword(event.target.value)}
-                  placeholder="Contrasenha"
-                  required
-                />
-              </div>
-
-              <div className={styles.inputBlock}>
-                <label htmlFor="password2">Repetir contrasenha</label>
-                <input
-                  type="password"
-                  id="password"
-                  value={password2}
-                  onChange={event => setPassword2(event.target.value)}
-                  placeholder="Contrasenha"
-                  required
-                />
-              </div>
-
+              <span className={styles.subtitleUserCreate}>Detalhes da conta</span>
               <div className={styles.inputBlock}>
                 <label htmlFor="state">Estado</label>
 
@@ -216,15 +254,41 @@ export function CreateUserModal({
                   </button>
                 </div>
               </div>
+
+              <div className={styles.inputBlock}>
+                <label htmlFor="admin">Admin</label>
+
+                <div className={styles.selectTypeContainer}>
+                  <button
+                    type="button"
+                    onClick={() => setAdmin(true)}
+                    className={admin ? styles.active : styles.disabled}
+                  >
+                    Sim
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setAdmin(false)}
+                    className={!admin ? styles.active : styles.disabled}
+                  >
+                    Não
+                  </button>
+                </div>
+              </div>
             </div>
 
-            <div className={styles.formRight}>
+            <div className={styles.userCreateRight}>
               <div className={styles.formImgContainer}>
                 <Image src={UserDefault} alt="Avatar" />
                 <label htmlFor="file">
                   <Upload />
                 </label>
-                <input type="file" id="file" style={{ display: 'none' }} />
+                <input
+                  type="file"
+                  id="file"
+                  style={{ display: 'none' }}
+                />
               </div>
 
               <Button type="submit">
