@@ -18,7 +18,7 @@ export function Pets({ onOpenUpdatePetModal, onOpenCreatePetModal }: PetsProps) 
       id: 1,
       avatar:
         'https://e7.pngegg.com/pngimages/623/575/png-clipart-bulldog-computer-icons-pet-others-miscellaneous-pet.png',
-      name: 'jordan',
+      nombreMascota: 'jordan',
       generoMascota:'M',
       nacimientoMascota: '24/10/1943',
       age: 24,
@@ -28,7 +28,7 @@ export function Pets({ onOpenUpdatePetModal, onOpenCreatePetModal }: PetsProps) 
       id: 2,
       avatar:
         'https://e7.pngegg.com/pngimages/623/575/png-clipart-bulldog-computer-icons-pet-others-miscellaneous-pet.png',
-      name: 'Negra',
+      nombreMascota: 'Negra',
       generoMascota:'F',
       nacimientoMascota: '24/10/1943',
       age: 25,
@@ -38,7 +38,7 @@ export function Pets({ onOpenUpdatePetModal, onOpenCreatePetModal }: PetsProps) 
       id: 3,
       avatar:
         'https://e7.pngegg.com/pngimages/623/575/png-clipart-bulldog-computer-icons-pet-others-miscellaneous-pet.png',
-      name: 'Kin',
+      nombreMascota: 'Kin',
       generoMascota:'M',
       nacimientoMascota: '24/10/1943',
       age: 27,
@@ -56,7 +56,7 @@ export function Pets({ onOpenUpdatePetModal, onOpenCreatePetModal }: PetsProps) 
         return (
           <div className={styles.columnUserName}>
             <img src={params.row.avatar} alt="Avatar" />
-            {params.row.name}
+            {params.row.nombreMascota}
           </div>
         )
       }
@@ -68,6 +68,11 @@ export function Pets({ onOpenUpdatePetModal, onOpenCreatePetModal }: PetsProps) 
       type: 'date',
       width: 180,
 
+    },
+    {
+      field: 'dueñoMascota',
+      headerName: 'Dueño',
+      width: 150
     },
     {
       field: 'status',
