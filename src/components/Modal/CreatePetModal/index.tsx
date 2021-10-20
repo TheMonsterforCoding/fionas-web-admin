@@ -95,6 +95,7 @@ export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) 
                   onChange={event => setId(event.target.value)}
                   placeholder="id"
                   required
+                  disabled
                 />
               </div>
 
@@ -125,7 +126,7 @@ export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) 
               <div className={styles.inputBlock}>
                 <label htmlFor="yearOfBirth">Ano de Nacimento</label>
                 <input
-                  type="text"
+                  type="date"
                   id="yearOfBirth"
                   value={yearOfBirth}
                   onChange={event => setYearOfBirth(event.target.value)}
@@ -154,12 +155,13 @@ export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) 
               <div className={styles.inputBlock}>
                 <label htmlFor="createdAt">Fecha de creación</label>
                 <input
-                  type="text"
+                  type="date"
                   id="createdAt"
                   value={createdAt}
                   onChange={event => setCreatedAt(event.target.value)}
                   placeholder="Fecha de creación"
                   required
+                  disabled
                 />
               </div>
 
