@@ -35,7 +35,7 @@ interface PetType {
   dateBirth: string
   size: string
   breed: string
-  state: string
+  state: boolean
   createAt: string
   dueñoMascota:string
 }
@@ -49,7 +49,7 @@ export function UpdatePetModal({ isOpen, onRequestClose }: UpdatePetModalProps) 
     dateBirth: 'loading',
     size: 'loading',
     breed: 'loading',
-    state: 'loading',
+    state: false,
     createAt: 'loading',
     dueñoMascota:'loading'
   })
