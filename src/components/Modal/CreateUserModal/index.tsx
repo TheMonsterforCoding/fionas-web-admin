@@ -25,10 +25,10 @@ export function CreateUserModal({
   // const [avatar, setAvatar] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [genderId, setGenderId] = useState(false)
+  const [gender, setGender] = useState(false)
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
-  const [yearOfBirth, setYearOfBirth] = useState('')
+  const [yearOfBirth, setYearOfBirth] = useState(1900)
   const [address, setAddress] = useState('')
   const [mail, setMail] = useState('')
   const [mobileNumber, setMobileNumber] = useState('')
@@ -44,7 +44,7 @@ export function CreateUserModal({
       avatar: 'https://lh3.googleusercontent.com/a-/AOh14GgJDGOETWdTK25Wqtaed4UofMsYehhJCk1TrGfElg=s360-p-rw-no',
       firstName: firstName,
       lastName: lastName,
-      genderId: genderId,
+      gender: gender,
       password: password,
       yearOfBirth: yearOfBirth,
       address: address,
@@ -60,10 +60,10 @@ export function CreateUserModal({
       setCpf('')
       setFirstName('')
       setLastName('')
-      setGenderId(false)
+      setGender(false)
       setPassword('')
       setPassword2('')
-      setYearOfBirth('')
+      setYearOfBirth(1900)
       setAddress('')
       setMail('')
       setMobileNumber('')
@@ -138,11 +138,13 @@ export function CreateUserModal({
               <div className={styles.inputBlock}>
                 <label htmlFor="yearOfBirth">Ano de Nacimento</label>
                 <input
-                  type="text"
+                  type="number"
                   id="yearOfBirth"
                   value={yearOfBirth}
-                  onChange={event => setYearOfBirth(event.target.value)}
+                  onChange={event => setYearOfBirth(Number(event.target.value))}
                   placeholder="Ano de nascimento"
+                  min="1900"
+                  max="2021"
                   required
                 />
               </div>
@@ -153,16 +155,16 @@ export function CreateUserModal({
                 <div className={styles.selectTypeContainer}>
                   <button
                     type="button"
-                    onClick={() => setGenderId(true)}
-                    className={genderId ? styles.active : styles.disabled}
+                    onClick={() => setGender(true)}
+                    className={gender ? styles.active : styles.disabled}
                   >
                     Masculino
                   </button>
 
                   <button
                     type="button"
-                    onClick={() => setGenderId(false)}
-                    className={!genderId ? styles.active : styles.innactive}
+                    onClick={() => setGender(false)}
+                    className={!gender ? styles.active : styles.innactive}
                   >
                     Femenino
                   </button>
