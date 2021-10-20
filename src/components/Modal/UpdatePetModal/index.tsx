@@ -104,36 +104,27 @@ export function UpdatePetModal({ isOpen, onRequestClose }: UpdatePetModalProps) 
               </div>
               <div className={styles.userInfo}>
                 <Watch />
-                <span>{users.yearOfBirth}</span>
+                <span>{pets.dateBirth}</span>
               </div>
-              <span className={styles.titleMain}>Contato</span>
               <div className={styles.userInfo}>
                 <MapPin />
-                <span>{users.address}</span>
+                <span>{pets.createAt}</span>
               </div>
               <div className={styles.userInfo}>
                 <Mail />
-                <span>{users.mail}</span>
+                <span>{pets.breed}</span>
               </div>
               <div className={styles.userInfo}>
                 <Phone />
-                <span>{users.mobileNumber}</span>
+                <span>{pets.size}</span>
               </div>
               <span className={styles.titleMain}>Detalhes da Conta</span>
               <div className={styles.userInfo}>
                 <ToggleLeft />
-                {users.state ? (
+                {pets.state ? (
                   <span>estado: Ativo</span>
                 ) : (
                   <span>estado: Inativo</span>
-                )}
-              </div>
-              <div className={styles.userInfo}>
-                <UserCheck />
-                {users.admin ? (
-                  <span>admin: Sim</span>
-                ) : (
-                  <span>admin: Não</span>
                 )}
               </div>
             </main>
@@ -141,16 +132,15 @@ export function UpdatePetModal({ isOpen, onRequestClose }: UpdatePetModalProps) 
 
           <div className={styles.userUpdate}>
             <h3>Atualizar Dados</h3>
-
             <form>
               <div className={styles.formLeft}>
                 <div className={styles.updateItem}>
                   <label>Nome</label>
-                  <input type="text" placeholder={users.firstName} />
+                  <input type="text" placeholder={pets.name} />
                 </div>
                 <div className={styles.updateItem}>
-                  <label>Sobrenome</label>
-                  <input type="text" placeholder={users.lastName} />
+                  <label>Raza</label>
+                  <input type="text" placeholder={pets.breed} />
                 </div>
                 <div className={styles.updateItem}>
                   <label>Gênero</label>
@@ -164,27 +154,12 @@ export function UpdatePetModal({ isOpen, onRequestClose }: UpdatePetModalProps) 
                   </div>
                 </div>
                 <div className={styles.updateItem}>
-                  <label>Edade</label>
-                  <input type="number" placeholder="12" />
+                  <label>Fecha de nacimiento</label>
+                  <input type="date"/>
                 </div>
                 <div className={styles.updateItem}>
-                  <label>Email</label>
-                  <input type="text" placeholder="maria.silveira@hotmai.com" />
-                </div>
-                <div className={styles.updateItem}>
-                  <label>Contrasenha</label>
-                  <input type="password" placeholder="********" />
-                </div>
-                <div className={styles.updateItem}>
-                  <label>Admin</label>
-                  <div className={styles.selectTypeContainer}>
-                    <button onClick={() => {}}>
-                      <span>Sim</span>
-                    </button>
-                    <button onClick={() => {}} className={styles.active}>
-                      <span>Não</span>
-                    </button>
-                  </div>
+                  <label>Dueño</label>
+                  <input type="text" placeholder="Juan" />
                 </div>
                 <div className={styles.updateItem}>
                   <label>Estado</label>
@@ -200,14 +175,6 @@ export function UpdatePetModal({ isOpen, onRequestClose }: UpdatePetModalProps) 
               </div>
 
               <div className={styles.formRight}>
-                <div className={styles.formImgContainer}>
-                  <Image src={AvatarImg} alt="Avatar" />
-                  <label htmlFor="file">
-                    <Upload />
-                  </label>
-                  <input type="file" id="file" style={{ display: 'none' }} />
-                </div>
-
                 <Button type="submit">
                   <Edit2 />
                   Atualizar
