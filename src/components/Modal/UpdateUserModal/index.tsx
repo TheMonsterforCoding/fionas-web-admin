@@ -10,7 +10,6 @@ import {
   Mail,
   Users as Gen,
   Watch,
-  ToggleLeft,
   UserCheck,
   Upload,
   Phone,
@@ -33,17 +32,16 @@ interface UserType {
   id: string
   cpf: string
   avatar: string
-  firstName: string
-  lastName: string
-  genderId: boolean
+  first_name: string
+  last_name: string
+  gender: boolean
   password: string
-  yearOfBirth: string
+  year_of_birth: string
   address: string
   mail: string
-  mobileNumber: string
+  mobile_number: string
   state: boolean
-  admin: boolean
-  createdAt: string
+  created_at: string
   updated_at: string
 }
 
@@ -51,29 +49,29 @@ export function UpdateUserModal({
   isOpen,
   onRequestClose
 }: UpdateUserModalProps) {
-  // const {id}: {id: string} = useParams()
+  // const {idParams}: {id: string} = useParams()
 
   const [users, setUsers] = useState<UserType>({
     id: 'loading',
     cpf: 'loading',
     avatar: 'loading',
-    firstName: 'loading',
-    lastName: 'loading',
-    genderId: false,
+    first_name: 'loading',
+    last_name: 'loading',
+    gender: true,
     password: 'loading',
-    yearOfBirth: 'loading',
+    year_of_birth: 'loading',
     address: 'loading',
     mail: 'loading',
-    mobileNumber: 'loading',
+    mobile_number: 'loading',
     state: false,
-    admin: false,
-    createdAt: 'loading',
+    created_at: 'loading',
     updated_at: 'loading',
   })
 
   useEffect(() => {
     async function loadUserData() {
-      await api.get(`/users/7cf281d4-ce39-4373-ba18-2e346881bdbf`)
+      await api.get(`/users/fa44364a-6195-4099-bedd-fbfbc55534c5`)
+      // await api.get(`/users/${idParams}`)
         .then(response => {setUsers(response.data)
       })
     }
@@ -99,7 +97,7 @@ export function UpdateUserModal({
             <header>
               <Image src={AvatarImg} alt="Avatar" />
               <div className={styles.userShowHeaderInfo}>
-                <span className={styles.name}>{users.firstName}</span>
+                <span className={styles.name}>{users.first_name}</span>
                 <span className={styles.moreInfo}>{users.cpf}</span>
               </div>
             </header>
@@ -109,12 +107,12 @@ export function UpdateUserModal({
               <div className={styles.userInfo}>
                 <User />
                 <span>
-                  {users.firstName} {users.lastName}
+                  {users.first_name} {users.last_name}
                 </span>
               </div>
               <div className={styles.userInfo}>
                 <Gen />
-                {users.genderId ? (
+                {users.gender ? (
                   <span>masculino</span>
                 ) : (
                   <span>Femenino</span>
@@ -122,7 +120,7 @@ export function UpdateUserModal({
               </div>
               <div className={styles.userInfo}>
                 <Watch />
-                <span>{users.yearOfBirth}</span>
+                <span>{users.year_of_birth}</span>
               </div>
               <span className={styles.titleMain}>Contato</span>
               <div className={styles.userInfo}>
@@ -135,23 +133,15 @@ export function UpdateUserModal({
               </div>
               <div className={styles.userInfo}>
                 <Phone />
-                <span>{users.mobileNumber}</span>
+                <span>{users.mobile_number}</span>
               </div>
               <span className={styles.titleMain}>Detalhes da Conta</span>
               <div className={styles.userInfo}>
-                <ToggleLeft />
+                <UserCheck />
                 {users.state ? (
                   <span>estado: Ativo</span>
                 ) : (
                   <span>estado: Inativo</span>
-                )}
-              </div>
-              <div className={styles.userInfo}>
-                <UserCheck />
-                {users.admin ? (
-                  <span>admin: Sim</span>
-                ) : (
-                  <span>admin: Não</span>
                 )}
               </div>
             </main>
@@ -164,11 +154,11 @@ export function UpdateUserModal({
               <div className={styles.formLeft}>
                 <div className={styles.updateItem}>
                   <label>Nome</label>
-                  <input type="text" placeholder={users.firstName} />
+                  <input type="text" placeholder={users.first_name} />
                 </div>
                 <div className={styles.updateItem}>
                   <label>Sobrenome</label>
-                  <input type="text" placeholder={users.lastName} />
+                  <input type="text" placeholder={users.last_name} />
                 </div>
                 <div className={styles.updateItem}>
                   <label>Gênero</label>
@@ -192,17 +182,6 @@ export function UpdateUserModal({
                 <div className={styles.updateItem}>
                   <label>Contrasenha</label>
                   <input type="password" placeholder="********" />
-                </div>
-                <div className={styles.updateItem}>
-                  <label>Admin</label>
-                  <div className={styles.selectTypeContainer}>
-                    <button onClick={() => {}}>
-                      <span>Sim</span>
-                    </button>
-                    <button onClick={() => {}} className={styles.active}>
-                      <span>Não</span>
-                    </button>
-                  </div>
                 </div>
                 <div className={styles.updateItem}>
                   <label>Estado</label>

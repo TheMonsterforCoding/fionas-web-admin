@@ -33,7 +33,6 @@ export function CreateUserModal({
   const [mail, setMail] = useState('')
   const [mobileNumber, setMobileNumber] = useState('')
   const [state, setState] = useState(false)
-  const [admin, setAdmin] = useState(false)
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
@@ -42,16 +41,15 @@ export function CreateUserModal({
     .post('/users', {
       cpf: cpf,
       avatar: 'https://lh3.googleusercontent.com/a-/AOh14GgJDGOETWdTK25Wqtaed4UofMsYehhJCk1TrGfElg=s360-p-rw-no',
-      firstName: firstName,
-      lastName: lastName,
+      first_name: firstName,
+      last_name: lastName,
       gender: gender,
       password: password,
-      yearOfBirth: yearOfBirth,
+      year_of_birth: yearOfBirth,
       address: address,
       mail: mail,
-      mobileNumber: mobileNumber,
-      state: state,
-      admin: admin
+      mobile_number: mobileNumber,
+      state: state
     })
     .then(function (response) {
       console.log(response)
@@ -60,7 +58,7 @@ export function CreateUserModal({
       setCpf('')
       setFirstName('')
       setLastName('')
-      setGender(false)
+      setGender(true)
       setPassword('')
       setPassword2('')
       setYearOfBirth(1900)
@@ -68,7 +66,6 @@ export function CreateUserModal({
       setMail('')
       setMobileNumber('')
       setState(false)
-      setAdmin(false)
 
       onRequestClose()
     })
@@ -143,8 +140,6 @@ export function CreateUserModal({
                   value={yearOfBirth}
                   onChange={event => setYearOfBirth(Number(event.target.value))}
                   placeholder="Ano de nascimento"
-                  min="1900"
-                  max="2021"
                   required
                 />
               </div>
@@ -253,28 +248,6 @@ export function CreateUserModal({
                     className={!state ? styles.active : styles.disabled}
                   >
                     Inativo
-                  </button>
-                </div>
-              </div>
-
-              <div className={styles.inputBlock}>
-                <label htmlFor="admin">Admin</label>
-
-                <div className={styles.selectTypeContainer}>
-                  <button
-                    type="button"
-                    onClick={() => setAdmin(true)}
-                    className={admin ? styles.active : styles.disabled}
-                  >
-                    Sim
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setAdmin(false)}
-                    className={!admin ? styles.active : styles.disabled}
-                  >
-                    Não
                   </button>
                 </div>
               </div>
