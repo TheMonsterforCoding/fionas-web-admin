@@ -40,6 +40,7 @@ interface PetType {
   dueñoMascota:string
 }
 
+
 export function UpdatePetModal({ isOpen, onRequestClose }: UpdatePetModalProps) {
   
   const [pets, setPets] = useState<PetType>({
