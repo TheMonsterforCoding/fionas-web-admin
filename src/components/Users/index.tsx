@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
 import { DataGrid, GridColDef } from '@material-ui/data-grid'
@@ -16,21 +15,12 @@ interface UsersProps {
 }
 
 interface UserType {
-  // id: string
+  id: string
   cpf: string
-  // avatar: string
-  firstName: string
-  lastName: string
-  // genderId: boolean
-  // password: string
-  // yearOfBirth: string
-  // address: string
-  // mail: string
-  // mobileNumber: string
+  first_name: string
+  last_name: string
+  mobile_number: number
   state: boolean
-  admin: boolean
-  // createdAt: string
-  // updated_at: string
 }
 
 export function Users({
@@ -40,10 +30,9 @@ export function Users({
   const [users, setUsers] = useState<UserType[]>([])
 
   useEffect(() => {
-    api.get('/users').then((response) => {
+    api.get('/users').then(response => {
       setUsers(response.data)
     })
-    // .then((response => console.log(response.data)))
   }, [users])
 
   const columns: GridColDef[] = [
@@ -53,19 +42,19 @@ export function Users({
       width: 125
     },
     {
-      field: 'firstName',
+      field: 'first_name',
       headerName: 'Nome',
       type: 'number',
       width: 125
     },
     {
-      field: 'lastName',
+      field: 'last_name',
       headerName: 'Sobrenome',
       width: 150
     },
     {
-      field: 'admin',
-      headerName: 'Admin',
+      field: 'mobile_number',
+      headerName: 'Celular',
       width: 150
     },
     {
@@ -80,12 +69,10 @@ export function Users({
       renderCell: () => {
         return (
           <>
-            <Link passHref href="#">
-              <Button onClick={onOpenUpdateUserModal}>
-                <Edit2 className={styles.columnUserButtonEdit} />
-                Editar
-              </Button>
-            </Link>
+            <Button onClick={onOpenUpdateUserModal}>
+              <Edit2 className={styles.columnUserButtonEdit} />
+              Editar
+            </Button>
           </>
         )
       }

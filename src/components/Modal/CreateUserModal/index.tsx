@@ -25,16 +25,14 @@ export function CreateUserModal({
   // const [avatar, setAvatar] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [genderId, setGenderId] = useState(false)
+  const [gender, setGender] = useState(false)
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
-  const [yearOfBirth, setYearOfBirth] = useState('')
+  const [yearOfBirth, setYearOfBirth] = useState(1900)
   const [address, setAddress] = useState('')
   const [mail, setMail] = useState('')
   const [mobileNumber, setMobileNumber] = useState('')
   const [state, setState] = useState(false)
-  const [admin, setAdmin] = useState(false)
-  
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
@@ -43,16 +41,15 @@ export function CreateUserModal({
     .post('/users', {
       cpf: cpf,
       avatar: 'https://lh3.googleusercontent.com/a-/AOh14GgJDGOETWdTK25Wqtaed4UofMsYehhJCk1TrGfElg=s360-p-rw-no',
-      firstName: firstName,
-      lastName: lastName,
-      genderId: genderId,
+      first_name: firstName,
+      last_name: lastName,
+      gender: gender,
       password: password,
-      yearOfBirth: yearOfBirth,
+      year_of_birth: yearOfBirth,
       address: address,
       mail: mail,
-      mobileNumber: mobileNumber,
-      state: state,
-      admin: admin
+      mobile_number: mobileNumber,
+      state: state
     })
     .then(function (response) {
       console.log(response)
@@ -61,15 +58,14 @@ export function CreateUserModal({
       setCpf('')
       setFirstName('')
       setLastName('')
-      setGenderId(false)
+      setGender(true)
       setPassword('')
       setPassword2('')
-      setYearOfBirth('')
+      setYearOfBirth(1900)
       setAddress('')
       setMail('')
       setMobileNumber('')
       setState(false)
-      setAdmin(false)
 
       onRequestClose()
     })
@@ -140,10 +136,10 @@ export function CreateUserModal({
               <div className={styles.inputBlock}>
                 <label htmlFor="yearOfBirth">Ano de Nacimento</label>
                 <input
-                  type="text"
+                  type="number"
                   id="yearOfBirth"
                   value={yearOfBirth}
-                  onChange={event => setYearOfBirth(event.target.value)}
+                  onChange={event => setYearOfBirth(Number(event.target.value))}
                   placeholder="Ano de nascimento"
                   required
                 />
@@ -155,16 +151,16 @@ export function CreateUserModal({
                 <div className={styles.selectTypeContainer}>
                   <button
                     type="button"
-                    onClick={() => setGenderId(true)}
-                    className={genderId ? styles.active : styles.disabled}
+                    onClick={() => setGender(true)}
+                    className={gender ? styles.active : styles.disabled}
                   >
                     Masculino
                   </button>
 
                   <button
                     type="button"
-                    onClick={() => setGenderId(false)}
-                    className={!genderId ? styles.active : styles.innactive}
+                    onClick={() => setGender(false)}
+                    className={!gender ? styles.active : styles.innactive}
                   >
                     Femenino
                   </button>
@@ -253,28 +249,6 @@ export function CreateUserModal({
                     className={!state ? styles.active : styles.disabled}
                   >
                     Inativo
-                  </button>
-                </div>
-              </div>
-
-              <div className={styles.inputBlock}>
-                <label htmlFor="admin">Admin</label>
-
-                <div className={styles.selectTypeContainer}>
-                  <button
-                    type="button"
-                    onClick={() => setAdmin(true)}
-                    className={admin ? styles.active : styles.disabled}
-                  >
-                    Sim
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setAdmin(false)}
-                    className={!admin ? styles.active : styles.disabled}
-                  >
-                    Não
                   </button>
                 </div>
               </div>
