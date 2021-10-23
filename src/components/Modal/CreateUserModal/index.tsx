@@ -34,6 +34,7 @@ export function CreateUserModal({
   const [mobileNumber, setMobileNumber] = useState('')
   const [state, setState] = useState(false)
   const [admin, setAdmin] = useState(false)
+  
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
@@ -112,6 +113,7 @@ export function CreateUserModal({
               </div>
 
               <div className={styles.inputBlock}>
+                <label id="mensajeFirstName"></label>
                 <label htmlFor="firstName">Nome</label>
                 <input
                   type="text"

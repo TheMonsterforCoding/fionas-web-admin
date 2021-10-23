@@ -1,21 +1,21 @@
-import { useState, FormEvent } from 'react'
+import React, { useState, FormEvent } from 'react'
 import Modal from 'react-modal'
-import Image from 'next/dist/client/image'
 import toast, { Toaster } from 'react-hot-toast'
 
 import { Button } from '../../Button'
 
 import { X, Upload, UserPlus } from '@styled-icons/feather'
-import UserDefault from '../../../../public/userDefault.png'
 
 import styles from './styles.module.scss'
 
 import api from '../../../services/api'
+import ReactDOM from 'react-dom';
 
 interface CreatePetModalProps {
   isOpen: boolean
   onRequestClose: () => void
 }
+
 
 export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) {
   const [ id, setId] = useState('')
@@ -100,6 +100,7 @@ export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) 
               </div>
 
               <div className={styles.inputBlock}>
+                <label id="mensajeNombreMascota"></label> 
                 <label htmlFor="nombreMascota">Nome Pet</label>
                 <input
                   type="text"
@@ -112,6 +113,7 @@ export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) 
               </div>
 
               <div className={styles.inputBlock}>
+              <label id="mensajeSize"></label> 
                 <label htmlFor="size">Size</label>
                 <input
                   type="text"
@@ -124,6 +126,7 @@ export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) 
               </div>
 
               <div className={styles.inputBlock}>
+              <label id="mensajeYearOfBirth"></label> 
                 <label htmlFor="yearOfBirth">Ano de Nacimento</label>
                 <input
                   type="date"
@@ -141,6 +144,7 @@ export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) 
             <div className={styles.userCreateCenter}>
               <span className={styles.subtitleUserCreate}>¿?</span>
               <div className={styles.inputBlock}>
+              <label id="mensajeBreed"></label> 
                 <label htmlFor="breed">Raza</label>
                 <input
                   type="text"
@@ -179,7 +183,6 @@ export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) 
 
               <div className={styles.inputBlock}>
                 <label htmlFor="state">Estado</label>
-
                 <div className={styles.selectTypeContainer}>
                   <button
                     type="button"
@@ -213,3 +216,4 @@ export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) 
     </Modal>
   )
 }
+
