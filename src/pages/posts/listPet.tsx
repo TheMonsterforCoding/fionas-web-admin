@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { Pets } from "../../components/Pets";
 import { CreatePetModal } from '../../components/Modal/CreatePetModal';
 import { UpdatePetModal } from '../../components/Modal/UpdatePetModal';
-import { nombreMascotaEvento } from '../../components/Modal/CreatePetModal/validacion';
 
 export default function listPet() {
   const [isUpdatePetModal, setIsUpdatePetModal ] = useState(false)
@@ -26,7 +25,7 @@ export default function listPet() {
   }
 
 
-
+//validar nombre de la mascota
   function validarNombreMascota(nombreMascota : string) {
     var encontrarNumero=new RegExp(/\d/);
     var mensajeNombreMascota = "";
@@ -35,29 +34,27 @@ export default function listPet() {
     }else if(nombreMascota.length>=10){
        mensajeNombreMascota="Un nombre de mascota no puede tener más de 10 caracteres"
     }
-    return mensajeNombreMascota
+    return [nombreMascota,mensajeNombreMascota]
   }
+  //validar tamaño
   function validarSize(size:string){
-    const mensajeSize= "";
-    const encontrarLetra=new RegExp('\D');
-    if(size.length==2){
-        var textoAnterior=size[1];
-        size.replace(textoAnterior, ',');
-        size.replace(",", ','+textoAnterior);
-
-    }else if(size.length>4){
-       textoAnterior=size[0]+size[1]+size[2];
+    var mensajeSize= "";
+    const encontrarLetra=new RegExp(/\D/);
+    if(size.length>3){
+       size=size[0]+size[1]+size[2];
     }
     if(encontrarLetra.test(size)){
-        size=""
+      mensajeSize="No sé puede poner caracteres que no sean numeros"
     }
+    return[size,mensajeSize]
   }
+  //validar raza
   function validarBreed(breed:string){
     var mensajeBreed="";
     if(breed.length>=6){
       mensajeBreed="La breed no puede tener más de 6 caracteres"
     }
-    return mensajeBreed
+    return [breed,mensajeBreed]
   }
 
 

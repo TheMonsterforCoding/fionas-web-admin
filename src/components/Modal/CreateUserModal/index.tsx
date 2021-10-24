@@ -15,25 +15,46 @@ import api from '../../../services/api'
 interface CreateUserModalProps {
   isOpen: boolean
   onRequestClose: () => void
+   validarFirstName(value:string):()=> []
+   validarPassword(password:string, password2:string):()=> []
+   validarMail(mail:string):()=> []
 }
 
 export function CreateUserModal({
   isOpen,
-  onRequestClose
+  onRequestClose,
+  validarFirstName,
+  validarPassword,
+  validarMail
 }: CreateUserModalProps) {
   const [cpf, setCpf] = useState('')
   // const [avatar, setAvatar] = useState('')
-  const [firstName, setFirstName] = useState('')
+  var [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [gender, setGender] = useState(false)
-  const [password, setPassword] = useState('')
-  const [password2, setPassword2] = useState('')
+  var [password, setPassword] = useState('')
+  var [password2, setPassword2] = useState('')
   const [yearOfBirth, setYearOfBirth] = useState(1900)
   const [address, setAddress] = useState('')
-  const [mail, setMail] = useState('')
+  var [mail, setMail] = useState('')
   const [mobileNumber, setMobileNumber] = useState('')
   const [state, setState] = useState(false)
-
+  
+  //validación password
+  var mensajePassword="";
+  var mensajePassword2="";
+  var mensajeFirstName="";
+  var mensajeMail="";
+  var passwordArray = validarPassword(password, password2)
+  password=passwordArray[0]
+  password2=passwordArray[1]
+  mensajePassword=passwordArray[2]
+  var firstNameArray=validarFirstName(firstName)
+  firstName=firstNameArray[0]
+  mensajeFirstName=firstNameArray[1]
+  var mailArray=validarMail(mail)
+  mail=mailArray[0]
+  var mensajeMail=mailArray[1]
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
@@ -75,6 +96,7 @@ export function CreateUserModal({
     })
   }
 
+
   return (
     <Modal
       isOpen={isOpen}
@@ -109,10 +131,11 @@ export function CreateUserModal({
               </div>
 
               <div className={styles.inputBlock}>
-                <label id="mensajeFirstName"></label>
+                <label id="mensajeFirstName">{mensajeFirstName}</label>
                 <label htmlFor="firstName">Nome</label>
                 <input
                   type="text"
+                  onBlur={e => {console.log("hola")}}
                   id="firstName"
                   value={firstName}
                   onChange={event => setFirstName(event.target.value)}
@@ -168,7 +191,7 @@ export function CreateUserModal({
               </div>
 
               <div className={styles.inputBlock}>
-                <label id="mensajePassword"></label>
+                <label id="mensajePassword">{mensajePassword}</label>
                 <label htmlFor="password">Contrasenha</label>
                 <input
                   type="password"
@@ -209,7 +232,7 @@ export function CreateUserModal({
               </div>
 
               <div className={styles.inputBlock}>
-                <label id="mensajeMail"> </label>
+                <label id="mensajeMail"> {mensajeMail} </label>
                 <label htmlFor="mail">Email</label>
                 <input
                   type="text"

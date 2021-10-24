@@ -14,9 +14,9 @@ import ReactDOM from 'react-dom';
 interface CreatePetModalProps {
   isOpen: boolean
   onRequestClose: () => void
-  validarNombreMascota(nombreMascota: string):() => string
-  validarBreed(breed: string):() => string
-  validarSize(size: string):() => string
+  validarNombreMascota(nombreMascota: string):() => []
+  validarBreed(breed: string):() => []
+  validarSize(size: string):() => []
 }
 
 
@@ -25,19 +25,27 @@ interface CreatePetModalProps {
 export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,validarBreed,validarSize }: CreatePetModalProps) {
   const [ id, setId] = useState('')
   // const [avatar, setAvatar] = useState('')
-  const [nombreMascota, setNombreMascota] = useState('')
+  var [nombreMascota, setNombreMascota] = useState('')
   var [size, setSize] = useState('')
   const [genderId, setGenderId] = useState(false)
   const [yearOfBirth, setYearOfBirth] = useState('')
-  const [breed, setBreed] = useState('')
+  var [breed, setBreed] = useState('')
   const [createdAt, setCreatedAt] = useState('')
   const [dueño, setDueño] = useState('')
   const [state, setState] = useState(false)
   
   
-  var mensajeNombreMascota= validarNombreMascota(nombreMascota);
-  var mensajeBreed=validarBreed(breed);
-  var mensajeSize=validarSize(size);
+  var arrayValidarNombreMascota= validarNombreMascota(nombreMascota);
+  nombreMascota=arrayValidarNombreMascota[0];
+  var mensajeNombreMascota=arrayValidarNombreMascota[1];
+  //validar raza
+  var arrayValidarBreed= validarBreed(breed);
+  breed=arrayValidarBreed[0];
+  var mensajeBreed=arrayValidarBreed[1];
+  //validar tamaño
+  var arrayValidarSize= validarSize(size);
+  size=arrayValidarSize[0];
+  var mensajeSize=arrayValidarSize[1];
   
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
@@ -96,18 +104,7 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
           <fieldset>
             <div className={styles.userCreateLeft}>
               <span className={styles.subtitleUserCreate}>Detalhes do Pet</span>
-              <div className={styles.inputBlock}>
-                <label htmlFor="id">id</label>
-                <input
-                  type="text"
-                  id="id"
-                  value={id}
-                  onChange={event => setId(event.target.value)}
-                  placeholder="id"
-                  required
-                  disabled
-                />
-              </div>
+
 
               <div className={styles.inputBlock}>
                 <label id="mensajeNombreMascota">{mensajeNombreMascota}</label> 
@@ -152,7 +149,7 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
             </div>
 
             <div className={styles.userCreateCenter}>
-              <span className={styles.subtitleUserCreate}>¿?</span>
+              <span className={styles.subtitleUserCreate}>Pet</span>
               <div className={styles.inputBlock}>
               <label id="mensajeBreed">{mensajeBreed}</label> 
                 <label htmlFor="breed">Raza</label>
@@ -166,29 +163,16 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
                 />
               </div>
 
-              <div className={styles.inputBlock}>
-                <label htmlFor="createdAt">Fecha de creación</label>
-                <input
-                  type="date"
-                  id="createdAt"
-                  value={createdAt}
-                  onChange={event => setCreatedAt(event.target.value)}
-                  placeholder="Fecha de creación"
-                  required
-                  disabled
-                />
-              </div>
 
               <div className={styles.inputBlock}>
                 <label htmlFor="dueño">Dueño</label>
-                <input
-                  type="text"
-                  id="dueño"
-                  value={dueño}
-                  onChange={event => setDueño(event.target.value)}
-                  placeholder="Dueño"
-                  required
-                />
+                <div className={styles.selectBlock}>
+                 <select name="dueño" id="dueño" onChange={event => setDueño(event.target.value)}required>
+                  <option value="">Selecione</option>
+                  <option value="">Selecione</option>
+                  <option value="">Selecione</option>
+                  </select>
+                  </div>
               </div>
 
               <div className={styles.inputBlock}>
