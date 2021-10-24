@@ -168,6 +168,7 @@ export function CreateUserModal({
               </div>
 
               <div className={styles.inputBlock}>
+                <label id="mensajePassword"></label>
                 <label htmlFor="password">Contrasenha</label>
                 <input
                   type="password"
@@ -180,6 +181,7 @@ export function CreateUserModal({
               </div>
 
               <div className={styles.inputBlock}>
+                <label id="mensajePasword2"></label>
                 <label htmlFor="password2">Repetir contrasenha</label>
                 <input
                   type="password"
@@ -207,6 +209,7 @@ export function CreateUserModal({
               </div>
 
               <div className={styles.inputBlock}>
+                <label id="mensajeMail"> </label>
                 <label htmlFor="mail">Email</label>
                 <input
                   type="text"
@@ -219,6 +222,7 @@ export function CreateUserModal({
               </div>
 
               <div className={styles.inputBlock}>
+                <label id="mensajeMobileNumber"></label>
                 <label htmlFor="mobileNumber">Número celular</label>
                 <input
                   type="text"

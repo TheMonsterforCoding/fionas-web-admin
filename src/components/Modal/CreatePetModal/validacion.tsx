@@ -1,7 +1,5 @@
 
 export const nombreMascotaEvento= document.getElementById("nombreMascota");
-
-
 nombreMascotaEvento.addEventListener("keypress",validadorNombreMascota)
 function validadorNombreMascota(){
     const mensajeNombreMascota= document.getElementById("mensajeNombreMascota")

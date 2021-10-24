@@ -4,7 +4,7 @@ import toast, { Toaster } from 'react-hot-toast'
 
 import { Button } from '../../Button'
 
-import { X, Upload, UserPlus } from '@styled-icons/feather'
+import { X, Upload, UserPlus, Target } from '@styled-icons/feather'
 
 import styles from './styles.module.scss'
 
@@ -17,6 +17,11 @@ interface CreatePetModalProps {
 }
 
 
+
+function validadorNombreMascota(){
+  console.log(event.target);
+}
+
 export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) {
   const [ id, setId] = useState('')
   // const [avatar, setAvatar] = useState('')
@@ -28,7 +33,19 @@ export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) 
   const [createdAt, setCreatedAt] = useState('')
   const [dueño, setDueño] = useState('')
   const [state, setState] = useState(false)
+  
+  
+  var encontrarNumero=new RegExp(/\d/);
+  var mensajeNombreMascota = "";
+    if(encontrarNumero.test(nombreMascota)){
+      mensajeNombreMascota="El nombre de mascota no puede tener números"
+    }else if(nombreMascota.length>=10){
+       mensajeNombreMascota="Un nombre de mascota no puede tener más de 10 caracteres"
+    }else{
+      mensajeNombreMascota="";
+       }
 
+    
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
@@ -100,7 +117,7 @@ export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) 
               </div>
 
               <div className={styles.inputBlock}>
-                <label id="mensajeNombreMascota"></label> 
+                <label id="mensajeNombreMascota">{mensajeNombreMascota}</label> 
                 <label htmlFor="nombreMascota">Nome Pet</label>
                 <input
                   type="text"
