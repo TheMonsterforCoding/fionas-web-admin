@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-// import { useParams } from 'react-router-dom'
 import Modal from 'react-modal'
 import Image from 'next/image'
 
@@ -26,6 +25,7 @@ import api from '../../../services/api'
 interface UpdateUserModalProps {
   isOpen: boolean
   onRequestClose: () => void
+  idUser: string
 }
 
 interface UserType {
@@ -47,11 +47,10 @@ interface UserType {
 
 export function UpdateUserModal({
   isOpen,
-  onRequestClose
+  onRequestClose,
+  idUser
 }: UpdateUserModalProps) {
-  // const {idParams}: {id: string} = useParams()
-
-  const [users, setUsers] = useState<UserType>({
+  const [user, setUser] = useState<UserType>({
     id: 'loading',
     cpf: 'loading',
     avatar: 'loading',
@@ -70,14 +69,13 @@ export function UpdateUserModal({
 
   useEffect(() => {
     async function loadUserData() {
-      await api.get(`/users/fa44364a-6195-4099-bedd-fbfbc55534c5`)
-      // await api.get(`/users/${idParams}`)
-        .then(response => {setUsers(response.data)
+      await api.get(`/users/${idUser}`)
+        .then(response => {setUser(response.data)
       })
     }
 
     loadUserData()
-  }, [])
+  }, [idUser])
 
   return (
     <Modal
@@ -97,8 +95,8 @@ export function UpdateUserModal({
             <header>
               <Image src={AvatarImg} alt="Avatar" />
               <div className={styles.userShowHeaderInfo}>
-                <span className={styles.name}>{users.first_name}</span>
-                <span className={styles.moreInfo}>{users.cpf}</span>
+                <span className={styles.name}>{user.first_name}</span>
+                <span className={styles.moreInfo}>{user.cpf}</span>
               </div>
             </header>
 
@@ -107,12 +105,12 @@ export function UpdateUserModal({
               <div className={styles.userInfo}>
                 <User />
                 <span>
-                  {users.first_name} {users.last_name}
+                  {user.first_name} {user.last_name}
                 </span>
               </div>
               <div className={styles.userInfo}>
                 <Gen />
-                {users.gender ? (
+                {user.gender ? (
                   <span>masculino</span>
                 ) : (
                   <span>Femenino</span>
@@ -120,25 +118,25 @@ export function UpdateUserModal({
               </div>
               <div className={styles.userInfo}>
                 <Watch />
-                <span>{users.year_of_birth}</span>
+                <span>{user.year_of_birth}</span>
               </div>
               <span className={styles.titleMain}>Contato</span>
               <div className={styles.userInfo}>
                 <MapPin />
-                <span>{users.address}</span>
+                <span>{user.address}</span>
               </div>
               <div className={styles.userInfo}>
                 <Mail />
-                <span>{users.mail}</span>
+                <span>{user.mail}</span>
               </div>
               <div className={styles.userInfo}>
                 <Phone />
-                <span>{users.mobile_number}</span>
+                <span>{user.mobile_number}</span>
               </div>
               <span className={styles.titleMain}>Detalhes da Conta</span>
               <div className={styles.userInfo}>
                 <UserCheck />
-                {users.state ? (
+                {user.state ? (
                   <span>estado: Ativo</span>
                 ) : (
                   <span>estado: Inativo</span>
@@ -154,11 +152,11 @@ export function UpdateUserModal({
               <div className={styles.formLeft}>
                 <div className={styles.updateItem}>
                   <label>Nome</label>
-                  <input type="text" placeholder={users.first_name} />
+                  <input type="text" placeholder={user.first_name} />
                 </div>
                 <div className={styles.updateItem}>
                   <label>Sobrenome</label>
-                  <input type="text" placeholder={users.last_name} />
+                  <input type="text" placeholder={user.last_name} />
                 </div>
                 <div className={styles.updateItem}>
                   <label>Gênero</label>

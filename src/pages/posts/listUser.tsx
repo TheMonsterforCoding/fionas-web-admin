@@ -8,9 +8,15 @@ import { Users } from '../../components/Users'
 export default function listUser() {
   const [isUpdateUserModal, setIsUpdateUserModal] = useState(false)
   const [isCreateUserModal, setIsCreateUserModal] = useState(false)
+  const [idUserToUpdate, setIdUserToUpdate] = useState('')
 
-  function handleOpenUpdateUserModal() {
+  // console.log(idUserToUpdate)
+
+  function handleOpenUpdateUserModal(id: string) {
     setIsUpdateUserModal(true)
+
+    // console.log(id)
+    setIdUserToUpdate(id)
   }
 
   function handleCloseUpdateUserModal() {
@@ -27,9 +33,13 @@ export default function listUser() {
 
   return (
     <div style={{ display: 'flex' }}>
-      <Users onOpenUpdateUserModal={handleOpenUpdateUserModal} onOpenCreateUserModal={handleOpenCreateUserModal} />
+      <Users
+        onOpenUpdateUserModal={handleOpenUpdateUserModal}
+        onOpenCreateUserModal={handleOpenCreateUserModal}
+      />
 
       <UpdateUserModal
+        idUser={idUserToUpdate}
         isOpen={isUpdateUserModal}
         onRequestClose={handleCloseUpdateUserModal}
       />

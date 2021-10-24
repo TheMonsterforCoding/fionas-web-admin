@@ -104,7 +104,7 @@ export function CreateUserModal({
                   value={cpf}
                   onChange={event => setCpf(event.target.value)}
                   placeholder="CPF"
-                  required
+                  // required
                 />
               </div>
 
