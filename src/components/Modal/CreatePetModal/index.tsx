@@ -14,19 +14,19 @@ import ReactDOM from 'react-dom';
 interface CreatePetModalProps {
   isOpen: boolean
   onRequestClose: () => void
+  validarNombreMascota(nombreMascota: string):() => string
+  validarBreed(breed: string):() => string
+  validarSize(size: string):() => string
 }
 
 
 
-function validadorNombreMascota(){
-  console.log(event.target);
-}
 
-export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) {
+export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,validarBreed,validarSize }: CreatePetModalProps) {
   const [ id, setId] = useState('')
   // const [avatar, setAvatar] = useState('')
   const [nombreMascota, setNombreMascota] = useState('')
-  const [size, setSize] = useState('')
+  var [size, setSize] = useState('')
   const [genderId, setGenderId] = useState(false)
   const [yearOfBirth, setYearOfBirth] = useState('')
   const [breed, setBreed] = useState('')
@@ -35,17 +35,10 @@ export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) 
   const [state, setState] = useState(false)
   
   
-  var encontrarNumero=new RegExp(/\d/);
-  var mensajeNombreMascota = "";
-    if(encontrarNumero.test(nombreMascota)){
-      mensajeNombreMascota="El nombre de mascota no puede tener números"
-    }else if(nombreMascota.length>=10){
-       mensajeNombreMascota="Un nombre de mascota no puede tener más de 10 caracteres"
-    }else{
-      mensajeNombreMascota="";
-       }
-
-    
+  var mensajeNombreMascota= validarNombreMascota(nombreMascota);
+  var mensajeBreed=validarBreed(breed);
+  var mensajeSize=validarSize(size);
+  
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
@@ -130,7 +123,7 @@ export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) 
               </div>
 
               <div className={styles.inputBlock}>
-              <label id="mensajeSize"></label> 
+              <label id="mensajeSize">{mensajeSize}</label> 
                 <label htmlFor="size">Size</label>
                 <input
                   type="text"
@@ -161,7 +154,7 @@ export function CreatePetModal({ isOpen, onRequestClose }: CreatePetModalProps) 
             <div className={styles.userCreateCenter}>
               <span className={styles.subtitleUserCreate}>¿?</span>
               <div className={styles.inputBlock}>
-              <label id="mensajeBreed"></label> 
+              <label id="mensajeBreed">{mensajeBreed}</label> 
                 <label htmlFor="breed">Raza</label>
                 <input
                   type="text"
