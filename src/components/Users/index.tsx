@@ -10,7 +10,7 @@ import styles from './styles.module.scss'
 import api from '../../services/api'
 
 interface UsersProps {
-  onOpenUpdateUserModal: () => void
+  onOpenUpdateUserModal: any
   onOpenCreateUserModal: () => void
 }
 
@@ -32,8 +32,9 @@ export function Users({
   useEffect(() => {
     api.get('/users').then(response => {
       setUsers(response.data)
+      console.log(response.data)
     })
-  }, [users])
+  }, [])
 
   const columns: GridColDef[] = [
     {
@@ -66,12 +67,12 @@ export function Users({
       field: 'action',
       headerName: 'Ação',
       width: 150,
-      renderCell: () => {
+      renderCell: (user) => {
         return (
           <>
-            <Button onClick={onOpenUpdateUserModal}>
+            <Button onClick={() => onOpenUpdateUserModal(user.row.id)} >
               <Edit2 className={styles.columnUserButtonEdit} />
-              Editar
+              {user.row.id}
             </Button>
           </>
         )
