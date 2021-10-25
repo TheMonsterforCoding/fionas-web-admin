@@ -83,11 +83,11 @@ export function UpdatePetModal({ isOpen, onRequestClose,idPet }: UpdatePetModalP
           <div className={styles.userShow}>
             <header>
               <div className={styles.userShowHeaderInfo}>
-                <span className={styles.name}> de {pets.dueñoMascota}</span>
+                <span className={styles.name}> {pets.dueñoMascota}</span>
               </div>
             </header>
 
-            <main>
+            {/* <main>
               <span className={styles.titleMain}>Detalhes do Usuario</span>
               <div className={styles.userInfo}>
                 <User />
@@ -128,7 +128,7 @@ export function UpdatePetModal({ isOpen, onRequestClose,idPet }: UpdatePetModalP
                   <span>estado: Inativo</span>
                 )}
               </div>
-            </main>
+            </main> */}
           </div>
 
           <div className={styles.userUpdate}>
