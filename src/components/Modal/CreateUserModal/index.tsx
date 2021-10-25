@@ -84,11 +84,8 @@ export function CreateUserModal({
   var lastNameArray=validarLastName(lastName)
   lastName=lastNameArray[0]
   mensajeLastName=lastNameArray[1]
-  
-  
-
-
   var mensajeMail=mailArray[1]
+  
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
 

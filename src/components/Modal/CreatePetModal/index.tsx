@@ -50,16 +50,13 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
     event.preventDefault()
 
     await api
-    .post('/users', {
-      id: id,
-      nombreMascota: nombreMascota,
+    .post('/pets', {
+      name: nombreMascota,
       size: size,
-      genderId: genderId,
-      yearOfBirth: yearOfBirth,
+      gender: genderId,
+      year_of_birth: 2012,
       breed: breed,
-      createdAt: createdAt,
-      dueño: dueño,
-      state: state,
+      state: state
     })
     .then(function (response) {
       console.log(response)

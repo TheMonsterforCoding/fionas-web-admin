@@ -33,7 +33,7 @@ export default function listUser() {
   
    function validarFirstName(firstName: string){
     var mensajeFirstName="";
-    var nombreValido = /\D/;
+    var nombreValido = /\d/;
     if(firstName.length>=1){
     if(nombreValido.test(firstName)){
          mensajeFirstName="";
@@ -43,17 +43,7 @@ export default function listUser() {
    }
     return [firstName,mensajeFirstName];
  }
- function validarNombreOutFoco(firstName: string){
-  var mensajeFirstName="";  
-  let nombreValido = /^[a-zA-Z]{2,}$/;
-    if(nombreValido.test(firstName)){
-         mensajeFirstName="";
-    }else{
-        mensajeFirstName="El nombre tiene caaracteres equivocados"
-        firstName="";
-    }
-    return [firstName,mensajeFirstName]
- }
+
 
  //Funcion para validar las contraseñas
  function validarPassword(password:string,password2:string){
@@ -129,12 +119,12 @@ function validarAddress(address:string){
 //function validar apellido
 function validarLastName(lastName:string){
   var mensajeLastName=""
-  var apellidoValido = /^[a-zA-Z]{2,}$/;
+  var apellidoValido = /^[a-zA-Z]{6,}$/;
   if(lastName.length>=1){
     if(apellidoValido.test(lastName)){
           mensajeLastName="";
     }else{
-      mensajeFirstName="No se permiten ni signos especiales ni números"
+      mensajeLastName="No se puede tener menos de 6 caracteres o números. "
     }
   }
   return [lastName,mensajeLastName]
@@ -163,7 +153,6 @@ function validarLastName(lastName:string){
         validarAddress={validarAddress}
         validarMobileNumber={validarMobileNumber}
         validarLastName={validarLastName}
-        validarNombreOutFoco={validarNombreOutFoco}
       />
     </div>
   )
