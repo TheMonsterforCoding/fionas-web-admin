@@ -68,14 +68,14 @@ export function UpdateUserModal({
     updated_at: 'loading',
   })
 
-  var [cpf, setCpf] = useState('')
+  var [cpf, setCpf] = useState(null)
   var [firstName, setFirstName] = useState('')
   var [lastName, setLastName] = useState('')
   var [mail, setMail] = useState('')
   var [mobileNumber, setMobileNumber] = useState('')
   var [state, setState] = useState(false)
 
-  // var [newCpf, setNewCpf] = useState('')
+   var [newCpf, setNewCpf] = useState(null)
   // var [newFirstName, setNewFirstName] = useState('')
   // var [newLastName, setNewLastName] = useState('')
   // var [newMail, setNewMail] = useState('')
@@ -83,13 +83,15 @@ export function UpdateUserModal({
   // var [newState, setNewState] = useState(false)
 
   async function handleSubmit(event: FormEvent) {
-    // event.preventDefault()
+   event.preventDefault()
 
-    // if (cpf.length === 0) {
-    //   setNewCpf(user.cpf)
-    // } else {
-    //   setNewCpf(cpf)
-    // }
+    if (Object.keys(cpf).length === 0) {
+       setNewCpf(user.cpf)
+     } else {
+       setNewCpf(cpf)
+     }
+
+     console.log(newCpf)
     // if(firstName.length === 0) {
     //   setNewFirstName(user.first_name)
     // } else {
@@ -119,7 +121,7 @@ export function UpdateUserModal({
     //   setNewState(state)
     // }
 
-    // console.log(newCpf)
+
     // console.log(newFirstName)
     // console.log(newLastName)
     // console.log(newMail)
@@ -132,8 +134,7 @@ export function UpdateUserModal({
     // console.log(mail)
     // console.log(mobileNumber)
     // console.log(state)
-    console.log(this.inputNode.value)
-    await api
+    /*await api
     .put(`/users/${idUser}`, {
       cpf: cpf,
       first_name: firstName,
@@ -154,7 +155,7 @@ export function UpdateUserModal({
       setState(false)
 
       onRequestClose()
-    })
+    })*/
   }
 
   useEffect(() => {
@@ -267,7 +268,6 @@ export function UpdateUserModal({
                     defaultValue={user.cpf}
                     onChange={event => setCpf(event.target.value)}
                     placeholder={user.cpf}
-                    ref={node => (this.inputNode = node)}
                   />
                 </div>
                 {/* ---------- Nome ---------- */}
