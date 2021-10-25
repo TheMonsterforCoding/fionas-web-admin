@@ -19,9 +19,6 @@ interface CreatePetModalProps {
   validarSize(size: string):() => []
 }
 
-
-
-
 export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,validarBreed,validarSize }: CreatePetModalProps) {
   const [ id, setId] = useState('')
   // const [avatar, setAvatar] = useState('')
@@ -33,7 +30,7 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
   const [createdAt, setCreatedAt] = useState('')
   const [dueño, setDueño] = useState('')
   const [state, setState] = useState(false)
-  
+
   var arrayValidarNombreMascota= validarNombreMascota(nombreMascota);
   nombreMascota=arrayValidarNombreMascota[0];
   var mensajeNombreMascota=arrayValidarNombreMascota[1];
@@ -45,7 +42,6 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
   var validadorBreed=arrayValidarBreed[2];
   //validar tamaño
 
-  
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
     if(validadorNombreMascota && validadorBreed){
@@ -65,7 +61,7 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
       setId('')
       setNombreMascota('')
       setSize('')
-      setGenderId(false)  
+      setGenderId(false)
       setYearOfBirth('')
       setBreed('')
       setCreatedAt('')
@@ -108,7 +104,7 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
 
 
               <div className={styles.inputBlock}>
-                <label id="mensajeNombreMascota">{mensajeNombreMascota}</label> 
+                <label id="mensajeNombreMascota">{mensajeNombreMascota}</label>
                 <label htmlFor="nombreMascota">Nome Pet</label>
                 <input
                   type="text"
@@ -122,7 +118,7 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
 
 
               <div className={styles.inputBlock}>
-              <label id="mensajeYearOfBirth"></label> 
+              <label id="mensajeYearOfBirth"></label>
                 <label htmlFor="yearOfBirth">Ano de Nacimento</label>
                 <input
                   type="date"
@@ -135,14 +131,14 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
               </div>
 
               <div className={styles.inputBlock}>
-                <label htmlFor="genderId">Estado</label>
+                <label htmlFor="genderId">Gênero</label>
                 <div className={styles.selectTypeContainer}>
                   <button
                     type="button"
                     onClick={() => setGenderId(true)}
                     className={genderId ? styles.active : styles.disabled}
                   >
-                    Masculino
+                    Macho
                   </button>
 
                   <button
@@ -150,7 +146,7 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
                     onClick={() => setGenderId(false)}
                     className={!genderId ? styles.active : styles.disabled}
                   >
-                    Femenino
+                    Femea
                   </button>
                 </div>
               </div>
@@ -160,7 +156,7 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
             <div className={styles.userCreateCenter}>
               <span className={styles.subtitleUserCreate}>Pet</span>
               <div className={styles.inputBlock}>
-              <label id="mensajeBreed">{mensajeBreed}</label> 
+              <label id="mensajeBreed">{mensajeBreed}</label>
                 <label htmlFor="breed">Raza</label>
                 <input
                   type="text"
