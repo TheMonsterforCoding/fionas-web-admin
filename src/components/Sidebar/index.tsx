@@ -1,7 +1,6 @@
-import { Home, User, Compass, PieChart, Heart } from '@styled-icons/feather'
+import { Home, User, Compass, PieChart, Heart, MapPin } from '@styled-icons/feather'
 import Link from 'next/link'
 import Image from 'next/image'
-
 import LogoImg from '../../../public/fionas.png'
 
 import styles from './styles.module.scss'
@@ -53,6 +52,7 @@ export function Sidebar() {
               </Link>
             </li>
 
+
             {/* Pets */}
             <li>
               <Link href="/posts/listPet" passHref>
@@ -70,6 +70,22 @@ export function Sidebar() {
               </Link>
             </li>
 
+
+            <li>
+              <Link href="/posts/taxiDog" passHref>
+                <a>
+                  <div id={styles.menuBox}>
+                    <div className={styles.content}>
+                      <div className={styles.contentLeft}>
+                        <Compass />
+                        <span>Taxi Dog</span>
+                      </div>
+                      <></>
+                    </div>
+                  </div>
+                </a>
+              </Link>
+            </li>
             {/* Statics */}
             <li>
               <Link href="#">

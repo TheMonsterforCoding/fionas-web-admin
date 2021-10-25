@@ -43,9 +43,11 @@ export function CreateUserModal({
   var [password, setPassword] = useState('')
   var [password2, setPassword2] = useState('')
   const [yearOfBirth, setYearOfBirth] = useState(1900)
+
   var [address, setAddress] = useState('')
   var [mail, setMail] = useState('')
   var [mobileNumber, setMobileNumber] = useState('')
+
   const [state, setState] = useState(false)
   
   //validación password
@@ -87,7 +89,7 @@ export function CreateUserModal({
   var mensajeMail=mailArray[1]
   
   async function handleSubmit(event: FormEvent) {
-    event.preventDefault()
+    // event.preventDefault()
 
     await api
     .post('/users', {
@@ -105,7 +107,7 @@ export function CreateUserModal({
     })
     .then(function (response) {
       console.log(response)
-      toast.success('Usuario cadastrado com susseso!')
+      toast.success('Usuário cadastrado com susseso!')
 
       setCpf('')
       setFirstName('')
@@ -116,7 +118,7 @@ export function CreateUserModal({
       setYearOfBirth(1900)
       setAddress('')
       setMail('')
-      setMobileNumber('')
+      setMobileNumber(0)
       setState(false)
 
       onRequestClose()
@@ -269,7 +271,7 @@ export function CreateUserModal({
                 <label id="mensajeMail"> {mensajeMail} </label>
                 <label htmlFor="mail">Email</label>
                 <input
-                  type="text"
+                  type="email"
                   id="mail"
                   value={mail}
                   onChange={event => setMail(event.target.value)}
@@ -285,7 +287,7 @@ export function CreateUserModal({
                   type="text"
                   id="mobileNumber"
                   value={mobileNumber}
-                  onChange={event => setMobileNumber(event.target.value)}
+                  onChange={event => setMobileNumber(Number(event.target.value))}
                   placeholder="Número celular"
                   required
                 />
