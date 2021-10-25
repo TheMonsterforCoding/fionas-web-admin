@@ -17,27 +17,30 @@ export function Pets({ onOpenUpdatePetModal, onOpenCreatePetModal }: PetsProps) 
     {
       id: 1,
       avatar:
-        'https://avatars.githubusercontent.com/u/59587859?s=400&u=e2c61934c682f1bc9a5d07dfb9cb172bf3cf8b9c&v=4',
-      name: 'Leandro Cruz',
-      email: 'lcruz@hotmail.com',
+        'https://e7.pngegg.com/pngimages/623/575/png-clipart-bulldog-computer-icons-pet-others-miscellaneous-pet.png',
+      nombreMascota: 'jordan',
+      generoMascota:'M',
+      nacimientoMascota: '24/10/1943',
       age: 24,
       status: 'active'
     },
     {
       id: 2,
       avatar:
-        'https://avatars.githubusercontent.com/u/59587859?s=400&u=e2c61934c682f1bc9a5d07dfb9cb172bf3cf8b9c&v=4',
-      name: 'Kevin Cruz',
-      email: 'kcruz@hotmail.com',
+        'https://e7.pngegg.com/pngimages/623/575/png-clipart-bulldog-computer-icons-pet-others-miscellaneous-pet.png',
+      nombreMascota: 'Negra',
+      generoMascota:'F',
+      nacimientoMascota: '24/10/1943',
       age: 25,
       status: 'active'
     },
     {
       id: 3,
       avatar:
-        'https://avatars.githubusercontent.com/u/59587859?s=400&u=e2c61934c682f1bc9a5d07dfb9cb172bf3cf8b9c&v=4',
-      name: 'Jonathan Cruz',
-      email: 'jcruz@hotmail.com',
+        'https://e7.pngegg.com/pngimages/623/575/png-clipart-bulldog-computer-icons-pet-others-miscellaneous-pet.png',
+      nombreMascota: 'Kin',
+      generoMascota:'M',
+      nacimientoMascota: '24/10/1943',
       age: 27,
       status: 'active'
     }
@@ -46,24 +49,30 @@ export function Pets({ onOpenUpdatePetModal, onOpenCreatePetModal }: PetsProps) 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 100 },
     {
-      field: 'user',
-      headerName: 'Usuario',
+      field: 'nombreMascota',
+      headerName: 'Nombre',
       width: 250,
       renderCell: params => {
         return (
           <div className={styles.columnUserName}>
             <img src={params.row.avatar} alt="Avatar" />
-            {params.row.name}
+            {params.row.nombreMascota}
           </div>
         )
       }
     },
-    { field: 'email', headerName: 'Email', width: 200 },
+    { field: 'generoMascota', headerName: 'Genero', width: 130, align:'center' },
     {
-      field: 'age',
-      headerName: 'Age',
-      type: 'number',
-      width: 100
+      field: 'nacimientoMascota',
+      headerName: 'Nacimiento',
+      type: 'date',
+      width: 180,
+
+    },
+    {
+      field: 'dueñoMascota',
+      headerName: 'Dueño',
+      width: 150
     },
     {
       field: 'status',

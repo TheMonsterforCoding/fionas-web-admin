@@ -15,25 +15,82 @@ import api from '../../../services/api'
 interface CreateUserModalProps {
   isOpen: boolean
   onRequestClose: () => void
+  validarFirstName(value:string):()=> []
+  validarPassword(password:string, password2:string):()=> []
+  validarMail(mail:string):()=> []
+  validarMobileNumber(mobileNumber:string):()=> []
+  validarCpf(cpf:string):()=> []
+  validarAddress(address:string):()=> []
+  validarLastName(lastName:string):()=> []
 }
 
 export function CreateUserModal({
   isOpen,
-  onRequestClose
+  onRequestClose,
+  validarFirstName,
+  validarPassword,
+  validarMail,
+  validarCpf,
+  validarMobileNumber,
+  validarAddress,
+  validarLastName
 }: CreateUserModalProps) {
-  const [cpf, setCpf] = useState('')
+  var [cpf, setCpf] = useState('')
   // const [avatar, setAvatar] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
+  var [firstName, setFirstName] = useState('')
+  var [lastName, setLastName] = useState('')
   const [gender, setGender] = useState(false)
-  const [password, setPassword] = useState('')
-  const [password2, setPassword2] = useState('')
+  var [password, setPassword] = useState('')
+  var [password2, setPassword2] = useState('')
   const [yearOfBirth, setYearOfBirth] = useState(1900)
-  const [address, setAddress] = useState('')
-  const [mail, setMail] = useState('')
-  const [mobileNumber, setMobileNumber] = useState(0)
-  const [state, setState] = useState(false)
 
+  var [address, setAddress] = useState('')
+  var [mail, setMail] = useState('')
+  var [mobileNumber, setMobileNumber] = useState('')
+
+  const [state, setState] = useState(false)
+  
+  //validación password
+  var mensajePassword="";
+  var mensajePassword2="";
+  var mensajeFirstName="";
+  var mensajeMail="";
+  var passwordArray = validarPassword(password, password2)
+  password=passwordArray[0]
+  password2=passwordArray[1]
+  mensajePassword=passwordArray[2]
+  //validación nombre
+  var firstNameArray=validarFirstName(firstName)
+  firstName=firstNameArray[0]
+  mensajeFirstName=firstNameArray[1]
+  //validación mail
+  var mailArray=validarMail(mail)
+  mail=mailArray[0]
+  //validación mobile
+  var mensajeMobileNumber="";
+  var mobileNumberArray=validarMobileNumber(mobileNumber)
+  mobileNumber=mobileNumberArray[0]
+  mensajeMobileNumber=mobileNumberArray[1]
+  //validación cpf
+  var mensajeCpf="";
+  var cpfArray=validarCpf(cpf)
+  cpf=cpfArray[0]
+  mensajeCpf=cpfArray[1]
+//validación address
+  var mensajeAddress="";
+  var addressArray=validarAddress(address)
+  address=addressArray[0]
+  mensajeAddress=addressArray[1]
+  //validación lasName
+  var mensajeLastName="";
+  var lastNameArray=validarLastName(lastName)
+  lastName=lastNameArray[0]
+  mensajeLastName=lastNameArray[1]
+  
+  
+
+
+  var mensajeMail=mailArray[1]
   async function handleSubmit(event: FormEvent) {
     // event.preventDefault()
 
@@ -75,6 +132,7 @@ export function CreateUserModal({
     })
   }
 
+
   return (
     <Modal
       isOpen={isOpen}
@@ -97,6 +155,7 @@ export function CreateUserModal({
             <div className={styles.userCreateLeft}>
               <span className={styles.subtitleUserCreate}>Detalhes do Usuario</span>
               <div className={styles.inputBlock}>
+                <label id="mensajeCpf">{mensajeCpf}</label>
                 <label htmlFor="cpf">CPF</label>
                 <input
                   type="text"
@@ -109,9 +168,11 @@ export function CreateUserModal({
               </div>
 
               <div className={styles.inputBlock}>
+                <label id="mensajeFirstName">{mensajeFirstName}</label>
                 <label htmlFor="firstName">Nome</label>
                 <input
                   type="text"
+                  onBlur={e => {console.log("hola")}}
                   id="firstName"
                   value={firstName}
                   onChange={event => setFirstName(event.target.value)}
@@ -121,6 +182,7 @@ export function CreateUserModal({
               </div>
 
               <div className={styles.inputBlock}>
+                <label id="mensajeLastName">{mensajeLastName}</label>
                 <label htmlFor="lastName">Sobrenome</label>
                 <input
                   type="text"
@@ -167,6 +229,7 @@ export function CreateUserModal({
               </div>
 
               <div className={styles.inputBlock}>
+                <label id="mensajePassword">{mensajePassword}</label>
                 <label htmlFor="password">Contrasenha</label>
                 <input
                   type="password"
@@ -179,6 +242,7 @@ export function CreateUserModal({
               </div>
 
               <div className={styles.inputBlock}>
+                <label id="mensajePasword2"></label>
                 <label htmlFor="password2">Repetir contrasenha</label>
                 <input
                   type="password"
@@ -194,6 +258,7 @@ export function CreateUserModal({
             <div className={styles.userCreateCenter}>
               <span className={styles.subtitleUserCreate}>Contato e localização</span>
               <div className={styles.inputBlock}>
+                <label id="mensajeAddress">{mensajeAddress}</label>
                 <label htmlFor="address">Endereço</label>
                 <input
                   type="text"
@@ -206,6 +271,7 @@ export function CreateUserModal({
               </div>
 
               <div className={styles.inputBlock}>
+                <label id="mensajeMail"> {mensajeMail} </label>
                 <label htmlFor="mail">Email</label>
                 <input
                   type="email"
@@ -218,6 +284,7 @@ export function CreateUserModal({
               </div>
 
               <div className={styles.inputBlock}>
+                <label id="mensajeMobileNumber">{mensajeMobileNumber} </label>
                 <label htmlFor="mobileNumber">Número celular</label>
                 <input
                   type="text"
