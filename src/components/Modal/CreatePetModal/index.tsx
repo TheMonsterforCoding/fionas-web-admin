@@ -37,18 +37,18 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
   var arrayValidarNombreMascota= validarNombreMascota(nombreMascota);
   nombreMascota=arrayValidarNombreMascota[0];
   var mensajeNombreMascota=arrayValidarNombreMascota[1];
+  var validadorNombreMascota=arrayValidarNombreMascota[2];
   //validar raza
   var arrayValidarBreed= validarBreed(breed);
   breed=arrayValidarBreed[0];
   var mensajeBreed=arrayValidarBreed[1];
+  var validadorBreed=arrayValidarBreed[2];
   //validar tamaño
-  var arrayValidarSize= validarSize(size);
-  size=arrayValidarSize[0];
-  var mensajeSize=arrayValidarSize[1];
+
   
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
-
+    if(validadorNombreMascota && validadorBreed){
     await api
     .post('/pets', {
       name: nombreMascota,
@@ -78,6 +78,11 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
       console.log(error)
       toast.error('Dados de Pet incorreto!')
     })
+  }else{
+    toast.error('Dados de Pet incorreto!')
+    event.preventDefault()
+  }
+
   }
   return (
     <Modal
@@ -115,18 +120,6 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
                 />
               </div>
 
-              <div className={styles.inputBlock}>
-              <label id="mensajeSize">{mensajeSize}</label> 
-                <label htmlFor="size">Size</label>
-                <input
-                  type="text"
-                  id="size"
-                  value={size}
-                  onChange={event => setSize(event.target.value)}
-                  placeholder="Size"
-                  required
-                />
-              </div>
 
               <div className={styles.inputBlock}>
               <label id="mensajeYearOfBirth"></label> 
@@ -141,6 +134,26 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
                 />
               </div>
 
+              <div className={styles.inputBlock}>
+                <label htmlFor="genderId">Estado</label>
+                <div className={styles.selectTypeContainer}>
+                  <button
+                    type="button"
+                    onClick={() => setGenderId(true)}
+                    className={genderId ? styles.active : styles.disabled}
+                  >
+                    Masculino
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setGenderId(false)}
+                    className={!genderId ? styles.active : styles.disabled}
+                  >
+                    Femenino
+                  </button>
+                </div>
+              </div>
 
             </div>
 
@@ -161,12 +174,12 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
 
 
               <div className={styles.inputBlock}>
-                <label htmlFor="dueño">Dueño</label>
+                <label htmlFor="size">Tamaño</label>
                 <div className={styles.selectBlock}>
-                 <select name="dueño" id="dueño" onChange={event => setDueño(event.target.value)}required>
-                  <option value="">Selecione</option>
-                  <option value="">Selecione</option>
-                  <option value="">Selecione</option>
+                 <select name="size" id="size"  onChange={event => setSize(event.target.value)}>
+                  <option value="Grande">Grande</option>
+                  <option value="Mediano">Mediano</option>
+                  <option value="Pequeño">Pequeño</option>
                   </select>
                   </div>
               </div>

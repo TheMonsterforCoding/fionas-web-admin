@@ -32,7 +32,7 @@ interface PetType {
   petId: string
   name: string
   gender: string
-  dateBirth: string
+  year_of_birth: string
   size: string
   breed: string
   state: boolean
@@ -47,7 +47,7 @@ export function UpdatePetModal({ isOpen, onRequestClose,idPet }: UpdatePetModalP
     petId: 'loading',
     name: 'loading',
     gender: 'loading',
-    dateBirth: 'loading',
+    year_of_birth: 'loading',
     size: 'loading',
     breed: 'loading',
     state: false,
@@ -105,7 +105,7 @@ export function UpdatePetModal({ isOpen, onRequestClose,idPet }: UpdatePetModalP
               </div>
               <div className={styles.userInfo}>
                 <Watch />
-                <span>{pets.dateBirth}</span>
+                <span>{pets.year_of_birth}</span>
               </div>
               <div className={styles.userInfo}>
                 <MapPin />

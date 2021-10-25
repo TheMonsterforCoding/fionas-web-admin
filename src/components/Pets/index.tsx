@@ -17,7 +17,7 @@ interface PetType{
   petId: string
   name: string
   gender: string
-  dateBirth: string
+  year_of_birth: string
   size: string
   breed: string
   state: boolean
@@ -48,7 +48,7 @@ export function Pets({ onOpenUpdatePetModal, onOpenCreatePetModal }: PetsProps) 
       width: 125
     },
     {
-      field: 'dateBirth',
+      field: 'year_of_birth',
       headerName: 'Nacimiento',
       width: 150
     },

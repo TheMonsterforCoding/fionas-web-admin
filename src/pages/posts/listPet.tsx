@@ -32,33 +32,40 @@ export default function listPet() {
 //validar nombre de la mascota
   function validarNombreMascota(nombreMascota : string) {
     var encontrarNumero=new RegExp(/\d/);
+    var validador=false
     var mensajeNombreMascota = "";
     if(encontrarNumero.test(nombreMascota)){
       mensajeNombreMascota="El nombre de mascota no puede tener números"
+    }else if(!encontrarNumero.test(nombreMascota)){
+      validador=true
+
     }else if(nombreMascota.length>=10){
        mensajeNombreMascota="Un nombre de mascota no puede tener más de 10 caracteres"
-    }
-    return [nombreMascota,mensajeNombreMascota]
+       validador=false
+  }else if(nombreMascota.length==0){
+    validador=false
   }
-  //validar tamaño
-  function validarSize(size:string){
-    var mensajeSize= "";
-    const encontrarLetra=new RegExp(/\D/);
-    if(size.length>3){
-       size=size[0]+size[1]+size[2];
-    }
-    if(encontrarLetra.test(size)){
-      mensajeSize="No sé puede poner caracteres que no sean numeros"
-    }
-    return[size,mensajeSize]
+    return [nombreMascota,mensajeNombreMascota,validador]
   }
+
   //validar raza
   function validarBreed(breed:string){
+    var validador=false;
     var mensajeBreed="";
-    if(breed.length>=6){
-      mensajeBreed="La breed no puede tener más de 6 caracteres"
+    var encontrarNumero=new RegExp(/\d/);
+    if(breed.length>1){
+    
+    if(breed.length>=12){
+      mensajeBreed="La raza no puede tener más de 12 caracteres"
+    }else if(breed.length<=2){
+      mensajeBreed="La raza no puede tener menos de 2 caracteres"
+    }else if(encontrarNumero.test(breed)){
+      mensajeBreed="La raza no puede tener números"
+    }else{
+      validador=true
     }
-    return [breed,mensajeBreed]
+  }
+    return [breed,mensajeBreed, validador]
   }
 
 
@@ -70,7 +77,6 @@ export default function listPet() {
       <CreatePetModal isOpen={isCreatePetModal}
        onRequestClose={handleCloseCreatePetModal} 
        validarNombreMascota={validarNombreMascota}
-       validarSize={validarSize}
        validarBreed={validarBreed} />
     </>
 
