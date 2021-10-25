@@ -34,7 +34,6 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
   const [dueño, setDueño] = useState('')
   const [state, setState] = useState(false)
   
-  
   var arrayValidarNombreMascota= validarNombreMascota(nombreMascota);
   nombreMascota=arrayValidarNombreMascota[0];
   var mensajeNombreMascota=arrayValidarNombreMascota[1];
@@ -69,7 +68,7 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
       setId('')
       setNombreMascota('')
       setSize('')
-      setGenderId(false)
+      setGenderId(false)  
       setYearOfBirth('')
       setBreed('')
       setCreatedAt('')

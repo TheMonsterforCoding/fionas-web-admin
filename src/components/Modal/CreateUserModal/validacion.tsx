@@ -16,18 +16,7 @@ function validarPassword2(){
 
 }
 //function valdate mobileNumber
-export const mensajeMobileNumber= document.getElementById("mensajeMobileNumber");
-export const mobileNumberEvento= document.getElementById("mobileNumber");
-mobileNumberEvento.addEventListener("keypress", validarMobileNumber)
-function validarMobileNumber(){
-    let mobileNumber = document.getElementById("mobileNumber");
-    let mobileNumberValido = /^[0-9]{10}$/;
-    if(mobileNumberValido.test(mobileNumber.value)){
-        mensajeMobileNumber.value=""
-    }else{
-        mensajeMobileNumber.value="El formato tiene que ser solo número";
-    }
-    }
+
 mobileNumberEvento.addEventListener("focusout", validarMobileNumberDesFocus)
 function validarMobileNumberDesFocus(){
     let mobileNumber = document.getElementById("mobileNumber");

@@ -87,8 +87,52 @@ function validarMail(mail:string){
   }
   return [mail,mensajeMail]
 }
+//función para celular
 
- 
+function validarMobileNumber(mobileNumber:string){
+  var mensajeMobileNumber=""
+  let mobileNumberValido = /^[0-9]{10}$/;
+  if(mobileNumberValido.test(mobileNumber)){
+      mensajeMobileNumber=""
+  }else{
+      mensajeMobileNumber="El formato tiene que ser solo número";
+  }
+  return [mobileNumber,mensajeMobileNumber]
+  }
+//validar cpf
+function validarCpf(cpf:string){
+  var mensajeCPF=""
+  let cpfValido = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$$/;
+  if(cpfValido.test(cpf)){
+      mensajeCPF=""
+  }else{
+      mensajeCPF="El formato del cpf es incorrecto xxx.xxx.xxx-xx";
+  }
+  return [cpf,mensajeCPF]
+  }
+//function validar address
+function validarAddress(address:string){
+  var mensajeAddress=""
+  if(address.length>=1){
+    if (address.length>10){
+      mensajeAddress="La dirección no puede tener más de 10 caracteres"
+    }
+  }
+  return[address,mensajeAddress]
+}
+//function validar apellido
+function validarLastName(lastName:string){
+  var mensajeLastName=""
+  var apellidoValido = /^[a-zA-Z]{2,}$/;
+  if(lastName.length>=1){
+    if(apellidoValido.test(lastName)){
+          mensajeLastName="";
+    }else{
+        mensajeLastName="El apellido no es valido "
+    }
+  }
+  return [lastName,mensajeLastName]
+}
 
   return (
     <div style={{ display: 'flex' }}>
@@ -109,6 +153,10 @@ function validarMail(mail:string){
         validarFirstName={validarFirstName}
         validarPassword={validarPassword}
         validarMail={validarMail}
+        validarCpf={validarCpf}
+        validarAddress={validarAddress}
+        validarMobileNumber={validarMobileNumber}
+        validarLastName={validarLastName}
         validarNombreOutFoco={validarNombreOutFoco}
       />
     </div>
