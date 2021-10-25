@@ -6,17 +6,18 @@
 
   .table {
     width: 100%;
+    min-width: 450px;
     margin: 1rem 0;
 
     .lineTitle {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
+      grid-template-columns: 2fr 1fr 0.8fr 1fr;
       align-items: center;
     }
 
     .line {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
+      grid-template-columns: 2fr 1fr 0.8fr 1fr;
       align-items: center;
 
       margin: 1rem 0;
@@ -26,9 +27,11 @@
         gap: 0.5rem;
 
         img {
-          width: 42.5px;
-          height: 42.5px;
+          width: 40px;
+          height: 40px;
           border-radius: 50%;
+
+          padding-bottom: auto;
         }
 
         .info {
