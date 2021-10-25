@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 import { Home, User, Compass } from '@styled-icons/feather'
+=======
+import { Home, User, Compass, PieChart, Heart, MapPin } from '@styled-icons/feather'
+>>>>>>> Stashed changes
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -73,6 +77,42 @@ export function Sidebar() {
               </Link>
             </li>
 
+<<<<<<< Updated upstream
+=======
+            {/* Pets */}
+            <li>
+              <Link href="/posts/listPet" passHref>
+                <a>
+                  <div id={styles.menuBox}>
+                    <div className={styles.content}>
+                      <div className={styles.contentLeft}>
+                        <Heart />
+                        <span>Pets</span>
+                      </div>
+                      <></>
+                    </div>
+                  </div>
+                </a>
+              </Link>
+            </li>
+
+            <li>
+              <Link href="/posts/taxiDog" passHref>
+                <a>
+                  <div id={styles.menuBox}>
+                    <div className={styles.content}>
+                      <div className={styles.contentLeft}>
+                        <Compass />
+                        <span>Taxi Dog</span>
+                      </div>
+                      <></>
+                    </div>
+                  </div>
+                </a>
+              </Link>
+            </li>
+
+>>>>>>> Stashed changes
             {/* Statics */}
             <li>
               <Link href="#">
