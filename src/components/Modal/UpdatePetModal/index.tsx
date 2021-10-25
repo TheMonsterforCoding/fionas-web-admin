@@ -12,7 +12,6 @@ import {
   Watch,
   ToggleLeft,
   UserCheck,
-  Upload,
   Phone,
   MapPin
 } from '@styled-icons/feather'
@@ -27,6 +26,7 @@ import api from '../../../services/api'
 interface UpdatePetModalProps {
   isOpen: boolean
   onRequestClose: () => void
+  idPet: string
 }
 interface PetType {
   petId: string
@@ -41,7 +41,7 @@ interface PetType {
 }
 
 
-export function UpdatePetModal({ isOpen, onRequestClose }: UpdatePetModalProps) {
+export function UpdatePetModal({ isOpen, onRequestClose,idPet }: UpdatePetModalProps) {
   
   const [pets, setPets] = useState<PetType>({
     petId: 'loading',
@@ -58,13 +58,13 @@ export function UpdatePetModal({ isOpen, onRequestClose }: UpdatePetModalProps) 
   
   useEffect(() => {
     async function loadPetsData() {
-      await api.get(`/users/7cf281d4-ce39-4373-ba18-2e346881bdbf`)
+      await api.get(`/pets/${idPet}`)
         .then(response => {setPets(response.data)
       })
     }
 
     loadPetsData()
-  }, [])
+  }, [idPet])
   
   return (
     <Modal

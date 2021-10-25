@@ -7,9 +7,13 @@ import { UpdatePetModal } from '../../components/Modal/UpdatePetModal';
 export default function listPet() {
   const [isUpdatePetModal, setIsUpdatePetModal ] = useState(false)
   const [isCreatePetModal, setIsCreatePetModal ] = useState(false)
+  const [idPetsToUpdate, setIdPetsToUpdate] = useState('')
 
-  function handleOpenUpdatePetModal() {
+  function handleOpenUpdatePetModal(id: string) {
     setIsUpdatePetModal(true)
+
+    // console.log(id)
+    setIdPetsToUpdate(id)
   }
 
   function handleCloseUpdatePetModal() {
@@ -60,9 +64,9 @@ export default function listPet() {
 
   return (
     <>
-      <Pets onOpenUpdatePetModal={handleOpenUpdatePetModal} onOpenCreatePetModal={handleOpenCreatePetModal} />
+      <Pets onOpenUpdatePetModal={handleOpenUpdatePetModal} onOpenCreatePetModal={handleOpenCreatePetModal}  />
 
-      <UpdatePetModal isOpen={isUpdatePetModal} onRequestClose={handleCloseUpdatePetModal} />
+      <UpdatePetModal isOpen={isUpdatePetModal} onRequestClose={handleCloseUpdatePetModal} idPet={idPetsToUpdate}/>
       <CreatePetModal isOpen={isCreatePetModal}
        onRequestClose={handleCloseCreatePetModal} 
        validarNombreMascota={validarNombreMascota}
