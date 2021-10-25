@@ -176,7 +176,8 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
               <div className={styles.inputBlock}>
                 <label htmlFor="size">Tamaño</label>
                 <div className={styles.selectBlock}>
-                 <select name="size" id="size"  onChange={event => setSize(event.target.value)}>
+                 <select name="size" id="size" required onChange={event => setSize(event.target.value)}>
+                  <option value="">Seleccione</option>
                   <option value="Grande">Grande</option>
                   <option value="Mediano">Mediano</option>
                   <option value="Pequeño">Pequeño</option>
