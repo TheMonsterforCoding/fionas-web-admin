@@ -21,6 +21,7 @@ interface CreateUserModalProps {
   validarMobileNumber(mobileNumber:string):()=> []
   validarCpf(cpf:string):()=> []
   validarAddress(address:string):()=> []
+  validarLastName(lastName:string):()=> []
 }
 
 export function CreateUserModal({
@@ -31,7 +32,8 @@ export function CreateUserModal({
   validarMail,
   validarCpf,
   validarMobileNumber,
-  validarAddress
+  validarAddress,
+  validarLastName
 }: CreateUserModalProps) {
   var [cpf, setCpf] = useState('')
   // const [avatar, setAvatar] = useState('')
@@ -64,7 +66,7 @@ export function CreateUserModal({
   mail=mailArray[0]
   //validación mobile
   var mensajeMobileNumber="";
-  var mobileNumberArray=validarMail(mobileNumber)
+  var mobileNumberArray=validarMobileNumber(mobileNumber)
   mobileNumber=mobileNumberArray[0]
   mensajeMobileNumber=mobileNumberArray[1]
   //validación cpf
@@ -79,7 +81,7 @@ export function CreateUserModal({
   mensajeAddress=addressArray[1]
   //validación lasName
   var mensajeLastName="";
-  var lastNameArray=validarFirstName(lastName)
+  var lastNameArray=validarLastName(lastName)
   lastName=lastNameArray[0]
   mensajeLastName=lastNameArray[1]
   

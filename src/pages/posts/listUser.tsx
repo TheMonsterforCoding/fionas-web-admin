@@ -30,15 +30,15 @@ export default function listUser() {
   function handleCloseCreateUserModal() {
     setIsCreateUserModal(false)
   }
-//funciones para validar nombre
+  
    function validarFirstName(firstName: string){
     var mensajeFirstName="";
-    var nombreValido = /^[a-zA-Z]{2,}$/;
+    var nombreValido = /\D/;
     if(firstName.length>=1){
     if(nombreValido.test(firstName)){
          mensajeFirstName="";
     }else{
-        mensajeFirstName="El nombre no es valido "
+        mensajeFirstName="No se permiten números en el nombre"
     }
    }
     return [firstName,mensajeFirstName];
@@ -79,23 +79,27 @@ export default function listUser() {
 //Funcion para mail
 function validarMail(mail:string){
   var mensajeMail=""; 
+  if(mail.length>=1){
   let mailValido = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
   if(mailValido.test(mail)){
       mensajeMail="";
   }else{
       mensajeMail="El formato tiene que ser un mail";
   }
+}
   return [mail,mensajeMail]
 }
 //función para celular
 
 function validarMobileNumber(mobileNumber:string){
   var mensajeMobileNumber=""
-  let mobileNumberValido = /^[0-9]{10}$/;
+  let mobileNumberValido = /\d/;
+  if(mobileNumber.length>=1){
   if(mobileNumberValido.test(mobileNumber)){
       mensajeMobileNumber=""
   }else{
       mensajeMobileNumber="El formato tiene que ser solo número";
+  }
   }
   return [mobileNumber,mensajeMobileNumber]
   }
@@ -103,19 +107,21 @@ function validarMobileNumber(mobileNumber:string){
 function validarCpf(cpf:string){
   var mensajeCPF=""
   let cpfValido = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$$/;
+  if(cpf.length>=1){
   if(cpfValido.test(cpf)){
       mensajeCPF=""
   }else{
       mensajeCPF="El formato del cpf es incorrecto xxx.xxx.xxx-xx";
   }
+}
   return [cpf,mensajeCPF]
   }
 //function validar address
 function validarAddress(address:string){
   var mensajeAddress=""
   if(address.length>=1){
-    if (address.length>10){
-      mensajeAddress="La dirección no puede tener más de 10 caracteres"
+    if (address.length>25){
+      mensajeAddress="La dirección no puede tener más de 25 caracteres"
     }
   }
   return[address,mensajeAddress]
@@ -128,7 +134,7 @@ function validarLastName(lastName:string){
     if(apellidoValido.test(lastName)){
           mensajeLastName="";
     }else{
-        mensajeLastName="El apellido no es valido "
+      mensajeFirstName="No se permiten ni signos especiales ni números"
     }
   }
   return [lastName,mensajeLastName]
