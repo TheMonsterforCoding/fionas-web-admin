@@ -9,7 +9,7 @@
 }
 
 .Modal {
-  --height: calc(100vh - 660px);
+  --height: calc(100vh - 580px);
   --width: calc(100vw - 1000px);
 
   position: absolute;
@@ -18,7 +18,7 @@
   right: auto;
   bottom: auto;
   width: 1000px;
-  height: 660px;
+  height: 580px;
   background-color: var(--background);
   border-radius: 0.5rem;
 }

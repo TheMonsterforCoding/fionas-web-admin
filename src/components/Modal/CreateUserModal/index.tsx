@@ -31,11 +31,11 @@ export function CreateUserModal({
   const [yearOfBirth, setYearOfBirth] = useState(1900)
   const [address, setAddress] = useState('')
   const [mail, setMail] = useState('')
-  const [mobileNumber, setMobileNumber] = useState('')
+  const [mobileNumber, setMobileNumber] = useState(0)
   const [state, setState] = useState(false)
 
   async function handleSubmit(event: FormEvent) {
-    event.preventDefault()
+    // event.preventDefault()
 
     await api
     .post('/users', {
@@ -53,7 +53,7 @@ export function CreateUserModal({
     })
     .then(function (response) {
       console.log(response)
-      toast.success('Usuario cadastrado com susseso!')
+      toast.success('Usuário cadastrado com susseso!')
 
       setCpf('')
       setFirstName('')
@@ -64,7 +64,7 @@ export function CreateUserModal({
       setYearOfBirth(1900)
       setAddress('')
       setMail('')
-      setMobileNumber('')
+      setMobileNumber(0)
       setState(false)
 
       onRequestClose()
@@ -208,7 +208,7 @@ export function CreateUserModal({
               <div className={styles.inputBlock}>
                 <label htmlFor="mail">Email</label>
                 <input
-                  type="text"
+                  type="email"
                   id="mail"
                   value={mail}
                   onChange={event => setMail(event.target.value)}
@@ -223,7 +223,7 @@ export function CreateUserModal({
                   type="text"
                   id="mobileNumber"
                   value={mobileNumber}
-                  onChange={event => setMobileNumber(event.target.value)}
+                  onChange={event => setMobileNumber(Number(event.target.value))}
                   placeholder="Número celular"
                   required
                 />

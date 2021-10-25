@@ -72,7 +72,7 @@ export function Users({
           <>
             <Button onClick={() => onOpenUpdateUserModal(user.row.id)} >
               <Edit2 className={styles.columnUserButtonEdit} />
-              {user.row.id}
+              Editar
             </Button>
           </>
         )
