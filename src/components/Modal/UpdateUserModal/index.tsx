@@ -75,7 +75,7 @@ export function UpdateUserModal({
   var [mobileNumber, setMobileNumber] = useState('')
   var [state, setState] = useState(false)
 
-   var [newCpf, setNewCpf] = useState(null)
+  //  var [newCpf, setNewCpf] = useState(null)
   // var [newFirstName, setNewFirstName] = useState('')
   // var [newLastName, setNewLastName] = useState('')
   // var [newMail, setNewMail] = useState('')
@@ -85,13 +85,13 @@ export function UpdateUserModal({
   async function handleSubmit(event: FormEvent) {
    event.preventDefault()
 
-    if (Object.keys(cpf).length === 0) {
-       setNewCpf(user.cpf)
-     } else {
-       setNewCpf(cpf)
-     }
+    // if (Object.keys(cpf).length === 0) {
+    //    setNewCpf(user.cpf)
+    //  } else {
+    //    setNewCpf(cpf)
+    //  }
 
-     console.log(newCpf)
+    //  console.log(newCpf)
     // if(firstName.length === 0) {
     //   setNewFirstName(user.first_name)
     // } else {
