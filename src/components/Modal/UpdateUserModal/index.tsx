@@ -21,7 +21,7 @@ import { Button } from '../../Button'
 import styles from './styles.module.scss'
 
 import api from '../../../services/api'
-import toast from 'react-hot-toast'
+// import toast from 'react-hot-toast'
 
 interface UpdateUserModalProps {
   isOpen: boolean
