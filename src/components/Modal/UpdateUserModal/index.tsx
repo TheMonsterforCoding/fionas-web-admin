@@ -1,6 +1,7 @@
 import { useEffect, useState, FormEvent } from 'react'
 import Modal from 'react-modal'
 import Image from 'next/image'
+import toast from 'react-hot-toast'
 
 import {
   Edit2,
@@ -21,7 +22,6 @@ import { Button } from '../../Button'
 import styles from './styles.module.scss'
 
 import api from '../../../services/api'
-// import toast from 'react-hot-toast'
 
 interface UpdateUserModalProps {
   isOpen: boolean
@@ -37,10 +37,10 @@ interface UserType {
   last_name: string
   gender: boolean
   password: string
-  year_of_birth: string
+  year_of_birth: number
   address: string
   mail: string
-  mobile_number: string
+  mobile_number: number
   state: boolean
   created_at: string
   updated_at: string
@@ -59,125 +59,84 @@ export function UpdateUserModal({
     last_name: 'loading',
     gender: true,
     password: 'loading',
-    year_of_birth: 'loading',
+    year_of_birth: 0,
     address: 'loading',
     mail: 'loading',
-    mobile_number: 'loading',
+    mobile_number: 0,
     state: false,
     created_at: 'loading',
-    updated_at: 'loading',
+    updated_at: 'loading'
   })
 
-  var [cpf, setCpf] = useState(null)
-  var [firstName, setFirstName] = useState('')
-  var [lastName, setLastName] = useState('')
-  var [mail, setMail] = useState('')
-  var [mobileNumber, setMobileNumber] = useState('')
-  var [state, setState] = useState(false)
-
-  //  var [newCpf, setNewCpf] = useState(null)
-  // var [newFirstName, setNewFirstName] = useState('')
-  // var [newLastName, setNewLastName] = useState('')
-  // var [newMail, setNewMail] = useState('')
-  // var [newMobileNumber, setNewMobileNumber] = useState('')
-  // var [newState, setNewState] = useState(false)
-
-  async function handleSubmit(event: FormEvent) {
-   event.preventDefault()
-
-    // if (Object.keys(cpf).length === 0) {
-    //    setNewCpf(user.cpf)
-    //  } else {
-    //    setNewCpf(cpf)
-    //  }
-
-    //  console.log(newCpf)
-    // if(firstName.length === 0) {
-    //   setNewFirstName(user.first_name)
-    // } else {
-    //   setNewFirstName(firstName)
-    // }
-
-    // if(lastName.length === 0) {
-    //   setNewLastName(user.last_name)
-    // } else {
-    //   setNewLastName(lastName)
-    // }
-
-    // if(mail.length === 0) {
-    //   setNewMail(user.mail)
-    // } else {
-    //   setNewMail(mail)
-    // }
-
-    // if(mobileNumber.length === 0) {
-    //   setNewMobileNumber(user.mobile_number)
-    // } else {
-    //   setNewMobileNumber(mobileNumber)
-    // }
-    // if(state != null) {
-    //   setNewState(user.state)
-    // } else {
-    //   setNewState(state)
-    // }
-
-
-    // console.log(newFirstName)
-    // console.log(newLastName)
-    // console.log(newMail)
-    // console.log(newMobileNumber)
-    // console.log(newState)
-
-    // console.log(cpf)
-    // console.log(firstName)
-    // console.log(lastName)
-    // console.log(mail)
-    // console.log(mobileNumber)
-    // console.log(state)
-    /*await api
-    .put(`/users/${idUser}`, {
-      cpf: cpf,
-      first_name: firstName,
-      last_name: lastName,
-      mail: mail,
-      mobile_number: mobileNumber,
-      state: state
-    })
-    .then((response) => {
-      console.log(response)
-      toast.success('Usuário atualizado com susseso!')
-
-      setCpf('')
-      setFirstName('')
-      setLastName('')
-      setMail('')
-      setMobileNumber('')
-      setState(false)
-
-      onRequestClose()
-    })*/
-  }
+  const [cpf, setCpf] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [mail, setMail] = useState('')
+  const [mobileNumber, setMobileNumber] = useState(0)
+  const [state, setState] = useState(false)
 
   useEffect(() => {
-    async function loadUserData() {
-      await api.get(`/users/${idUser}`)
-        .then(response => {
-          setUser(response.data)
-      })
-    }
+    api.get(`/users/${idUser}`).then(response => {
+      setUser(response.data)
+    })
 
-
-    loadUserData()
+    setCpf(user.cpf)
+    setFirstName(user.first_name)
+    setLastName(user.last_name)
+    setMail(user.mail)
+    setMobileNumber(user.mobile_number)
+    setState(user.state)
   }, [idUser])
 
-  function loadQlos(){
-    setCpf(user.cpf);
+  function handleOnRequestClose() {
+    setCpf('')
+    setFirstName('')
+    setLastName('')
+    setMail('')
+    setMobileNumber(0)
+    setState(false)
+
+    onRequestClose()
+  }
+
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault()
+
+    console.log(cpf)
+    console.log(firstName)
+    console.log(lastName)
+    console.log(mail)
+    console.log(mobileNumber)
+    console.log(state)
+
+    // await api
+    //   .put(`/users/${idUser}`, {
+    //     cpf: cpf,
+    //     first_name: firstName,
+    //     last_name: lastName,
+    //     mail: mail,
+    //     mobile_number: mobileNumber,
+    //     state: state
+    //   })
+    //   .then(response => {
+    //     console.log(response)
+    //     toast.success('Usuário atualizado com susseso!')
+
+    //     setCpf('')
+    //     setFirstName('')
+    //     setLastName('')
+    //     setMail('')
+    //     setMobileNumber(0)
+    //     setState(false)
+
+    //     onRequestClose()
+    //   })
   }
 
   return (
     <Modal
       isOpen={isOpen}
-      onRequestClose={onRequestClose}
+      onRequestClose={handleOnRequestClose}
       className={styles.Modal}
       overlayClassName={styles.Overlay}
     >
@@ -201,7 +160,8 @@ export function UpdateUserModal({
             </header>
 
             <main>
-              <span className={styles.titleMain}>Detalhes do Usuario</span> {/* - Detalhes do Usuario - */}
+              <span className={styles.titleMain}>Detalhes do Usuario</span>{' '}
+              {/* - Detalhes do Usuario - */}
               {/* ---------- Nome ---------- */}
               <div className={styles.userInfo}>
                 <User />
@@ -212,19 +172,15 @@ export function UpdateUserModal({
               {/* ---------- Gênero ---------- */}
               <div className={styles.userInfo}>
                 <Gen />
-                {user.gender ? (
-                  <span>masculino</span>
-                ) : (
-                  <span>Femenino</span>
-                )}
+                {user.gender ? <span>masculino</span> : <span>Femenino</span>}
               </div>
               {/* ---------- Ano de nascimento ---------- */}
               <div className={styles.userInfo}>
                 <Watch />
                 <span>{user.year_of_birth}</span>
               </div>
-
-              <span className={styles.titleMain}>Contato</span> {/* - Contato - */}
+              <span className={styles.titleMain}>Contato</span>{' '}
+              {/* - Contato - */}
               {/* ---------- Endereço ---------- */}
               <div className={styles.userInfo}>
                 <MapPin />
@@ -240,8 +196,8 @@ export function UpdateUserModal({
                 <Phone />
                 <span>{user.mobile_number}</span>
               </div>
-
-              <span className={styles.titleMain}>Detalhes da Conta</span> {/* - Detalhes da Conta - */}
+              <span className={styles.titleMain}>Detalhes da Conta</span>{' '}
+              {/* - Detalhes da Conta - */}
               {/* ---------- Estado ---------- */}
               <div className={styles.userInfo}>
                 <UserCheck />
@@ -267,7 +223,6 @@ export function UpdateUserModal({
                     type="text"
                     defaultValue={user.cpf}
                     onChange={event => setCpf(event.target.value)}
-                    placeholder={user.cpf}
                   />
                 </div>
                 {/* ---------- Nome ---------- */}
@@ -277,7 +232,6 @@ export function UpdateUserModal({
                     type="text"
                     defaultValue={user.first_name}
                     onChange={event => setFirstName(event.target.value)}
-                    placeholder={user.first_name}
                   />
                 </div>
                 {/* ---------- Sobrenome ---------- */}
@@ -287,7 +241,6 @@ export function UpdateUserModal({
                     type="text"
                     defaultValue={user.last_name}
                     onChange={event => setLastName(event.target.value)}
-                    placeholder={user.last_name}
                   />
                 </div>
                 {/* ---------- Email ---------- */}
@@ -297,7 +250,6 @@ export function UpdateUserModal({
                     type="email"
                     defaultValue={user.mail}
                     onChange={event => setMail(event.target.value)}
-                    placeholder={user.mail}
                   />
                 </div>
                 {/* ---------- Telefone ---------- */}
@@ -306,8 +258,9 @@ export function UpdateUserModal({
                   <input
                     type="number"
                     defaultValue={user.mobile_number}
-                    onChange={event => setMobileNumber(event.target.value)}
-                    placeholder={user.mobile_number}
+                    onChange={event =>
+                      setMobileNumber(Number(event.target.value))
+                    }
                   />
                 </div>
                 {/* ---------- Estado ---------- */}
