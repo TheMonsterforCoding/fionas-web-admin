@@ -1,40 +1,23 @@
-import { useState, useEffect } from 'react'
-
+import { useContext } from 'react'
 import { DataGrid, GridColDef } from '@material-ui/data-grid'
 import { Edit2, UserPlus } from '@styled-icons/feather'
 
 import { Button } from '../Button'
 
-import styles from './styles.module.scss'
+import { UsersContext } from '../../hooks/useUsers'
 
-import api from '../../services/api'
+import styles from './styles.module.scss'
 
 interface UsersProps {
   onOpenUpdateUserModal: any
   onOpenCreateUserModal: () => void
 }
 
-interface UserType {
-  id: string
-  cpf: string
-  first_name: string
-  last_name: string
-  mobile_number: number
-  state: boolean
-}
-
 export function Users({
   onOpenUpdateUserModal,
   onOpenCreateUserModal
 }: UsersProps) {
-  const [users, setUsers] = useState<UserType[]>([])
-
-  useEffect(() => {
-    api.get('/users').then(response => {
-      setUsers(response.data)
-      console.log(response.data)
-    })
-  }, [])
+  const { users } = useContext(UsersContext)
 
   const columns: GridColDef[] = [
     {
@@ -85,6 +68,7 @@ export function Users({
       <div className={styles.content}>
         <DataGrid
           rows={users}
+          rowsPerPageOptions={[9]}
           columns={columns}
           pageSize={9}
           checkboxSelection
