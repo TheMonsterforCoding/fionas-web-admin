@@ -5,7 +5,7 @@ import {
   useEffect,
   useContext
 } from 'react'
-import toast from 'react-hot-toast'
+import { AxiosResponse } from 'axios'
 
 import api from '../services/api'
 
@@ -29,7 +29,7 @@ type PetCreate = Omit<Pet, 'id' | 'created_at' | 'updated_at'>
 
 interface PetsContextData {
   pets: Pet[]
-  createPet: (pet: PetCreate) => Promise<void>
+  createPet: (pet: PetCreate) => Promise<AxiosResponse>
 }
 
 export const PetsContext = createContext<PetsContextData>({} as PetsContextData)
@@ -47,6 +47,8 @@ export function PetsProvider({ children }: PetsProviderProps) {
     const pet = response.data
 
     setPets([...pets, pet])
+
+    return response
   }
 
   return (
