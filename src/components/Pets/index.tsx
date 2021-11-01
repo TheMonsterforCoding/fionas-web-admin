@@ -1,19 +1,16 @@
-import Link from 'next/link'
-
-import { DataGrid, GridRowsProp, GridColDef } from '@material-ui/data-grid'
-import { Edit2, Heart } from '@styled-icons/feather'
+import { DataGrid, GridColDef } from '@material-ui/data-grid'
+import { Edit2 } from '@styled-icons/feather'
+import { usePets } from '../../hooks/usePets'
 
 import { Button } from '../Button'
 
 import styles from './styles.module.scss'
-import { useEffect, useState } from 'react'
-import api from '../../services/api'
 
 interface PetsProps {
   onOpenUpdatePetModal: any
   onOpenCreatePetModal: () => void
 }
-interface PetType{
+interface PetType {
   petId: string
   name: string
   gender: string
@@ -22,18 +19,14 @@ interface PetType{
   breed: string
   state: boolean
   createAt: string
-  dueñoMascota:string
+  dueñoMascota: string
 }
 
-export function Pets({ onOpenUpdatePetModal, onOpenCreatePetModal }: PetsProps) {
-  const [pets, setPets] = useState<PetType[]>([])
-
-  useEffect(() => {
-    api.get('/pets').then(response => {
-      setPets(response.data)
-      console.log(response.data)
-    })
-  }, [])
+export function Pets({
+  onOpenUpdatePetModal,
+  onOpenCreatePetModal
+}: PetsProps) {
+  const { pets } = usePets()
 
   const columns: GridColDef[] = [
     {
@@ -66,10 +59,10 @@ export function Pets({ onOpenUpdatePetModal, onOpenCreatePetModal }: PetsProps) 
       field: 'action',
       headerName: 'Ação',
       width: 150,
-      renderCell: (pet) => {
+      renderCell: pet => {
         return (
           <>
-            <Button onClick={() => onOpenUpdatePetModal(pet.row.id)} >
+            <Button onClick={() => onOpenUpdatePetModal(pet.row.id)}>
               <Edit2 className={styles.columnUserButtonEdit} />
               Editar
             </Button>
@@ -85,15 +78,14 @@ export function Pets({ onOpenUpdatePetModal, onOpenCreatePetModal }: PetsProps) 
         <DataGrid
           rows={pets}
           columns={columns}
+          rowsPerPageOptions={[9]}
           pageSize={9}
           checkboxSelection
           disableSelectionOnClick
           className={styles.datagrid}
         />
 
-        <Button onClick={onOpenCreatePetModal}>
-          Criar
-        </Button>
+        <Button onClick={onOpenCreatePetModal}>Criar</Button>
       </div>
     </div>
   )

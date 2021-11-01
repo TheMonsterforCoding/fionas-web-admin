@@ -1,85 +1,48 @@
-import React, { useState, FormEvent } from 'react'
-import Modal from 'react-modal'
+import { useState, FormEvent } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
+import Modal from 'react-modal'
+import { X, UserPlus } from '@styled-icons/feather'
 
+import { usePets } from '../../../hooks/usePets'
 import { Button } from '../../Button'
 
-import { X, Upload, UserPlus, Target } from '@styled-icons/feather'
-
 import styles from './styles.module.scss'
-
-import api from '../../../services/api'
-import ReactDOM from 'react-dom';
 
 interface CreatePetModalProps {
   isOpen: boolean
   onRequestClose: () => void
-  validarNombreMascota(nombreMascota: string):() => []
-  validarBreed(breed: string):() => []
-  validarSize(size: string):() => []
 }
 
-export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,validarBreed,validarSize }: CreatePetModalProps) {
-  const [ id, setId] = useState('')
-  // const [avatar, setAvatar] = useState('')
-  var [nombreMascota, setNombreMascota] = useState('')
-  var [size, setSize] = useState('')
-  const [genderId, setGenderId] = useState(false)
-  const [yearOfBirth, setYearOfBirth] = useState('')
-  var [breed, setBreed] = useState('')
-  const [createdAt, setCreatedAt] = useState('')
-  const [dueño, setDueño] = useState('')
-  const [state, setState] = useState(false)
+export function CreatePetModal({
+  isOpen,
+  onRequestClose
+}: CreatePetModalProps) {
+  const { createPet } = usePets()
 
-  var arrayValidarNombreMascota= validarNombreMascota(nombreMascota);
-  nombreMascota=arrayValidarNombreMascota[0];
-  var mensajeNombreMascota=arrayValidarNombreMascota[1];
-  var validadorNombreMascota=arrayValidarNombreMascota[2];
-  //validar raza
-  var arrayValidarBreed= validarBreed(breed);
-  breed=arrayValidarBreed[0];
-  var mensajeBreed=arrayValidarBreed[1];
-  var validadorBreed=arrayValidarBreed[2];
-  //validar tamaño
+  const [name, setName] = useState('')
+  const [size, setSize] = useState('')
+  const [gender, setGender] = useState(false)
+  const [yearOfBirth, setYearOfBirth] = useState(1900)
+  const [breed, setBreed] = useState('')
+  const [state, setState] = useState(false)
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
-    if(validadorNombreMascota && validadorBreed){
-    await api
-    .post('/pets', {
-      name: nombreMascota,
-      size: size,
-      gender: genderId,
-      year_of_birth: 2012,
-      breed: breed,
-      state: state
-    })
-    .then(function (response) {
-      console.log(response)
-      toast.success('Pet cadastrado com susseso!')
 
-      setId('')
-      setNombreMascota('')
-      setSize('')
-      setGenderId(false)
-      setYearOfBirth('')
-      setBreed('')
-      setCreatedAt('')
-      setDueño('')
-      setState(false)
+    const data = {
+      name,
+      size,
+      gender,
+      year_of_birth: yearOfBirth,
+      breed,
+      state
+    }
 
-      onRequestClose()
-    })
-    .catch(function (error) {
-      console.log(error)
-      toast.error('Dados de Pet incorreto!')
-    })
-  }else{
-    toast.error('Dados de Pet incorreto!')
-    event.preventDefault()
+    await createPet(data)
+
+    onRequestClose()
   }
 
-  }
   return (
     <Modal
       isOpen={isOpen}
@@ -102,29 +65,25 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
             <div className={styles.userCreateLeft}>
               <span className={styles.subtitleUserCreate}>Detalhes do Pet</span>
 
-
               <div className={styles.inputBlock}>
-                <label id="mensajeNombreMascota">{mensajeNombreMascota}</label>
-                <label htmlFor="nombreMascota">Nome Pet</label>
+                <label htmlFor="name">Nome</label>
                 <input
                   type="text"
-                  id="nombreMascota"
-                  value={nombreMascota}
-                  onChange={event => setNombreMascota(event.target.value)}
+                  id="name"
+                  value={name}
+                  onChange={event => setName(event.target.value)}
                   placeholder="Nome Pet"
                   required
                 />
               </div>
 
-
               <div className={styles.inputBlock}>
-              <label id="mensajeYearOfBirth"></label>
                 <label htmlFor="yearOfBirth">Ano de Nacimento</label>
                 <input
-                  type="date"
+                  type="number"
                   id="yearOfBirth"
                   value={yearOfBirth}
-                  onChange={event => setYearOfBirth(event.target.value)}
+                  onChange={event => setYearOfBirth(Number(event.target.value))}
                   placeholder="Ano de nascimento"
                   required
                 />
@@ -135,29 +94,26 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
                 <div className={styles.selectTypeContainer}>
                   <button
                     type="button"
-                    onClick={() => setGenderId(true)}
-                    className={genderId ? styles.active : styles.disabled}
+                    onClick={() => setGender(true)}
+                    className={gender ? styles.active : styles.disabled}
                   >
                     Macho
                   </button>
 
                   <button
                     type="button"
-                    onClick={() => setGenderId(false)}
-                    className={!genderId ? styles.active : styles.disabled}
+                    onClick={() => setGender(false)}
+                    className={!gender ? styles.active : styles.disabled}
                   >
                     Femea
                   </button>
                 </div>
               </div>
-
             </div>
 
             <div className={styles.userCreateCenter}>
-              <span className={styles.subtitleUserCreate}>Pet</span>
               <div className={styles.inputBlock}>
-              <label id="mensajeBreed">{mensajeBreed}</label>
-                <label htmlFor="breed">Raza</label>
+                <label htmlFor="breed">Raça</label>
                 <input
                   type="text"
                   id="breed"
@@ -168,17 +124,21 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
                 />
               </div>
 
-
               <div className={styles.inputBlock}>
-                <label htmlFor="size">Tamaño</label>
+                <label htmlFor="size">Tamanho</label>
                 <div className={styles.selectBlock}>
-                 <select name="size" id="size" required onChange={event => setSize(event.target.value)}>
-                  <option value="">Seleccione</option>
-                  <option value="Grande">Grande</option>
-                  <option value="Mediano">Mediano</option>
-                  <option value="Pequeño">Pequeño</option>
+                  <select
+                    name="size"
+                    id="size"
+                    required
+                    onChange={event => setSize(event.target.value)}
+                  >
+                    <option value="">Seleccione</option>
+                    <option value="Grande">Grande</option>
+                    <option value="Mediano">Mediano</option>
+                    <option value="Pequeño">Pequeño</option>
                   </select>
-                  </div>
+                </div>
               </div>
 
               <div className={styles.inputBlock}>
@@ -201,7 +161,6 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
                   </button>
                 </div>
               </div>
-
             </div>
 
             <div className={styles.userCreateRight}>
@@ -216,4 +175,3 @@ export function CreatePetModal({ isOpen, onRequestClose, validarNombreMascota,va
     </Modal>
   )
 }
-
