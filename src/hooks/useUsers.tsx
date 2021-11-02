@@ -1,5 +1,12 @@
-import { createContext, ReactNode, useEffect, useState } from "react"
-import toast from "react-hot-toast"
+import {
+  createContext,
+  ReactNode,
+  useEffect,
+  useState,
+  useContext
+} from 'react'
+import { AxiosResponse } from 'axios'
+
 import api from '../services/api'
 
 interface UsersProviderProps {
@@ -27,10 +34,12 @@ type UserCreate = Omit<User, 'id' | 'created_at' | 'updated_at'>
 
 interface UsersContextData {
   users: User[]
-  createUser: (user: UserCreate) => Promise<void>
+  createUser: (user: UserCreate) => Promise<AxiosResponse>
 }
 
-export const UsersContext = createContext<UsersContextData>({} as UsersContextData)
+export const UsersContext = createContext<UsersContextData>(
+  {} as UsersContextData
+)
 
 export function UsersProvider({ children }: UsersProviderProps) {
   const [users, setUsers] = useState<User[]>([])
@@ -42,23 +51,24 @@ export function UsersProvider({ children }: UsersProviderProps) {
   }, [])
 
   async function createUser(userCreate: UserCreate) {
-    try {
-      const response = await api.post('/users', userCreate)
-      const { user } = response.data
+    const response = await api.post('/users', userCreate)
 
-      setUsers([...users, user])
+    const user = response.data
 
-      toast.success('Usuário cadastrado com susseso!')
-    } catch(err) {
-        console.log(err)
-        toast.error('Dados de usuario incorreto!')
-    }
+    setUsers([...users, user])
+
+    return response
   }
 
   return (
-    <UsersContext.Provider value={{users, createUser}}>
+    <UsersContext.Provider value={{ users, createUser }}>
       {children}
     </UsersContext.Provider>
   )
 }
 
+export function useUsers() {
+  const context = useContext(UsersContext)
+
+  return context
+}
