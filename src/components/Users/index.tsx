@@ -1,10 +1,9 @@
-import { useContext } from 'react'
 import { DataGrid, GridColDef } from '@material-ui/data-grid'
 import { Edit2, UserPlus } from '@styled-icons/feather'
 
 import { Button } from '../Button'
 
-import { UsersContext } from '../../hooks/useUsers'
+import { useUsers } from '../../hooks/useUsers'
 
 import styles from './styles.module.scss'
 
@@ -17,7 +16,7 @@ export function Users({
   onOpenUpdateUserModal,
   onOpenCreateUserModal
 }: UsersProps) {
-  const { users } = useContext(UsersContext)
+  const { users } = useUsers()
 
   const columns: GridColDef[] = [
     {
@@ -50,10 +49,10 @@ export function Users({
       field: 'action',
       headerName: 'Ação',
       width: 150,
-      renderCell: (user) => {
+      renderCell: user => {
         return (
           <>
-            <Button onClick={() => onOpenUpdateUserModal(user.row.id)} >
+            <Button onClick={() => onOpenUpdateUserModal(user.row.id)}>
               <Edit2 className={styles.columnUserButtonEdit} />
               Editar
             </Button>
