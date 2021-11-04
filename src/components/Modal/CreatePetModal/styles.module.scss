@@ -8,18 +8,15 @@
 }
 
 .Modal {
-  --height: calc(100vh - 600px);
-  --width: calc(100vw - 1000px);
-
   position: absolute;
-  top: calc(var(--height) / 2);
-  left: calc(var(--width) / 2);
-  right: auto;
-  bottom: auto;
-  width: 1000px;
-  height: 600px;
   background-color: var(--background);
   border-radius: 0.5rem;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
 }
 
 .Overlay {
@@ -32,134 +29,119 @@
 }
 
 .wrapper {
-  padding: 0 1rem 0 2rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1rem;
+  gap: 1rem;
 
   header {
-    padding: 1rem 0 1.5rem 0;
     display: flex;
     justify-content: space-between;
   }
 
   form {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
 
     fieldset {
       display: flex;
-      gap: 4rem;
-    }
-
-    .subtitleUserCreate {
-      display: flex;
       justify-content: center;
-      padding-bottom: 0.5rem;
-      font-weight: 500;
-      color: var(--separator);
+      gap: 2rem;
+
+      .subtitleUserCreate {
+        display: flex;
+        justify-content: center;
+        font-weight: 500;
+        color: var(--separator);
+      }
+
+      .inputBlock {
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+
+        label {
+          margin-bottom: 0.3rem;
+          font-size: 0.875rem;
+        }
+
+        input {
+          border: none;
+          height: 1.875rem;
+          background: var(--background);
+          border-bottom: 1px solid var(--separator);
+
+          margin-bottom: 1rem;
+        }
+
+        input:focus {
+          box-shadow: 0 0 0 0;
+          border: 0 none;
+          outline: 0;
+        }
+
+        .selectTypeContainer {
+          margin-bottom: 1rem;
+          display: flex;
+          justify-content: space-between;
+          gap: 0.5rem;
+
+          button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.25rem;
+            border-bottom: 1px solid var(--separator);
+            height: 2.25rem;
+            width: 100%;
+            background: transparent;
+
+            svg {
+              height: 20px;
+              width: 20px;
+            }
+
+            &.active {
+              background: var(--pink-100);
+            }
+          }
+        }
+
+        .selectBlock {
+          margin-bottom: 1rem;
+          display: flex;
+          flex-direction: column;
+          margin: 0 0 1rem 0;
+
+          select {
+            display: flex;
+            height: 2.25rem;
+            border-radius: 0.25rem;
+            border: 0;
+            border-bottom: 1px solid var(--separator);
+            color: black;
+            background: transparent;
+            font-size: 1rem;
+          }
+        }
+      }
     }
 
-    .inputBlock {
-      display: flex;
-      flex-direction: column;
-
-      label {
-        margin-bottom: 0.3rem;
-        font-size: 0.875rem;
-      }
-
-      input {
-        border: none;
-        width: 300px;
-        height: 1.875rem;
-        background: var(--background);
-        border-bottom: 1px solid var(--separator);
-
-        margin-bottom: 1rem;
-      }
-
-      input:focus {
-        box-shadow: 0 0 0 0;
-        border: 0 none;
-        outline: 0;
-      }
-
-      .selectTypeContainer {
-        margin-bottom: 1rem;
+    footer {
+      .ButtonAction {
         display: flex;
-        justify-content: space-between;
+        justify-content: right;
 
         button {
           display: flex;
-          align-items: center;
           justify-content: center;
-          border-radius: 0.25rem;
-          border-bottom: 1px solid var(--separator);
-          height: 2.25rem;
-          width: 142px;
-          background: transparent;
 
           svg {
-            height: 20px;
-            width: 20px;
+            fill: #fff;
           }
-
-          &.active {
-            background: var(--pink-100);
-          }
-        }
-      }
-    }
-
-    .userCreateRight {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      .formImgContainer {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-
-        img {
-          width: 10rem;
-          height: 12rem;
-          border-radius: 1rem;
-          object-fit: cover;
-        }
-
-        label {
-          cursor: pointer;
-
-          svg {
-            height: 20px;
-            width: 20px;
-            stroke-width: 2px;
-          }
-        }
-      }
-
-      button {
-        display: flex;
-        justify-content: center;
-
-        svg {
-          fill: #fff;
         }
       }
     }
   }
 }
-.selectBlock{
-margin-top: 20px; 
-margin-bottom: 0,2rem;
-select{
-background-color  : var(--pink-100);
-color: #fff;
-fill: #fff;
-padding: 0.5rem 0.5rem 0.5rem 1rem;
-margin-left: 5rem;
-
-}
-
-
-}
-

@@ -1,6 +1,7 @@
 import { useState, FormEvent } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import Modal from 'react-modal'
+import * as Yup from 'yup'
 import { X, UserPlus } from '@styled-icons/feather'
 
 import { usePets } from '../../../hooks/usePets'
@@ -17,6 +18,16 @@ export function CreatePetModal({
   isOpen,
   onRequestClose
 }: CreatePetModalProps) {
+  const validate = Yup.object({
+    name: Yup.string()
+      .min(2, 'Minimo 3 caracteres')
+      .required('Precisa preencher este campo'),
+    size: Yup.string().required('Precisa preencher este campo'),
+    gender: Yup.boolean().required('Precisa preencher este campo'),
+    yearOfBirth: Yup.number().required('Precisa preencher este campo'),
+    breed: Yup.string().required('Precisa preencher este campo')
+  })
+
   const { createPet } = usePets()
 
   const [name, setName] = useState('')
@@ -25,6 +36,7 @@ export function CreatePetModal({
   const [yearOfBirth, setYearOfBirth] = useState(1900)
   const [breed, setBreed] = useState('')
   const [state, setState] = useState(false)
+  const [owner, setOwner] = useState(0)
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
@@ -79,7 +91,7 @@ export function CreatePetModal({
                 <span className={styles.subtitleUserCreate}>
                   Detalhes do Pet
                 </span>
-
+                {/* --------------- Name --------------- */}
                 <div className={styles.inputBlock}>
                   <label htmlFor="name">Nome</label>
                   <input
@@ -87,11 +99,35 @@ export function CreatePetModal({
                     id="name"
                     value={name}
                     onChange={event => setName(event.target.value)}
-                    placeholder="Nome Pet"
                     required
                   />
                 </div>
 
+                {/* --------------- Owner --------------- */}
+                <div className={styles.inputBlock}>
+                  <label htmlFor="owner">Dono</label>
+                  <div className={styles.selectBlock}>
+                    <select
+                      name="owner"
+                      id="owner"
+                      required
+                      onChange={event => setOwner(Number(event.target.value))}
+                    >
+                      <option value="">Seleccione</option>
+                      <option value="80009184988">
+                        Leandro Cruz (80009184988)
+                      </option>
+                      <option value="11111111111">
+                        Alexandra Laroca (11111111111)
+                      </option>
+                      <option value="22222222222">
+                        Manuel Morchil (22222222222)
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* --------------- Year of Birth --------------- */}
                 <div className={styles.inputBlock}>
                   <label htmlFor="yearOfBirth">Ano de Nacimento</label>
                   <input
@@ -106,6 +142,7 @@ export function CreatePetModal({
                   />
                 </div>
 
+                {/* --------------- Gender --------------- */}
                 <div className={styles.inputBlock}>
                   <label htmlFor="genderId">Gênero</label>
                   <div className={styles.selectTypeContainer}>
@@ -122,25 +159,43 @@ export function CreatePetModal({
                       onClick={() => setGender(false)}
                       className={!gender ? styles.active : styles.disabled}
                     >
-                      Femea
+                      Fêmea
                     </button>
                   </div>
                 </div>
               </div>
 
               <div className={styles.userCreateCenter}>
+                <span className={styles.subtitleUserCreate}>
+                  Detalhes Especificos
+                </span>
+                {/* --------------- Breed --------------- */}
                 <div className={styles.inputBlock}>
                   <label htmlFor="breed">Raça</label>
-                  <input
-                    type="text"
-                    id="breed"
-                    value={breed}
-                    onChange={event => setBreed(event.target.value)}
-                    placeholder="Raza"
-                    required
-                  />
+                  <div className={styles.selectBlock}>
+                    <select
+                      name="breed"
+                      id="breed"
+                      required
+                      onChange={event => setBreed(event.target.value)}
+                    >
+                      <option value="">Seleccione</option>
+                      <option value="buldogue">Buldogue</option>
+                      <option value="pastor_alemao">Pastor Alemão</option>
+                      <option value="labrador">Labrador</option>
+                      <option value="husky_siberiano">Husky Siberiano</option>
+                      <option value="dachshund">Dachshund</option>
+                      <option value="yorkshire">Yorkshire</option>
+                      <option value="pug">Pug</option>
+                      <option value="maltes">Maltês</option>
+                      <option value="border_collie">Border Collie</option>
+                      <option value="cocker_spaniel">Cocker Spaniel</option>
+                      <option value="other">Outro..</option>
+                    </select>
+                  </div>
                 </div>
 
+                {/* --------------- Size --------------- */}
                 <div className={styles.inputBlock}>
                   <label htmlFor="size">Tamanho</label>
                   <div className={styles.selectBlock}>
@@ -158,6 +213,7 @@ export function CreatePetModal({
                   </div>
                 </div>
 
+                {/* --------------- State --------------- */}
                 <div className={styles.inputBlock}>
                   <label htmlFor="state">Estado</label>
                   <div className={styles.selectTypeContainer}>
@@ -179,14 +235,15 @@ export function CreatePetModal({
                   </div>
                 </div>
               </div>
-
-              <div className={styles.userCreateRight}>
+            </fieldset>
+            <footer>
+              <div className={styles.ButtonAction}>
                 <Button type="submit">
                   <UserPlus />
                   Criar
                 </Button>
               </div>
-            </fieldset>
+            </footer>
           </form>
         </div>
       </Modal>
