@@ -1,10 +1,10 @@
 import { useState, FormEvent } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import Modal from 'react-modal'
-import * as Yup from 'yup'
 import { X, UserPlus } from '@styled-icons/feather'
 
 import { usePets } from '../../../hooks/usePets'
+import { useUsers } from '../../../hooks/useUsers'
 import { Button } from '../../Button'
 
 import styles from './styles.module.scss'
@@ -18,17 +18,8 @@ export function CreatePetModal({
   isOpen,
   onRequestClose
 }: CreatePetModalProps) {
-  const validate = Yup.object({
-    name: Yup.string()
-      .min(2, 'Minimo 3 caracteres')
-      .required('Precisa preencher este campo'),
-    size: Yup.string().required('Precisa preencher este campo'),
-    gender: Yup.boolean().required('Precisa preencher este campo'),
-    yearOfBirth: Yup.number().required('Precisa preencher este campo'),
-    breed: Yup.string().required('Precisa preencher este campo')
-  })
-
   const { createPet } = usePets()
+  const { users } = useUsers()
 
   const [name, setName] = useState('')
   const [size, setSize] = useState('')
@@ -36,6 +27,7 @@ export function CreatePetModal({
   const [yearOfBirth, setYearOfBirth] = useState(1900)
   const [breed, setBreed] = useState('')
   const [state, setState] = useState(false)
+
   const [owner, setOwner] = useState(0)
 
   async function handleSubmit(event: FormEvent) {
@@ -114,15 +106,13 @@ export function CreatePetModal({
                       onChange={event => setOwner(Number(event.target.value))}
                     >
                       <option value="">Seleccione</option>
-                      <option value="80009184988">
-                        Leandro Cruz (80009184988)
-                      </option>
-                      <option value="11111111111">
-                        Alexandra Laroca (11111111111)
-                      </option>
-                      <option value="22222222222">
-                        Manuel Morchil (22222222222)
-                      </option>
+                      {users.map(user => {
+                        return (
+                          <option value={user.id} key={user.id}>
+                            {user.first_name} {user.last_name} ({user.cpf})
+                          </option>
+                        )
+                      })}
                     </select>
                   </div>
                 </div>
