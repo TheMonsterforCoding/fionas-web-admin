@@ -65,6 +65,7 @@ export function CreatePetModal({
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
+
       <Modal
         isOpen={isOpen}
         onRequestClose={onRequestClose}
@@ -79,7 +80,7 @@ export function CreatePetModal({
 
           <form onSubmit={handleSubmit}>
             <fieldset>
-              <div className={styles.userCreateLeft}>
+              <div className={styles.createLeft}>
                 <span className={styles.subtitleUserCreate}>
                   Detalhes do Pet
                 </span>
@@ -155,7 +156,7 @@ export function CreatePetModal({
                 </div>
               </div>
 
-              <div className={styles.userCreateCenter}>
+              <div className={styles.createCenter}>
                 <span className={styles.subtitleUserCreate}>
                   Detalhes Especificos
                 </span>

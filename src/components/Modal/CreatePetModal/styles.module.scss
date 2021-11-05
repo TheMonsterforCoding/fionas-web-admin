@@ -56,10 +56,17 @@
         color: var(--separator);
       }
 
+      .createLeft {
+        width: 300px;
+      }
+
+      .createCenter {
+        width: 300px;
+      }
+
       .inputBlock {
         display: flex;
         flex-direction: column;
-        width: 300px;
 
         label {
           margin-bottom: 0.3rem;
@@ -85,7 +92,6 @@
           margin-bottom: 1rem;
           display: flex;
           justify-content: space-between;
-          gap: 0.5rem;
 
           button {
             display: flex;
