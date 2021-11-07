@@ -37,6 +37,8 @@ export function CreateUserModal({
   const [mobileNumber, setMobileNumber] = useState(0)
   const [state, setState] = useState(false)
 
+  // const [typeUser, setTypeUser] = useState(false)
+
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
 

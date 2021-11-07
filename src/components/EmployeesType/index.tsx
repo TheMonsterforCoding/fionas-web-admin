@@ -37,7 +37,9 @@ export function EmployeesType({
       renderCell: employeeType => {
         return (
           <>
-            <Button onClick={() => onOpenUpdateEmployeeTypeModal()}>
+            <Button
+              onClick={() => onOpenUpdateEmployeeTypeModal(employeeType.row.id)}
+            >
               <Edit2 className={styles.columnButtonEdit} />
               Editar
             </Button>
@@ -60,7 +62,7 @@ export function EmployeesType({
           className={styles.datagrid}
         />
 
-        <Button onClick={() => onOpenCreateEmployeeTypeModal()}>Criar</Button>
+        <Button onClick={onOpenCreateEmployeeTypeModal}>Criar</Button>
       </div>
     </div>
   )

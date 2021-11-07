@@ -83,9 +83,7 @@ export function UpdateUserModal({
     selectUserById()
   }, [idUser])
 
-  async function handleSubmit(event: FormEvent) {
-    // event.preventDefault()
-
+  async function handleSubmit() {
     let newCpf = ''
     let newFirstName = ''
     let newLastName = ''

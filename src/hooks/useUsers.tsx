@@ -31,6 +31,7 @@ interface User {
 }
 
 type UserCreate = Omit<User, 'id' | 'created_at' | 'updated_at'>
+// type UserCreate = Pick<User, 'id' | 'created_at' | 'updated_at'>
 
 interface UsersContextData {
   users: User[]
