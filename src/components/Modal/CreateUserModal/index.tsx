@@ -10,6 +10,7 @@ import { X, Upload, UserPlus } from '@styled-icons/feather'
 import UserDefault from '../../../../public/userDefault.png'
 
 import styles from './styles.module.scss'
+import { useEmployessType } from '../../../hooks/useEmployeesType'
 
 interface CreateUserModalProps {
   isOpen: boolean
@@ -21,6 +22,7 @@ export function CreateUserModal({
   onRequestClose
 }: CreateUserModalProps) {
   const { createUser } = useUsers()
+  const { employeesType } = useEmployessType()
 
   const [cpf, setCpf] = useState('')
   const [avatar, setAvatar] = useState(
@@ -28,16 +30,19 @@ export function CreateUserModal({
   )
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [gender, setGender] = useState(false)
+  const [gender, setGender] = useState(true)
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
   const [yearOfBirth, setYearOfBirth] = useState(1900)
   const [address, setAddress] = useState('')
   const [mail, setMail] = useState('')
   const [mobileNumber, setMobileNumber] = useState(0)
-  const [state, setState] = useState(false)
+  const [state, setState] = useState(true)
 
-  // const [typeUser, setTypeUser] = useState(false)
+  const [userType, setUserType] = useState(true)
+  const [employeeType, setEmployeeType] = useState(0)
+
+  // Guardar o tipo de empregado ou cliente
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
@@ -277,6 +282,60 @@ export function CreateUserModal({
                     </button>
                   </div>
                 </div>
+
+                {/* --------------- User type --------------- */}
+                <div className={styles.inputBlock}>
+                  <label htmlFor="userType">Tipo de usuario</label>
+
+                  <div className={styles.selectTypeContainer}>
+                    <button
+                      type="button"
+                      onClick={() => setUserType(true)}
+                      className={userType ? styles.active : styles.disabled}
+                    >
+                      Empregado
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setUserType(false)}
+                      className={!userType ? styles.active : styles.disabled}
+                    >
+                      Cliente
+                    </button>
+                  </div>
+                </div>
+
+                {userType ? (
+                  /* --------------- Employees Type --------------- */
+                  <div className={styles.inputBlock}>
+                    <label htmlFor="employeeType">Tipo de emprego</label>
+                    <div className={styles.selectBlock}>
+                      <select
+                        name="employeeType"
+                        id="employeeType"
+                        required
+                        onChange={event =>
+                          setEmployeeType(Number(event.target.value))
+                        }
+                      >
+                        <option value="">Seleccione</option>
+                        {employeesType.map(employeeType => {
+                          return (
+                            <option
+                              value={employeeType.id}
+                              key={employeeType.id}
+                            >
+                              {employeeType.description}
+                            </option>
+                          )
+                        })}
+                      </select>
+                    </div>
+                  </div>
+                ) : (
+                  <></>
+                )}
               </div>
 
               <div className={styles.createRight}>
