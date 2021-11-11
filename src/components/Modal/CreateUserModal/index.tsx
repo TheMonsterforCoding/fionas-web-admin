@@ -1,20 +1,28 @@
-import React, { useState, FormEvent } from 'react'
+import React, { useState, FormEvent, useEffect } from 'react'
 import Modal from 'react-modal'
 import Image from 'next/dist/client/image'
 import toast, { Toaster } from 'react-hot-toast'
+import { X, Upload, UserPlus } from '@styled-icons/feather'
 
+import UserDefault from '../../../../public/userDefault.png'
 import { Button } from '../../Button'
 import { useUsers } from '../../../hooks/useUsers'
-
-import { X, Upload, UserPlus } from '@styled-icons/feather'
-import UserDefault from '../../../../public/userDefault.png'
-
-import styles from './styles.module.scss'
 import { useEmployessType } from '../../../hooks/useEmployeesType'
+import { useCustomers } from '../../../hooks/useCustomers'
+import { useEmployees } from '../../../hooks/useEmployees'
+import styles from './styles.module.scss'
+import api from '../../../services/api'
 
 interface CreateUserModalProps {
   isOpen: boolean
   onRequestClose: () => void
+}
+
+interface Employee {
+  id: number
+  description: string
+  employees_users_id: string
+  employees_employees_type_id: number
 }
 
 export function CreateUserModal({
@@ -23,6 +31,16 @@ export function CreateUserModal({
 }: CreateUserModalProps) {
   const { createUser } = useUsers()
   const { employeesType } = useEmployessType()
+  // const { createCustomer, customers } = useCustomers()
+  // const { employees } = useEmployees()
+
+  const [employees, setEmployees] = useState<Employee[]>([])
+
+  useEffect(() => {
+    api.get('/employees').then(response => setEmployees(response.data))
+  }, [])
+
+  console.log(employees)
 
   const [cpf, setCpf] = useState('')
   const [avatar, setAvatar] = useState(
@@ -42,8 +60,6 @@ export function CreateUserModal({
   const [userType, setUserType] = useState(true)
   const [employeeType, setEmployeeType] = useState(0)
 
-  // Guardar o tipo de empregado ou cliente
-
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
@@ -62,6 +78,17 @@ export function CreateUserModal({
     }
 
     const response = await createUser(data)
+
+    const id = response.data.id
+
+    console.log(id)
+
+    if (employeeType) {
+      console.log('empregado')
+    } else {
+      console.log('cliente')
+      // await createCustomer(id)
+    }
 
     const status = response.status
 
