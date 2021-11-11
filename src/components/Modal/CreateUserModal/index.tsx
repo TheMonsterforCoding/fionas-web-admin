@@ -8,21 +8,11 @@ import UserDefault from '../../../../public/userDefault.png'
 import { Button } from '../../Button'
 import { useUsers } from '../../../hooks/useUsers'
 import { useEmployessType } from '../../../hooks/useEmployeesType'
-import { useCustomers } from '../../../hooks/useCustomers'
-import { useEmployees } from '../../../hooks/useEmployees'
 import styles from './styles.module.scss'
-import api from '../../../services/api'
 
 interface CreateUserModalProps {
   isOpen: boolean
   onRequestClose: () => void
-}
-
-interface Employee {
-  id: number
-  description: string
-  employees_users_id: string
-  employees_employees_type_id: number
 }
 
 export function CreateUserModal({
@@ -31,16 +21,6 @@ export function CreateUserModal({
 }: CreateUserModalProps) {
   const { createUser } = useUsers()
   const { employeesType } = useEmployessType()
-  // const { createCustomer, customers } = useCustomers()
-  // const { employees } = useEmployees()
-
-  const [employees, setEmployees] = useState<Employee[]>([])
-
-  useEffect(() => {
-    api.get('/employees').then(response => setEmployees(response.data))
-  }, [])
-
-  console.log(employees)
 
   const [cpf, setCpf] = useState('')
   const [avatar, setAvatar] = useState(
