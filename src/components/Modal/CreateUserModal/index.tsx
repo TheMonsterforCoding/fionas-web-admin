@@ -8,6 +8,7 @@ import UserDefault from '../../../../public/userDefault.png'
 import { Button } from '../../Button'
 import { useUsers } from '../../../hooks/useUsers'
 import { useEmployessType } from '../../../hooks/useEmployeesType'
+import { useEmployees } from '../../../hooks/useEmployees'
 import styles from './styles.module.scss'
 
 interface CreateUserModalProps {
@@ -21,6 +22,9 @@ export function CreateUserModal({
 }: CreateUserModalProps) {
   const { createUser } = useUsers()
   const { employeesType } = useEmployessType()
+  const { employees, createEmployee } = useEmployees()
+
+  console.log(employees)
 
   const [cpf, setCpf] = useState('')
   const [avatar, setAvatar] = useState(
@@ -38,12 +42,12 @@ export function CreateUserModal({
   const [state, setState] = useState(true)
 
   const [userType, setUserType] = useState(true)
-  const [employeeType, setEmployeeType] = useState(0)
+  const [employeeTypeId, setEmployeeTypeId] = useState(0)
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
-    const data = {
+    const userData = {
       cpf,
       avatar,
       first_name: firstName,
@@ -57,16 +61,18 @@ export function CreateUserModal({
       state
     }
 
-    const response = await createUser(data)
+    const response = await createUser(userData)
 
     const id = response.data.id
 
-    console.log(id)
+    const employeeData = {
+      employees_users_id: id,
+      employees_employees_type_id: employeeTypeId
+    }
 
-    if (employeeType) {
-      console.log('empregado')
+    if (userType) {
+      await createEmployee(employeeData)
     } else {
-      console.log('cliente')
       // await createCustomer(id)
     }
 
@@ -323,7 +329,7 @@ export function CreateUserModal({
                         id="employeeType"
                         required
                         onChange={event =>
-                          setEmployeeType(Number(event.target.value))
+                          setEmployeeTypeId(Number(event.target.value))
                         }
                       >
                         <option value="">Seleccione</option>

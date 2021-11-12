@@ -11,23 +11,26 @@ import styles from '../styles/app.module.scss'
 import { UsersProvider } from '../hooks/useUsers'
 import { PetsProvider } from '../hooks/usePets'
 import { EmployeesTypeProvider } from '../hooks/useEmployeesType'
+import { EmployeesProvider } from '../hooks/useEmployees'
 
 Modal.setAppElement('#__next')
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <UsersProvider>
-      <EmployeesTypeProvider>
-        <PetsProvider>
-          <div className={styles.container}>
-            <Sidebar />
-            <div className={styles.wrapper}>
-              <Header />
-              <Component {...pageProps} />
+      <EmployeesProvider>
+        <EmployeesTypeProvider>
+          <PetsProvider>
+            <div className={styles.container}>
+              <Sidebar />
+              <div className={styles.wrapper}>
+                <Header />
+                <Component {...pageProps} />
+              </div>
             </div>
-          </div>
-        </PetsProvider>
-      </EmployeesTypeProvider>
+          </PetsProvider>
+        </EmployeesTypeProvider>
+      </EmployeesProvider>
     </UsersProvider>
   )
 }
