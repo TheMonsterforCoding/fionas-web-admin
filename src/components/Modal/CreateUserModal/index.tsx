@@ -7,8 +7,9 @@ import { X, Upload, UserPlus } from '@styled-icons/feather'
 import UserDefault from '../../../../public/userDefault.png'
 import { Button } from '../../Button'
 import { useUsers } from '../../../hooks/useUsers'
-import { useEmployessType } from '../../../hooks/useEmployeesType'
 import { useEmployees } from '../../../hooks/useEmployees'
+import { useEmployessType } from '../../../hooks/useEmployeesType'
+import { useCustomers } from '../../../hooks/useCustomers'
 import styles from './styles.module.scss'
 
 interface CreateUserModalProps {
@@ -22,9 +23,8 @@ export function CreateUserModal({
 }: CreateUserModalProps) {
   const { createUser } = useUsers()
   const { employeesType } = useEmployessType()
-  const { employees, createEmployee } = useEmployees()
-
-  console.log(employees)
+  const { createEmployee } = useEmployees()
+  const { createCustomer } = useCustomers()
 
   const [cpf, setCpf] = useState('')
   const [avatar, setAvatar] = useState(
@@ -70,10 +70,14 @@ export function CreateUserModal({
       employees_employees_type_id: employeeTypeId
     }
 
+    const customerData = {
+      customers_users_id: id
+    }
+
     if (userType) {
       await createEmployee(employeeData)
     } else {
-      // await createCustomer(id)
+      await createCustomer(customerData)
     }
 
     const status = response.status

@@ -15,10 +15,11 @@ interface CustomersProviderProps {
 
 interface Customer {
   id: number
-  user_id: string
+  date_last_visit: string
+  customers_users_id: string
 }
 
-type CreateCustomer = Omit<Customer, 'id'>
+type CreateCustomer = Omit<Customer, 'id' | 'date_last_visit'>
 
 interface CustomersContextData {
   customers: Customer[]
