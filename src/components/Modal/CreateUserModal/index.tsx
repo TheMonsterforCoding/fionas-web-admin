@@ -1,10 +1,11 @@
-import React, { useState, FormEvent, useEffect } from 'react'
+import React, { useState, FormEvent } from 'react'
 import Modal from 'react-modal'
 import Image from 'next/dist/client/image'
 import toast, { Toaster } from 'react-hot-toast'
 import { X, Upload, UserPlus } from '@styled-icons/feather'
 
-import UserDefault from '../../../../public/userDefault.png'
+import WomanImg from '../../../../public/man.png'
+import ManImg from '../../../../public/woman.png'
 import { Button } from '../../Button'
 import { useUsers } from '../../../hooks/useUsers'
 import { useEmployees } from '../../../hooks/useEmployees'
@@ -27,9 +28,6 @@ export function CreateUserModal({
   const { createCustomer } = useCustomers()
 
   const [cpf, setCpf] = useState('')
-  const [avatar, setAvatar] = useState(
-    'https://lh3.googleusercontent.com/a-/AOh14GgJDGOETWdTK25Wqtaed4UofMsYehhJCk1TrGfElg=s360-p-rw-no'
-  )
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [gender, setGender] = useState(true)
@@ -49,7 +47,6 @@ export function CreateUserModal({
 
     const userData = {
       cpf,
-      avatar,
       first_name: firstName,
       last_name: lastName,
       gender,
@@ -358,11 +355,15 @@ export function CreateUserModal({
               <div className={styles.createRight}>
                 {/* --------------- Avatar --------------- */}
                 <div className={styles.formImgContainer}>
-                  <Image src={UserDefault} alt="Avatar" />
-                  <label htmlFor="file">
-                    <Upload />
-                  </label>
-                  <input type="file" id="file" style={{ display: 'none' }} />
+                  {!gender ? (
+                    <>
+                      <Image src={ManImg} alt="Avatar" />
+                    </>
+                  ) : (
+                    <>
+                      <Image src={WomanImg} alt="Avatar" />
+                    </>
+                  )}
                 </div>
               </div>
             </fieldset>

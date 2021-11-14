@@ -16,7 +16,6 @@ interface UsersProviderProps {
 interface User {
   id: string
   cpf: string
-  avatar: string
   first_name: string
   last_name: string
   gender: boolean
