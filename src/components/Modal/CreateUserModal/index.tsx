@@ -2,7 +2,7 @@ import React, { useState, FormEvent } from 'react'
 import Modal from 'react-modal'
 import Image from 'next/dist/client/image'
 import toast, { Toaster } from 'react-hot-toast'
-import { X, Upload, UserPlus } from '@styled-icons/feather'
+import { X, UserPlus } from '@styled-icons/feather'
 
 import WomanImg from '../../../../public/man.png'
 import ManImg from '../../../../public/woman.png'
@@ -36,7 +36,7 @@ export function CreateUserModal({
   const [yearOfBirth, setYearOfBirth] = useState(1900)
   const [address, setAddress] = useState('')
   const [mail, setMail] = useState('')
-  const [mobileNumber, setMobileNumber] = useState(0)
+  const [mobileNumber, setMobileNumber] = useState('')
   const [state, setState] = useState(true)
 
   const [userType, setUserType] = useState(true)
@@ -91,7 +91,7 @@ export function CreateUserModal({
       setYearOfBirth(1900)
       setAddress('')
       setMail('')
-      setMobileNumber(0)
+      setMobileNumber('')
       setState(false)
 
       onRequestClose()
@@ -261,11 +261,10 @@ export function CreateUserModal({
                 <div className={styles.inputBlock}>
                   <label htmlFor="mobileNumber">Número celular</label>
                   <input
+                    type="text"
                     id="mobileNumber"
                     value={mobileNumber}
-                    onChange={event =>
-                      setMobileNumber(Number(event.target.value))
-                    }
+                    onChange={event => setMobileNumber(event.target.value)}
                     placeholder="Número celular"
                     required
                   />

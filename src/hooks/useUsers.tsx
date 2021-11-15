@@ -23,7 +23,7 @@ interface User {
   year_of_birth: number
   address: string
   mail: string
-  mobile_number: number
+  mobile_number: string
   state: boolean
   created_at: string
   updated_at: string

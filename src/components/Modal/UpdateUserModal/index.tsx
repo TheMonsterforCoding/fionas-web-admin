@@ -10,13 +10,13 @@ import {
   Users as Gen,
   Watch,
   UserCheck,
-  Upload,
   Phone,
   MapPin
 } from '@styled-icons/feather'
 
 import { Button } from '../../Button'
-import AvatarImg from '../../../../public/avatar.jpg'
+import ManImg from '../../../../public/man.png'
+import WomanImg from '../../../../public/woman.png'
 
 import api from '../../../services/api'
 import styles from './styles.module.scss'
@@ -30,7 +30,6 @@ interface UpdateUserModalProps {
 interface UserType {
   id: string
   cpf: string
-  avatar: string
   first_name: string
   last_name: string
   gender: boolean
@@ -38,7 +37,7 @@ interface UserType {
   year_of_birth: number
   address: string
   mail: string
-  mobile_number: number
+  mobile_number: string
   state: boolean
   created_at: string
   updated_at: string
@@ -52,7 +51,6 @@ export function UpdateUserModal({
   const [user, setUser] = useState<UserType>({
     id: 'loading',
     cpf: 'loading',
-    avatar: 'loading',
     first_name: 'loading',
     last_name: 'loading',
     gender: true,
@@ -60,7 +58,7 @@ export function UpdateUserModal({
     year_of_birth: 0,
     address: 'loading',
     mail: 'loading',
-    mobile_number: 0,
+    mobile_number: 'loading',
     state: false,
     created_at: 'loading',
     updated_at: 'loading'
@@ -70,7 +68,7 @@ export function UpdateUserModal({
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [mail, setMail] = useState('')
-  const [mobileNumber, setMobileNumber] = useState(0)
+  const [mobileNumber, setMobileNumber] = useState('')
   const [state, setState] = useState(false)
 
   useEffect(() => {
@@ -88,7 +86,7 @@ export function UpdateUserModal({
     let newFirstName = ''
     let newLastName = ''
     let newMail = ''
-    let newMobileNumber = 0
+    let newMobileNumber = ''
     let newState = true
 
     if (cpf === '') {
@@ -111,7 +109,7 @@ export function UpdateUserModal({
     } else {
       newMail = mail
     }
-    if (mobileNumber === 0) {
+    if (mobileNumber === '') {
       newMobileNumber = user.mobile_number
     } else {
       newMobileNumber = mobileNumber
@@ -141,7 +139,7 @@ export function UpdateUserModal({
         setFirstName('')
         setLastName('')
         setMail('')
-        setMobileNumber(0)
+        setMobileNumber('')
         setState(true)
 
         onRequestClose()
@@ -170,7 +168,11 @@ export function UpdateUserModal({
           <div className={styles.userShow}>
             <header>
               {/* ---------- User Header ---------- */}
-              <Image src={AvatarImg} alt="Avatar" />
+              {user.gender ? (
+                <Image src={ManImg} alt="Avatar" />
+              ) : (
+                <Image src={WomanImg} alt="Avatar" />
+              )}
               <div className={styles.userShowHeaderInfo}>
                 <span className={styles.name}>{user.first_name}</span>
                 <span className={styles.moreInfo}>{user.cpf}</span>
@@ -279,11 +281,10 @@ export function UpdateUserModal({
                   <div className={styles.updateItem}>
                     <label>Telefone</label>
                     <input
-                      type="number"
+                      type="text"
                       value={mobileNumber}
-                      onChange={event =>
-                        setMobileNumber(Number(event.target.value))
-                      }
+                      placeholder={user.mobile_number}
+                      onChange={event => setMobileNumber(event.target.value)}
                     />
                   </div>
 
@@ -313,7 +314,15 @@ export function UpdateUserModal({
                 <div className={styles.formRight}>
                   {/* ---------- Avatar ---------- */}
                   <div className={styles.formImgContainer}>
-                    <Image src={AvatarImg} alt="Avatar" />
+                    {user.gender ? (
+                      <>
+                        <Image src={ManImg} alt="Avatar" />
+                      </>
+                    ) : (
+                      <>
+                        <Image src={WomanImg} alt="Avatar" />
+                      </>
+                    )}
                   </div>
                 </div>
               </fieldset>
