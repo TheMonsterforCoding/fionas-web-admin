@@ -20,6 +20,7 @@ import WomanImg from '../../../../public/woman.png'
 
 import api from '../../../services/api'
 import styles from './styles.module.scss'
+// import { useUsers } from '../../../hooks/useUsers'
 
 interface UpdateUserModalProps {
   isOpen: boolean
@@ -48,6 +49,7 @@ export function UpdateUserModal({
   onRequestClose,
   idUser
 }: UpdateUserModalProps) {
+  // const { selectUserById } = useUsers()
   const [user, setUser] = useState<UserType>({
     id: 'loading',
     cpf: 'loading',
@@ -79,6 +81,15 @@ export function UpdateUserModal({
     }
 
     selectUserById()
+
+    // async function selectUser() {
+    //   await selectUserById(idUser).then(response => {
+    //     setUser(response)
+    //     console.log(response)
+    //   })
+    // }
+
+    // selectUser()
   }, [idUser])
 
   async function handleSubmit() {
