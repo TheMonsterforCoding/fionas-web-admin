@@ -1,4 +1,4 @@
-import { useEffect, useState, FormEvent } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import Modal from 'react-modal'
 import Image from 'next/image'
@@ -17,18 +17,16 @@ import {
 import { Button } from '../../Button'
 import ManImg from '../../../../public/man.png'
 import WomanImg from '../../../../public/woman.png'
-
 import api from '../../../services/api'
 import styles from './styles.module.scss'
-// import { useUsers } from '../../../hooks/useUsers'
 
-interface UpdateUserModalProps {
+type UpdateUserModalProps = {
   isOpen: boolean
   onRequestClose: () => void
   idUser: string
 }
 
-interface UserType {
+type UserType = {
   id: string
   cpf: string
   first_name: string
@@ -49,7 +47,6 @@ export function UpdateUserModal({
   onRequestClose,
   idUser
 }: UpdateUserModalProps) {
-  // const { selectUserById } = useUsers()
   const [user, setUser] = useState<UserType>({
     id: 'loading',
     cpf: 'loading',
@@ -81,15 +78,6 @@ export function UpdateUserModal({
     }
 
     selectUserById()
-
-    // async function selectUser() {
-    //   await selectUserById(idUser).then(response => {
-    //     setUser(response)
-    //     console.log(response)
-    //   })
-    // }
-
-    // selectUser()
   }, [idUser])
 
   async function handleSubmit() {
