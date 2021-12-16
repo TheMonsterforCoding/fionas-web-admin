@@ -5,13 +5,6 @@ import { Edit2, UserPlus } from '@styled-icons/feather'
 
 import { Button } from '../Button'
 
-<<<<<<< Updated upstream
-=======
-import { useUsers } from '../../hooks/useUsers'
-import { useEmployees } from '../../hooks/useEmployees'
-
-
->>>>>>> Stashed changes
 import styles from './styles.module.scss'
 
 import api from '../../services/api'
@@ -34,7 +27,6 @@ export function Users({
   onOpenUpdateUserModal,
   onOpenCreateUserModal
 }: UsersProps) {
-<<<<<<< Updated upstream
   const [users, setUsers] = useState<UserType[]>([])
 
   useEffect(() => {
@@ -43,17 +35,6 @@ export function Users({
       console.log(response.data)
     })
   }, [])
-=======
-  const { users } = useUsers()
-  const { employees } = useEmployees()
-
-  const employeFiltered = users.filter((user) => {
-    return employees.some((employee) => {
-      return employee.employees_users_id === user.id;
-    });
-  });
-  console.log(employeFiltered)
->>>>>>> Stashed changes
 
   const columns: GridColDef[] = [
     {
@@ -103,12 +84,7 @@ export function Users({
     <div className={styles.container}>
       <div className={styles.content}>
         <DataGrid
-<<<<<<< Updated upstream
           rows={users}
-=======
-          rows={employeFiltered}
-          rowsPerPageOptions={[9]}
->>>>>>> Stashed changes
           columns={columns}
           pageSize={9}
           checkboxSelection

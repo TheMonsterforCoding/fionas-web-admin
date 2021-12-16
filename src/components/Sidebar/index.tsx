@@ -1,16 +1,4 @@
-<<<<<<< Updated upstream
 import { Home, User, Compass, PieChart, Heart, MapPin } from '@styled-icons/feather'
-=======
-import {
-  Home,
-  User,
-  Compass,
-  PieChart,
-  Heart,
-  MapPin,
-  Users
-} from '@styled-icons/feather'
->>>>>>> Stashed changes
 import Link from 'next/link'
 import Image from 'next/image'
 import LogoImg from '../../../public/fionas.png'
@@ -55,24 +43,7 @@ export function Sidebar() {
                     <div className={styles.content}>
                       <div className={styles.contentLeft}>
                         <User />
-                        <span>Employee</span>
-                      </div>
-                      <></>
-                    </div>
-                  </div>
-                </a>
-              </Link>
-            </li>
-
-             {/* Customers */}
-             <li>
-              <Link href="/posts/listCustomer" passHref>
-                <a>
-                  <div id={styles.menuBox}>
-                    <div className={styles.content}>
-                      <div className={styles.contentLeft}>
-                        <Users />
-                        <span>Customers</span>
+                        <span>Users</span>
                       </div>
                       <></>
                     </div>
@@ -99,11 +70,7 @@ export function Sidebar() {
               </Link>
             </li>
 
-<<<<<<< Updated upstream
 
-=======
-            {/* TaxiDog */}
->>>>>>> Stashed changes
             <li>
               <Link href="/posts/taxiDog" passHref>
                 <a>
