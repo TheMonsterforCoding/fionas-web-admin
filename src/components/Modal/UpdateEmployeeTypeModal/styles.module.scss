@@ -42,26 +42,20 @@
   form {
     display: flex;
     flex-direction: column;
+    width: 300px;
     gap: 1rem;
 
     fieldset {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       gap: 2rem;
 
-      .subtitleUserCreate {
+      .subtitle {
         display: flex;
         justify-content: center;
         font-weight: 500;
         color: var(--separator);
-      }
-
-      .createLeft {
-        width: 300px;
-      }
-
-      .createCenter {
-        width: 300px;
       }
 
       .inputBlock {
@@ -87,65 +81,21 @@
           border: 0 none;
           outline: 0;
         }
-
-        .selectTypeContainer {
-          margin-bottom: 1rem;
-          display: flex;
-          justify-content: space-between;
-
-          button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 0.25rem;
-            border-bottom: 1px solid var(--separator);
-            height: 2.25rem;
-            width: 100%;
-            background: transparent;
-
-            svg {
-              height: 20px;
-              width: 20px;
-            }
-
-            &.active {
-              background: var(--pink-100);
-            }
-          }
-        }
-
-        .selectBlock {
-          margin-bottom: 1rem;
-          display: flex;
-          flex-direction: column;
-          margin: 0 0 1rem 0;
-
-          select {
-            display: flex;
-            height: 2.25rem;
-            border-radius: 0.25rem;
-            border: 0;
-            border-bottom: 1px solid var(--separator);
-            color: black;
-            background: transparent;
-            font-size: 1rem;
-          }
-        }
       }
     }
+  }
 
-    footer {
-      .ButtonAction {
+  footer {
+    .ButtonAction {
+      display: flex;
+      justify-content: right;
+
+      button {
         display: flex;
-        justify-content: right;
+        justify-content: center;
 
-        button {
-          display: flex;
-          justify-content: center;
-
-          svg {
-            fill: #fff;
-          }
+        svg {
+          fill: #fff;
         }
       }
     }

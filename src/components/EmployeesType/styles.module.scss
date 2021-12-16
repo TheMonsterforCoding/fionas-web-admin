@@ -1,0 +1,28 @@
+.container {
+  padding: 0 3rem 0 3rem;
+
+  width: 84vw;
+
+  .content {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    height: 80vh;
+
+    button {
+      svg {
+        stroke-width: 3px;
+      }
+    }
+  }
+}
+
+.columnButtonEdit {
+  width: 24px;
+  height: 24px;
+
+  fill: #fff;
+  cursor: pointer;
+
+  margin-right: 1rem;
+}

@@ -1,8 +1,7 @@
 import { useState } from 'react'
+
 import { CreateUserModal } from '../../components/Modal/CreateUserModal'
-
 import { UpdateUserModal } from '../../components/Modal/UpdateUserModal'
-
 import { Users } from '../../components/Users'
 
 export default function listUser() {
@@ -10,12 +9,9 @@ export default function listUser() {
   const [isCreateUserModal, setIsCreateUserModal] = useState(false)
   const [idUserToUpdate, setIdUserToUpdate] = useState('')
 
-  // console.log(idUserToUpdate)
-
   function handleOpenUpdateUserModal(id: string) {
     setIsUpdateUserModal(true)
 
-    // console.log(id)
     setIdUserToUpdate(id)
   }
 

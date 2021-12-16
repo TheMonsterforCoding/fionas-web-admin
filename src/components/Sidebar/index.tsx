@@ -1,4 +1,11 @@
-import { Home, User, Compass, PieChart, Heart, MapPin } from '@styled-icons/feather'
+import {
+  Home,
+  User,
+  Compass,
+  PieChart,
+  Heart,
+  MapPin
+} from '@styled-icons/feather'
 import Link from 'next/link'
 import Image from 'next/image'
 import LogoImg from '../../../public/fionas.png'
@@ -52,6 +59,22 @@ export function Sidebar() {
               </Link>
             </li>
 
+            {/* Employee Type */}
+            <li>
+              <Link href="/posts/listEmployeeType" passHref>
+                <a>
+                  <div id={styles.menuBox}>
+                    <div className={styles.content}>
+                      <div className={styles.contentLeft}>
+                        <User />
+                        <span>Employee Type</span>
+                      </div>
+                      <></>
+                    </div>
+                  </div>
+                </a>
+              </Link>
+            </li>
 
             {/* Pets */}
             <li>
@@ -69,7 +92,6 @@ export function Sidebar() {
                 </a>
               </Link>
             </li>
-
 
             <li>
               <Link href="/posts/taxiDog" passHref>
@@ -89,16 +111,16 @@ export function Sidebar() {
             {/* Statics */}
             <li>
               <Link href="#">
-              <a href="#">
-                <div id={styles.menuBox}>
-                  <div className={styles.content}>
-                    <div className={styles.contentLeft}>
-                      <PieChart />
-                      <span>Estadísticas</span>
+                <a href="#">
+                  <div id={styles.menuBox}>
+                    <div className={styles.content}>
+                      <div className={styles.contentLeft}>
+                        <PieChart />
+                        <span>Estadísticas</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </a>
+                </a>
               </Link>
             </li>
           </ul>

@@ -1,7 +1,7 @@
-import { useEffect, useState, FormEvent } from 'react'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import Modal from 'react-modal'
 import Image from 'next/image'
-
 import {
   Edit2,
   X,
@@ -10,34 +10,30 @@ import {
   Users as Gen,
   Watch,
   UserCheck,
-  Upload,
   Phone,
   MapPin
 } from '@styled-icons/feather'
-import AvatarImg from '../../../../public/avatar.jpg'
 
 import { Button } from '../../Button'
-
+import ManImg from '../../../../public/man.png'
+import WomanImg from '../../../../public/woman.png'
+import api from '../../../services/api'
 import styles from './styles.module.scss'
 
-import api from '../../../services/api'
-import toast from 'react-hot-toast'
-
-interface UpdateUserModalProps {
+type UpdateUserModalProps = {
   isOpen: boolean
   onRequestClose: () => void
   idUser: string
 }
 
-interface UserType {
+type UserType = {
   id: string
   cpf: string
-  avatar: string
   first_name: string
   last_name: string
   gender: boolean
   password: string
-  year_of_birth: string
+  year_of_birth: number
   address: string
   mail: string
   mobile_number: string
@@ -54,124 +50,104 @@ export function UpdateUserModal({
   const [user, setUser] = useState<UserType>({
     id: 'loading',
     cpf: 'loading',
-    avatar: 'loading',
     first_name: 'loading',
     last_name: 'loading',
     gender: true,
     password: 'loading',
-    year_of_birth: 'loading',
+    year_of_birth: 0,
     address: 'loading',
     mail: 'loading',
     mobile_number: 'loading',
     state: false,
     created_at: 'loading',
-    updated_at: 'loading',
+    updated_at: 'loading'
   })
 
-  var [cpf, setCpf] = useState(null)
-  var [firstName, setFirstName] = useState('')
-  var [lastName, setLastName] = useState('')
-  var [mail, setMail] = useState('')
-  var [mobileNumber, setMobileNumber] = useState('')
-  var [state, setState] = useState(false)
-
-   var [newCpf, setNewCpf] = useState(null)
-  // var [newFirstName, setNewFirstName] = useState('')
-  // var [newLastName, setNewLastName] = useState('')
-  // var [newMail, setNewMail] = useState('')
-  // var [newMobileNumber, setNewMobileNumber] = useState('')
-  // var [newState, setNewState] = useState(false)
-
-  async function handleSubmit(event: FormEvent) {
-   event.preventDefault()
-
-    if (Object.keys(cpf).length === 0) {
-       setNewCpf(user.cpf)
-     } else {
-       setNewCpf(cpf)
-     }
-
-     console.log(newCpf)
-    // if(firstName.length === 0) {
-    //   setNewFirstName(user.first_name)
-    // } else {
-    //   setNewFirstName(firstName)
-    // }
-
-    // if(lastName.length === 0) {
-    //   setNewLastName(user.last_name)
-    // } else {
-    //   setNewLastName(lastName)
-    // }
-
-    // if(mail.length === 0) {
-    //   setNewMail(user.mail)
-    // } else {
-    //   setNewMail(mail)
-    // }
-
-    // if(mobileNumber.length === 0) {
-    //   setNewMobileNumber(user.mobile_number)
-    // } else {
-    //   setNewMobileNumber(mobileNumber)
-    // }
-    // if(state != null) {
-    //   setNewState(user.state)
-    // } else {
-    //   setNewState(state)
-    // }
-
-
-    // console.log(newFirstName)
-    // console.log(newLastName)
-    // console.log(newMail)
-    // console.log(newMobileNumber)
-    // console.log(newState)
-
-    // console.log(cpf)
-    // console.log(firstName)
-    // console.log(lastName)
-    // console.log(mail)
-    // console.log(mobileNumber)
-    // console.log(state)
-    /*await api
-    .put(`/users/${idUser}`, {
-      cpf: cpf,
-      first_name: firstName,
-      last_name: lastName,
-      mail: mail,
-      mobile_number: mobileNumber,
-      state: state
-    })
-    .then((response) => {
-      console.log(response)
-      toast.success('Usuário atualizado com susseso!')
-
-      setCpf('')
-      setFirstName('')
-      setLastName('')
-      setMail('')
-      setMobileNumber('')
-      setState(false)
-
-      onRequestClose()
-    })*/
-  }
+  const [cpf, setCpf] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [mail, setMail] = useState('')
+  const [mobileNumber, setMobileNumber] = useState('')
+  const [state, setState] = useState(false)
 
   useEffect(() => {
-    async function loadUserData() {
-      await api.get(`/users/${idUser}`)
-        .then(response => {
-          setUser(response.data)
+    async function selectUserById() {
+      await api.get(`/users/${idUser}`).then(response => {
+        setUser(response.data)
       })
     }
 
-
-    loadUserData()
+    selectUserById()
   }, [idUser])
 
-  function loadQlos(){
-    setCpf(user.cpf);
+  async function handleSubmit() {
+    let newCpf = ''
+    let newFirstName = ''
+    let newLastName = ''
+    let newMail = ''
+    let newMobileNumber = ''
+    let newState = true
+
+    if (cpf === '') {
+      newCpf = user.cpf
+    } else {
+      newCpf = cpf
+    }
+    if (firstName === '') {
+      newFirstName = user.first_name
+    } else {
+      newFirstName = firstName
+    }
+    if (lastName === '') {
+      newLastName = user.last_name
+    } else {
+      newLastName = lastName
+    }
+    if (mail === '') {
+      newMail = user.mail
+    } else {
+      newMail = mail
+    }
+    if (mobileNumber === '') {
+      newMobileNumber = user.mobile_number
+    } else {
+      newMobileNumber = mobileNumber
+    }
+    if (state === user.state) {
+      newState = user.state
+    } else {
+      newState = state
+    }
+
+    try {
+      const response = await api.put(`/users/${idUser}`, {
+        cpf: newCpf,
+        first_name: newFirstName,
+        last_name: newLastName,
+        mail: newMail,
+        mobile_number: newMobileNumber,
+        state: newState
+      })
+
+      const status = response.status
+
+      if (status === 200) {
+        toast.success('Usuário atualizado com susseso!')
+
+        setCpf('')
+        setFirstName('')
+        setLastName('')
+        setMail('')
+        setMobileNumber('')
+        setState(true)
+
+        onRequestClose()
+      } else {
+        toast.error('Usuário no fue atualizado!')
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
@@ -182,18 +158,20 @@ export function UpdateUserModal({
       overlayClassName={styles.Overlay}
     >
       <div className={styles.wrapper}>
-        {/******************************** Header Modal ********************************/}
         <div className={styles.userHeader}>
           <h2>Editar Usuario</h2>
           <X className={styles.buttonClose} onClick={onRequestClose} />
         </div>
 
         <div className={styles.userContainer}>
-          {/******************************** User Info ********************************/}
           <div className={styles.userShow}>
             <header>
               {/* ---------- User Header ---------- */}
-              <Image src={AvatarImg} alt="Avatar" />
+              {user.gender ? (
+                <Image src={ManImg} alt="Avatar" />
+              ) : (
+                <Image src={WomanImg} alt="Avatar" />
+              )}
               <div className={styles.userShowHeaderInfo}>
                 <span className={styles.name}>{user.first_name}</span>
                 <span className={styles.moreInfo}>{user.cpf}</span>
@@ -201,7 +179,7 @@ export function UpdateUserModal({
             </header>
 
             <main>
-              <span className={styles.titleMain}>Detalhes do Usuario</span> {/* - Detalhes do Usuario - */}
+              <span className={styles.titleMain}>Detalhes do Usuario</span>{' '}
               {/* ---------- Nome ---------- */}
               <div className={styles.userInfo}>
                 <User />
@@ -212,19 +190,14 @@ export function UpdateUserModal({
               {/* ---------- Gênero ---------- */}
               <div className={styles.userInfo}>
                 <Gen />
-                {user.gender ? (
-                  <span>masculino</span>
-                ) : (
-                  <span>Femenino</span>
-                )}
+                {user.gender ? <span>masculino</span> : <span>Femenino</span>}
               </div>
               {/* ---------- Ano de nascimento ---------- */}
               <div className={styles.userInfo}>
                 <Watch />
                 <span>{user.year_of_birth}</span>
               </div>
-
-              <span className={styles.titleMain}>Contato</span> {/* - Contato - */}
+              <span className={styles.titleMain}>Contato</span>{' '}
               {/* ---------- Endereço ---------- */}
               <div className={styles.userInfo}>
                 <MapPin />
@@ -240,8 +213,7 @@ export function UpdateUserModal({
                 <Phone />
                 <span>{user.mobile_number}</span>
               </div>
-
-              <span className={styles.titleMain}>Detalhes da Conta</span> {/* - Detalhes da Conta - */}
+              <span className={styles.titleMain}>Detalhes da Conta</span>{' '}
               {/* ---------- Estado ---------- */}
               <div className={styles.userInfo}>
                 <UserCheck />
@@ -258,93 +230,107 @@ export function UpdateUserModal({
             <h3>Atualizar Dados</h3>
 
             <form onSubmit={handleSubmit}>
-              {/******************************** Form Left ********************************/}
-              <div className={styles.formLeft}>
-                {/* ---------- CPF ---------- */}
-                <div className={styles.updateItem}>
-                  <label>CPF</label>
-                  <input
-                    type="text"
-                    defaultValue={user.cpf}
-                    onChange={event => setCpf(event.target.value)}
-                    placeholder={user.cpf}
-                  />
-                </div>
-                {/* ---------- Nome ---------- */}
-                <div className={styles.updateItem}>
-                  <label>Nome</label>
-                  <input
-                    type="text"
-                    defaultValue={user.first_name}
-                    onChange={event => setFirstName(event.target.value)}
-                    placeholder={user.first_name}
-                  />
-                </div>
-                {/* ---------- Sobrenome ---------- */}
-                <div className={styles.updateItem}>
-                  <label>Sobrenome</label>
-                  <input
-                    type="text"
-                    defaultValue={user.last_name}
-                    onChange={event => setLastName(event.target.value)}
-                    placeholder={user.last_name}
-                  />
-                </div>
-                {/* ---------- Email ---------- */}
-                <div className={styles.updateItem}>
-                  <label>Email</label>
-                  <input
-                    type="email"
-                    defaultValue={user.mail}
-                    onChange={event => setMail(event.target.value)}
-                    placeholder={user.mail}
-                  />
-                </div>
-                {/* ---------- Telefone ---------- */}
-                <div className={styles.updateItem}>
-                  <label>Telefone</label>
-                  <input
-                    type="number"
-                    defaultValue={user.mobile_number}
-                    onChange={event => setMobileNumber(event.target.value)}
-                    placeholder={user.mobile_number}
-                  />
-                </div>
-                {/* ---------- Estado ---------- */}
-                <div className={styles.updateItem}>
-                  <label>Estado</label>
+              <fieldset>
+                <div className={styles.formLeft}>
+                  {/* ---------- CPF ---------- */}
+                  <div className={styles.updateItem}>
+                    <label>CPF</label>
+                    <input
+                      type="text"
+                      value={cpf}
+                      placeholder={user.cpf}
+                      onChange={event => setCpf(event.target.value)}
+                    />
+                  </div>
 
-                  <div className={styles.selectTypeContainer}>
-                    <button
-                      type="button"
-                      onClick={() => setState(true)}
-                      className={user.state ? styles.active : styles.disabled}
-                    >
-                      <span>Ativo</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setState(false)}
-                      className={!user.state ? styles.active : styles.disabled}
-                    >
-                      <span>Inativo</span>
-                    </button>
+                  {/* ---------- Nome ---------- */}
+                  <div className={styles.updateItem}>
+                    <label>Nome</label>
+                    <input
+                      type="text"
+                      value={firstName}
+                      placeholder={user.first_name}
+                      onChange={event => setFirstName(event.target.value)}
+                    />
+                  </div>
+
+                  {/* ---------- Sobrenome ---------- */}
+                  <div className={styles.updateItem}>
+                    <label>Sobrenome</label>
+                    <input
+                      type="text"
+                      value={lastName}
+                      placeholder={user.last_name}
+                      onChange={event => setLastName(event.target.value)}
+                    />
+                  </div>
+
+                  {/* ---------- Email ---------- */}
+                  <div className={styles.updateItem}>
+                    <label>Email</label>
+                    <input
+                      type="email"
+                      value={mail}
+                      placeholder={user.mail}
+                      onChange={event => setMail(event.target.value)}
+                    />
+                  </div>
+
+                  {/* ---------- Telefone ---------- */}
+                  <div className={styles.updateItem}>
+                    <label>Telefone</label>
+                    <input
+                      type="text"
+                      value={mobileNumber}
+                      placeholder={user.mobile_number}
+                      onChange={event => setMobileNumber(event.target.value)}
+                    />
+                  </div>
+
+                  {/* ---------- Estado ---------- */}
+                  <div className={styles.updateItem}>
+                    <label>Estado</label>
+
+                    <div className={styles.selectTypeContainer}>
+                      <button
+                        type="button"
+                        onClick={() => setState(true)}
+                        className={state ? styles.active : styles.disabled}
+                      >
+                        <span>Ativo</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setState(false)}
+                        className={!state ? styles.active : styles.disabled}
+                      >
+                        <span>Inativo</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/******************************** Form Right ********************************/}
-              <div className={styles.formRight}>
-                {/* ---------- Avatar ---------- */}
-                <div className={styles.formImgContainer}>
-                  <Image src={AvatarImg} alt="Avatar" />
+                <div className={styles.formRight}>
+                  {/* ---------- Avatar ---------- */}
+                  <div className={styles.formImgContainer}>
+                    {user.gender ? (
+                      <>
+                        <Image src={ManImg} alt="Avatar" />
+                      </>
+                    ) : (
+                      <>
+                        <Image src={WomanImg} alt="Avatar" />
+                      </>
+                    )}
+                  </div>
                 </div>
-
+              </fieldset>
+              <footer>
                 <Button type="submit">
                   <Edit2 />
                   Atualizar
                 </Button>
-              </div>
+              </footer>
             </form>
           </div>
         </div>

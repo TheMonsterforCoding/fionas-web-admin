@@ -1,89 +1,71 @@
-import Link from 'next/link'
-
-import { DataGrid, GridRowsProp, GridColDef } from '@material-ui/data-grid'
-import { Edit2, Heart } from '@styled-icons/feather'
+import { DataGrid, GridColDef } from '@material-ui/data-grid'
+import { Edit2 } from '@styled-icons/feather'
+import { usePets } from '../../hooks/usePets'
 
 import { Button } from '../Button'
 
 import styles from './styles.module.scss'
 
 interface PetsProps {
-  onOpenUpdatePetModal: () => void
+  onOpenUpdatePetModal: any
   onOpenCreatePetModal: () => void
 }
+interface PetType {
+  petId: string
+  name: string
+  gender: string
+  year_of_birth: string
+  size: string
+  breed: string
+  state: boolean
+  createAt: string
+  dueñoMascota: string
+}
 
-export function Pets({ onOpenUpdatePetModal, onOpenCreatePetModal }: PetsProps) {
-  const rows: GridRowsProp = [
-    {
-      id: 1,
-      avatar:
-        'https://avatars.githubusercontent.com/u/59587859?s=400&u=e2c61934c682f1bc9a5d07dfb9cb172bf3cf8b9c&v=4',
-      name: 'Leandro Cruz',
-      email: 'lcruz@hotmail.com',
-      age: 24,
-      status: 'active'
-    },
-    {
-      id: 2,
-      avatar:
-        'https://avatars.githubusercontent.com/u/59587859?s=400&u=e2c61934c682f1bc9a5d07dfb9cb172bf3cf8b9c&v=4',
-      name: 'Kevin Cruz',
-      email: 'kcruz@hotmail.com',
-      age: 25,
-      status: 'active'
-    },
-    {
-      id: 3,
-      avatar:
-        'https://avatars.githubusercontent.com/u/59587859?s=400&u=e2c61934c682f1bc9a5d07dfb9cb172bf3cf8b9c&v=4',
-      name: 'Jonathan Cruz',
-      email: 'jcruz@hotmail.com',
-      age: 27,
-      status: 'active'
-    }
-  ]
+export function Pets({
+  onOpenUpdatePetModal,
+  onOpenCreatePetModal
+}: PetsProps) {
+  const { pets } = usePets()
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 100 },
     {
-      field: 'user',
-      headerName: 'Usuario',
-      width: 250,
-      renderCell: params => {
-        return (
-          <div className={styles.columnUserName}>
-            <img src={params.row.avatar} alt="Avatar" />
-            {params.row.name}
-          </div>
-        )
-      }
-    },
-    { field: 'email', headerName: 'Email', width: 200 },
-    {
-      field: 'age',
-      headerName: 'Age',
-      type: 'number',
-      width: 100
+      field: 'name',
+      headerName: 'Nombre de mascota',
+      width: 125
     },
     {
-      field: 'status',
-      headerName: 'Status',
+      field: 'gender',
+      headerName: 'Genero',
+      type: 'text',
+      width: 125
+    },
+    {
+      field: 'year_of_birth',
+      headerName: 'Nacimiento',
+      width: 150
+    },
+    {
+      field: 'breed',
+      headerName: 'Raza',
+      width: 150
+    },
+    {
+      field: 'state',
+      headerName: 'Estado',
       width: 150
     },
     {
       field: 'action',
-      headerName: 'Action',
+      headerName: 'Ação',
       width: 150,
-      renderCell: props => {
+      renderCell: pet => {
         return (
           <>
-            {/* <Link passHref href={'/user/' + props.row.id}> */}
-            <Link passHref href="#">
-              <Button onClick={onOpenUpdatePetModal}>
-                <Edit2 className={styles.columnUserButtonEdit} />
-                Editar
-              </Button>
-            </Link>
+            <Button onClick={() => onOpenUpdatePetModal(pet.row.id)}>
+              <Edit2 className={styles.columnUserButtonEdit} />
+              Editar
+            </Button>
           </>
         )
       }
@@ -94,18 +76,16 @@ export function Pets({ onOpenUpdatePetModal, onOpenCreatePetModal }: PetsProps) 
     <div className={styles.container}>
       <div className={styles.content}>
         <DataGrid
-          rows={rows}
+          rows={pets}
           columns={columns}
+          rowsPerPageOptions={[9]}
           pageSize={9}
           checkboxSelection
           disableSelectionOnClick
           className={styles.datagrid}
         />
 
-        <Button onClick={onOpenCreatePetModal}>
-          <Heart />
-          Criar
-        </Button>
+        <Button onClick={onOpenCreatePetModal}>Criar</Button>
       </div>
     </div>
   )
