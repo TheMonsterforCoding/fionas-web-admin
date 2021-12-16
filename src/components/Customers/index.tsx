@@ -4,7 +4,7 @@ import { Edit2, UserPlus } from '@styled-icons/feather'
 import { Button } from '../Button'
 
 import { useUsers } from '../../hooks/useUsers'
-import { useEmployees } from '../../hooks/useEmployees'
+import { useCustomers } from '../../hooks/useCustomers'
 
 import styles from './styles.module.scss'
 
@@ -13,16 +13,16 @@ interface UsersProps {
   onOpenCreateUserModal: () => void
 }
 
-export function Users({
+export function Customers({
   onOpenUpdateUserModal,
   onOpenCreateUserModal
 }: UsersProps) {
   const { users } = useUsers()
-  const { employees } = useEmployees()
-
-  const employeFiltered = users.filter((user) => {
-    return employees.some((employee) => {
-      return employee.employees_users_id === user.id;
+  const { customers } = useCustomers()
+  
+  const customersFiltered = users.filter((user) => {
+    return customers.some((customer) => {
+      return customer.customers_users_id === user.id;
     });
   });
 
@@ -52,6 +52,20 @@ export function Users({
       field: 'state',
       headerName: 'Estado',
       width: 150
+    },{
+      field: 'actionDog',
+      headerName: 'Animais de estimação',
+      width: 220,
+      renderCell: user => {
+        return (
+          <>
+            <Button onClick={() => onOpenUpdateUserModal(user.row.id)}>
+              <Edit2 className={styles.columnUserButtonEdit} />
+              Ver
+            </Button>
+          </>
+        )
+      }
     },
     {
       field: 'action',
@@ -74,7 +88,7 @@ export function Users({
     <div className={styles.container}>
       <div className={styles.content}>
         <DataGrid
-          rows={employeFiltered}
+          rows={customersFiltered}
           rowsPerPageOptions={[9]}
           columns={columns}
           pageSize={9}
