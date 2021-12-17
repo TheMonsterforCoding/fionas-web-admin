@@ -1,30 +1,34 @@
 import { DataGrid, GridColDef } from '@material-ui/data-grid'
-import { Edit2, UserPlus } from '@styled-icons/feather'
+import { Edit, Edit2, UserPlus } from '@styled-icons/feather'
 
 import { Button } from '../Button'
 
 import { useUsers } from '../../hooks/useUsers'
 import { useCustomers } from '../../hooks/useCustomers'
 
+
 import styles from './styles.module.scss'
 
 interface UsersProps {
   onOpenUpdateUserModal: any
   onOpenCreateUserModal: () => void
+  onOpenViewCustomerHasPetModal: any
 }
 
 export function Customers({
   onOpenUpdateUserModal,
-  onOpenCreateUserModal
+  onOpenCreateUserModal,
+  onOpenViewCustomerHasPetModal
 }: UsersProps) {
   const { users } = useUsers()
   const { customers } = useCustomers()
-  
+
   const customersFiltered = users.filter((user) => {
     return customers.some((customer) => {
       return customer.customers_users_id === user.id;
     });
   });
+
 
   const columns: GridColDef[] = [
     {
@@ -55,12 +59,13 @@ export function Customers({
     },{
       field: 'actionDog',
       headerName: 'Animais de estimação',
-      width: 220,
+      width: 190,
+      align: 'center',
       renderCell: user => {
         return (
           <>
-            <Button onClick={() => onOpenUpdateUserModal(user.row.id)}>
-              <Edit2 className={styles.columnUserButtonEdit} />
+            <Button onClick={() => onOpenViewCustomerHasPetModal(user.row.id)}>
+              <Edit className={styles.columnUserButtonEdit} />
               Ver
             </Button>
           </>

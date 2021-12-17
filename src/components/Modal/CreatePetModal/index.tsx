@@ -1,10 +1,12 @@
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import Modal from 'react-modal'
 import { X, UserPlus } from '@styled-icons/feather'
 
 import { usePets } from '../../../hooks/usePets'
 import { useUsers } from '../../../hooks/useUsers'
+import { useCustomers } from '../../../hooks/useCustomers'
+import { useCustomerHasPets } from '../../../hooks/useCustomerHasPets'
 import { Button } from '../../Button'
 
 import styles from './styles.module.scss'
@@ -14,25 +16,37 @@ interface CreatePetModalProps {
   onRequestClose: () => void
 }
 
+
+
+
 export function CreatePetModal({
   isOpen,
   onRequestClose
 }: CreatePetModalProps) {
   const { createPet } = usePets()
+  const { createCustomerHasPet } = useCustomerHasPets()
   const { users } = useUsers()
+  const { customers } = useCustomers()
+  const { pets } = usePets()
+  const customersFiltered = users.filter((user) => {
+    return customers.some((customer) => {
+      return customer.customers_users_id === user.id;
+    });
+  });
 
   const [name, setName] = useState('')
   const [size, setSize] = useState('')
   const [gender, setGender] = useState(true)
-  const [yearOfBirth, setYearOfBirth] = useState(1900)
+  const [yearOfBirth, setYearOfBirth] = useState(1980)
   const [breed, setBreed] = useState('')
   const [state, setState] = useState(false)
-
-  const [owner, setOwner] = useState(0)
+  let customers_has_pets_pets_id
+  let customers_has_pets_customers_id
+  const [owner, setOwner] = useState('')
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
-
+    
     const data = {
       name,
       size,
@@ -47,7 +61,6 @@ export function CreatePetModal({
     const status = response.status
 
     if (status === 200) {
-      toast.success('Pet registrado!')
 
       setName('')
       setSize('')
@@ -55,11 +68,32 @@ export function CreatePetModal({
       setYearOfBirth(1900)
       setBreed('')
       setState(false)
+      customers_has_pets_pets_id = pets[pets.length - 1].id as unknown as number + 1
 
-      onRequestClose()
+      var customerId = customers.filter((user) => {
+        return user.customers_users_id === owner;
+      });
+      customers_has_pets_customers_id = customerId[0].id
+      handleCreateCustomerHasPet()
     } else {
       toast.error('Pet não registrado!')
+    }  
+
+  }
+
+  async function handleCreateCustomerHasPet(){
+    const data = {
+      customers_has_pets_pets_id,
+      customers_has_pets_customers_id
     }
+     const response = await createCustomerHasPet(data)
+
+    const status = response.status
+    if (status === 200) {
+      toast.success('Pet registrado!')
+      onRequestClose()
+    } 
+
   }
 
   return (
@@ -104,10 +138,10 @@ export function CreatePetModal({
                       name="owner"
                       id="owner"
                       required
-                      onChange={event => setOwner(Number(event.target.value))}
+                      onChange={event => setOwner(event.target.value)}
                     >
-                      <option value="">Seleccione</option>
-                      {users.map(user => {
+                      <option>Seleccione</option>
+                      {customersFiltered.map(user => {
                         return (
                           <option value={user.id} key={user.id}>
                             {user.first_name} {user.last_name} ({user.cpf})

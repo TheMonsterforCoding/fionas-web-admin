@@ -22,7 +22,7 @@ import {
   type CustomerHasPetCreate = Omit<CustomerHasPet, 'id'>
   
   interface CustomerHasPetsContextData {
-    customerhaspets: CustomerHasPet[]
+    customerHasPets: CustomerHasPet[]
     createCustomerHasPet: (customerHasPet: CustomerHasPetCreate) => Promise<AxiosResponse>
   }
   
@@ -46,7 +46,7 @@ import {
     }
   
     return (
-      <CustomerHasPetsContext.Provider value={{ customerHasPet, createCustomerHasPet }}>
+      <CustomerHasPetsContext.Provider value={{ customerHasPets, createCustomerHasPet }}>
         {children}
       </CustomerHasPetsContext.Provider>
     )
