@@ -13,6 +13,7 @@ import { PetsProvider } from '../hooks/usePets'
 import { EmployeesTypeProvider } from '../hooks/useEmployeesType'
 import { EmployeesProvider } from '../hooks/useEmployees'
 import { CustomersProvider } from '../hooks/useCustomers'
+import { CustomerHasPetsProvider } from '../hooks/useCustomerHasPets'
 
 Modal.setAppElement('#__next')
 
@@ -23,13 +24,15 @@ function MyApp({ Component, pageProps }: AppProps) {
         <EmployeesTypeProvider>
           <CustomersProvider>
             <PetsProvider>
-              <div className={styles.container}>
-                <Sidebar />
-                <div className={styles.wrapper}>
-                  <Header />
-                  <Component {...pageProps} />
+              <CustomerHasPetsProvider>
+                <div className={styles.container}>
+                  <Sidebar />
+                  <div className={styles.wrapper}>
+                    <Header />
+                    <Component {...pageProps} />
+                  </div>
                 </div>
-              </div>
+              </CustomerHasPetsProvider>
             </PetsProvider>
           </CustomersProvider>
         </EmployeesTypeProvider>

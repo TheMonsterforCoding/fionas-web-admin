@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import Modal from 'react-modal'
-import { X, UserPlus } from '@styled-icons/feather'
+import { X, UserPlus, Edit2 } from '@styled-icons/feather'
 
 import { Button } from '../../Button'
 import styles from './styles.module.scss'
@@ -51,9 +51,9 @@ export function UpdateEmployeeTypeModal({
         description: newDescription
       })
 
-      const statius = response.status
+      const status = response.status
 
-      if (statius === 200) {
+      if (status === 200) {
         toast.success('Cargo atualizado com susseso!')
 
         setDescription('')
@@ -82,7 +82,7 @@ export function UpdateEmployeeTypeModal({
             <h2>Actualizar Cargo</h2>
             <X className={styles.buttonClose} onClick={onRequestClose} />
           </header>
-          <form onSubmit={() => {}}>
+          <form onSubmit={handleSubmit}>
             <fieldset>
               <span className={styles.subtitle}>Cargo a ser ocupado</span>
               {/* --------------- Description --------------- */}
@@ -101,8 +101,8 @@ export function UpdateEmployeeTypeModal({
             <footer>
               <div className={styles.ButtonAction}>
                 <Button type="submit">
-                  <UserPlus />
-                  Criar
+                  <Edit2 />
+                  Editar
                 </Button>
               </div>
             </footer>

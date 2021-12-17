@@ -1,30 +1,34 @@
 import { DataGrid, GridColDef } from '@material-ui/data-grid'
-import { Edit2, UserPlus } from '@styled-icons/feather'
+import { Edit, Edit2, UserPlus } from '@styled-icons/feather'
 
 import { Button } from '../Button'
 
 import { useUsers } from '../../hooks/useUsers'
-import { useEmployees } from '../../hooks/useEmployees'
+import { useCustomers } from '../../hooks/useCustomers'
+
 
 import styles from './styles.module.scss'
 
 interface UsersProps {
   onOpenUpdateUserModal: any
   onOpenCreateUserModal: () => void
+  onOpenViewCustomerHasPetModal: any
 }
 
-export function Users({
+export function Customers({
   onOpenUpdateUserModal,
-  onOpenCreateUserModal
+  onOpenCreateUserModal,
+  onOpenViewCustomerHasPetModal
 }: UsersProps) {
   const { users } = useUsers()
-  const { employees } = useEmployees()
+  const { customers } = useCustomers()
 
-  const employeFiltered = users.filter((user) => {
-    return employees.some((employee) => {
-      return employee.employees_users_id === user.id;
+  const customersFiltered = users.filter((user) => {
+    return customers.some((customer) => {
+      return customer.customers_users_id === user.id;
     });
   });
+
 
   const columns: GridColDef[] = [
     {
@@ -52,6 +56,21 @@ export function Users({
       field: 'state',
       headerName: 'Estado',
       width: 150
+    },{
+      field: 'actionDog',
+      headerName: 'Animais de estimação',
+      width: 190,
+      align: 'center',
+      renderCell: user => {
+        return (
+          <>
+            <Button onClick={() => onOpenViewCustomerHasPetModal(user.row.id)}>
+              <Edit className={styles.columnUserButtonEdit} />
+              Ver
+            </Button>
+          </>
+        )
+      }
     },
     {
       field: 'action',
@@ -74,7 +93,7 @@ export function Users({
     <div className={styles.container}>
       <div className={styles.content}>
         <DataGrid
-          rows={employeFiltered}
+          rows={customersFiltered}
           rowsPerPageOptions={[9]}
           columns={columns}
           pageSize={9}

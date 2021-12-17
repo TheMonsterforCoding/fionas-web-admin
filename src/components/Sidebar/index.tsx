@@ -4,7 +4,8 @@ import {
   Compass,
   PieChart,
   Heart,
-  MapPin
+  MapPin,
+  Users
 } from '@styled-icons/feather'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -50,7 +51,7 @@ export function Sidebar() {
                     <div className={styles.content}>
                       <div className={styles.contentLeft}>
                         <User />
-                        <span>Users</span>
+                        <span>Employee</span>
                       </div>
                       <></>
                     </div>
@@ -59,6 +60,22 @@ export function Sidebar() {
               </Link>
             </li>
 
+             {/* Customers */}
+             <li>
+              <Link href="/posts/listCustomer" passHref>
+                <a>
+                  <div id={styles.menuBox}>
+                    <div className={styles.content}>
+                      <div className={styles.contentLeft}>
+                        <Users />
+                        <span>Customers</span>
+                      </div>
+                      <></>
+                    </div>
+                  </div>
+                </a>
+              </Link>
+            </li>
             {/* Employee Type */}
             <li>
               <Link href="/posts/listEmployeeType" passHref>
@@ -92,7 +109,7 @@ export function Sidebar() {
                 </a>
               </Link>
             </li>
-
+           {/* TaxiDog */}
             <li>
               <Link href="/posts/taxiDog" passHref>
                 <a>
