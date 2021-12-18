@@ -158,6 +158,11 @@ function validarLastName(lastName:string){
         idUser={idUserToUpdate}
         isOpen={isUpdateUserModal}
         onRequestClose={handleCloseUpdateUserModal}
+        validarCpf={validarCpf}
+        validarMail={validarMail}
+        validarFirstName={validarFirstName}
+        validarLastName={validarLastName}
+        validarMobileNumber={validarMobileNumber}
       />
 
       <CreateUserModal

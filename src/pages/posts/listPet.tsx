@@ -26,6 +26,44 @@ export default function listPet() {
   function handleCloseCreatePetModal() {
     setIsCreatePetModal(false)
   }
+  //validar nombre de la mascota
+  function validarNombreMascota(nombreMascota : string) {
+    var encontrarNumero=new RegExp(/\d/);
+    var validador=false
+    var mensajeNombreMascota = "";
+    if(encontrarNumero.test(nombreMascota)){
+      mensajeNombreMascota="El nombre de mascota no puede tener números"
+    }else if(!encontrarNumero.test(nombreMascota)){
+      validador=true
+
+    }else if(nombreMascota.length>=10){
+       mensajeNombreMascota="Un nombre de mascota no puede tener más de 10 caracteres"
+       validador=false
+  }else if(nombreMascota.length==0){
+    validador=false
+  }
+    return [nombreMascota,mensajeNombreMascota,validador]
+  }
+
+  //validar raza
+  function validarBreed(breed:string){
+    var validador=false;
+    var mensajeBreed="";
+    var encontrarNumero=new RegExp(/\d/);
+    if(breed.length>1){
+    
+    if(breed.length>=12){
+      mensajeBreed="La raza no puede tener más de 12 caracteres"
+    }else if(breed.length<=2){
+      mensajeBreed="La raza no puede tener menos de 2 caracteres"
+    }else if(encontrarNumero.test(breed)){
+      mensajeBreed="La raza no puede tener números"
+    }else{
+      validador=true
+    }
+  }
+    return [breed,mensajeBreed, validador]
+  }
 
   return (
     <>
@@ -42,6 +80,8 @@ export default function listPet() {
       <CreatePetModal
         isOpen={isCreatePetModal}
         onRequestClose={handleCloseCreatePetModal}
+        validarNombreMascota={validarNombreMascota}
+        validarBreed={validarBreed} 
       />
     </>
   )

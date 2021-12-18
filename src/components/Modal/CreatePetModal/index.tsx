@@ -14,6 +14,9 @@ import styles from './styles.module.scss'
 interface CreatePetModalProps {
   isOpen: boolean
   onRequestClose: () => void
+  validarNombreMascota(nombreMascota: string):() => []
+  validarBreed(breed: string):() => []
+  validarSize(size: string):() => []
 }
 
 
@@ -21,7 +24,9 @@ interface CreatePetModalProps {
 
 export function CreatePetModal({
   isOpen,
-  onRequestClose
+  onRequestClose,
+  validarNombreMascota,
+  validarBreed
 }: CreatePetModalProps) {
   const { createPet } = usePets()
   const { createCustomerHasPet } = useCustomerHasPets()
@@ -43,10 +48,23 @@ export function CreatePetModal({
   let customers_has_pets_pets_id
   let customers_has_pets_customers_id
   const [owner, setOwner] = useState('')
+//validaciones
+  var arrayValidarNombreMascota= validarNombreMascota(name);
+  var nombreMascota=arrayValidarNombreMascota[0];
+  var mensajeNombreMascota=arrayValidarNombreMascota[1];
+  var validadorNombreMascota=arrayValidarNombreMascota[2];
+  //validar raza
+  var arrayValidarBreed= validarBreed(breed);
+  var raza=arrayValidarBreed[0];
+  var mensajeBreed=arrayValidarBreed[1];
+  var validadorBreed=arrayValidarBreed[2];
+
+
+
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
-    
+    if(validadorNombreMascota && validadorBreed){
     const data = {
       name,
       size,
@@ -78,6 +96,10 @@ export function CreatePetModal({
     } else {
       toast.error('Pet não registrado!')
     }  
+  } else {
+    toast.error('Pet não registrado!')
+    event.preventDefault()
+  }  
 
   }
 
@@ -120,6 +142,7 @@ export function CreatePetModal({
                 </span>
                 {/* --------------- Name --------------- */}
                 <div className={styles.inputBlock}>
+                  <label>{mensajeNombreMascota}</label>
                   <label htmlFor="name">Nome</label>
                   <input
                     type="text"
@@ -196,6 +219,7 @@ export function CreatePetModal({
                 </span>
                 {/* --------------- Breed --------------- */}
                 <div className={styles.inputBlock}>
+                  <label>{mensajeBreed}</label>
                   <label htmlFor="breed">Raça</label>
                   <div className={styles.selectBlock}>
                     <select
@@ -222,6 +246,7 @@ export function CreatePetModal({
 
                 {/* --------------- Size --------------- */}
                 <div className={styles.inputBlock}>
+
                   <label htmlFor="size">Tamanho</label>
                   <div className={styles.selectBlock}>
                     <select
