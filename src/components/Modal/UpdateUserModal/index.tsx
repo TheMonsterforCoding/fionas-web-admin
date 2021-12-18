@@ -38,6 +38,7 @@ type UserType = {
   mail: string
   mobile_number: string
   state: boolean
+  user_type: boolean
   created_at: string
   updated_at: string
 }
@@ -59,6 +60,7 @@ export function UpdateUserModal({
     mail: 'loading',
     mobile_number: 'loading',
     state: false,
+    user_type: false,
     created_at: 'loading',
     updated_at: 'loading'
   })
@@ -69,6 +71,7 @@ export function UpdateUserModal({
   const [mail, setMail] = useState('')
   const [mobileNumber, setMobileNumber] = useState('')
   const [state, setState] = useState(false)
+  const [userType, setUserType] = useState(false)
 
   useEffect(() => {
     async function selectUserById() {
@@ -80,6 +83,13 @@ export function UpdateUserModal({
     selectUserById()
   }, [idUser])
 
+  // Teste
+  if (user.user_type === true) {
+    console.log('Ativo')
+  } else {
+    console.log('Innativo')
+  }
+
   async function handleSubmit() {
     let newCpf = ''
     let newFirstName = ''
@@ -87,6 +97,7 @@ export function UpdateUserModal({
     let newMail = ''
     let newMobileNumber = ''
     let newState = true
+    let newUserType = true
 
     if (cpf === '') {
       newCpf = user.cpf
@@ -118,6 +129,11 @@ export function UpdateUserModal({
     } else {
       newState = state
     }
+    if (userType === user.user_type) {
+      newUserType = user.user_type
+    } else {
+      newUserType = userType
+    }
 
     try {
       const response = await api.put(`/users/${idUser}`, {
@@ -126,7 +142,8 @@ export function UpdateUserModal({
         last_name: newLastName,
         mail: newMail,
         mobile_number: newMobileNumber,
-        state: newState
+        state: newState,
+        user_type: newUserType
       })
 
       const status = response.status
@@ -140,6 +157,7 @@ export function UpdateUserModal({
         setMail('')
         setMobileNumber('')
         setState(true)
+        setUserType(true)
 
         onRequestClose()
       } else {
@@ -190,7 +208,7 @@ export function UpdateUserModal({
               {/* ---------- Gênero ---------- */}
               <div className={styles.userInfo}>
                 <Gen />
-                {user.gender ? <span>masculino</span> : <span>Femenino</span>}
+                {user.gender ? <span>Masculino</span> : <span>Femenino</span>}
               </div>
               {/* ---------- Ano de nascimento ---------- */}
               <div className={styles.userInfo}>
@@ -221,6 +239,15 @@ export function UpdateUserModal({
                   <span>estado: Ativo</span>
                 ) : (
                   <span>estado: Inativo</span>
+                )}
+              </div>
+              {/* ---------- Tipo Usuario ---------- */}
+              <div className={styles.userInfo}>
+                <UserCheck />
+                {user.user_type ? (
+                  <span>Trabalhador</span>
+                ) : (
+                  <span>Cliente</span>
                 )}
               </div>
             </main>
@@ -305,6 +332,29 @@ export function UpdateUserModal({
                         className={!state ? styles.active : styles.disabled}
                       >
                         <span>Inativo</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* --------------- User type --------------- */}
+                  <div className={styles.updateItem}>
+                    <label>Tipo de usuario</label>
+
+                    <div className={styles.selectTypeContainer}>
+                      <button
+                        type="button"
+                        onClick={() => setUserType(true)}
+                        className={userType ? styles.active : styles.disabled}
+                      >
+                        <span>Trabalhador</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setUserType(false)}
+                        className={!userType ? styles.active : styles.disabled}
+                      >
+                        <span>Cliente</span>
                       </button>
                     </div>
                   </div>

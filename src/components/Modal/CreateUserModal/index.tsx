@@ -38,7 +38,6 @@ export function CreateUserModal({
   const [mail, setMail] = useState('')
   const [mobileNumber, setMobileNumber] = useState('')
   const [state, setState] = useState(true)
-
   const [userType, setUserType] = useState(true)
   const [employeeTypeId, setEmployeeTypeId] = useState(0)
 
@@ -55,7 +54,8 @@ export function CreateUserModal({
       address,
       mail,
       mobile_number: mobileNumber,
-      state
+      state,
+      user_type: userType
     }
 
     const response = await createUser(userData)
@@ -92,7 +92,8 @@ export function CreateUserModal({
       setAddress('')
       setMail('')
       setMobileNumber('')
-      setState(false)
+      setState(true)
+      setUserType(true)
 
       onRequestClose()
     } else {
@@ -306,7 +307,7 @@ export function CreateUserModal({
                       onClick={() => setUserType(true)}
                       className={userType ? styles.active : styles.disabled}
                     >
-                      Empregado
+                      Trabalhador
                     </button>
 
                     <button
