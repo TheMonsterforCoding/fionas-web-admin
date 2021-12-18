@@ -17,6 +17,50 @@ interface CreateUserModalProps {
   isOpen: boolean
   onRequestClose: () => void
 }
+var mensajePassword="";
+  var mensajePassword2="";
+  var mensajeFirstName="";
+  var mensajeMail="";
+  var passwordArray = validarPassword(password, password2)
+  password=passwordArray[0]
+  password2=passwordArray[1]
+  mensajePassword=passwordArray[2]
+  var validadorPassword=passwordArray[3]
+  //validación nombre
+  var firstNameArray=validarFirstName(firstName)
+  firstName=firstNameArray[0]
+  mensajeFirstName=firstNameArray[1]
+  var validadorFirstName=firstNameArray[2]
+  //validación mail
+  var mailArray=validarMail(mail)
+  mail=mailArray[0]
+  var mensajeMail=mailArray[1]
+  var validadorMail=mailArray[2]
+
+  //validación mobile
+  var mensajeMobileNumber="";
+  var mobileNumberArray=validarMobileNumber(mobileNumber.toString())
+  mobileNumber=mobileNumberArray[0]
+  mensajeMobileNumber=mobileNumberArray[1]
+  var validadorMobile=mobileNumberArray[2]
+  //validación cpf
+  var mensajeCpf="";
+  var cpfArray=validarCpf(cpf)
+  cpf=cpfArray[0]
+  mensajeCpf=cpfArray[1]
+  var validadorCpf=cpfArray[2]
+//validación address
+  var mensajeAddress="";
+  var addressArray=validarAddress(address)
+  address=addressArray[0]
+  mensajeAddress=addressArray[1]
+  var validadorAddress=addressArray[2]
+  //validación lasName
+  var mensajeLastName="";
+  var lastNameArray=validarLastName(lastName)
+  lastName=lastNameArray[0]
+  mensajeLastName=lastNameArray[1]
+  var validadorLastName=lastNameArray[2]
 
 export function CreateUserModal({
   isOpen,
