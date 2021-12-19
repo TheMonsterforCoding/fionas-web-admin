@@ -81,6 +81,7 @@ export default function listPet() {
         onRequestClose={handleCloseUpdatePetModal}
         idPet={idPetsToUpdate}
         validarNombreMascota={validarNombreMascota}
+        
       />
       <CreatePetModal
         isOpen={isCreatePetModal}

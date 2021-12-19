@@ -21,6 +21,7 @@ import { Button } from '../../Button'
 import styles from './styles.module.scss'
 
 import api from '../../../services/api'
+import { Pets } from '../../Pets'
 
 interface UpdatePetModalProps {
   isOpen: boolean
@@ -146,10 +147,25 @@ export function UpdatePetModal({ isOpen, onRequestClose,idPet,validarNombreMasco
                   <label>Nome</label>
                   <input type="text" placeholder={pets.name} onChange={event => setName(event.target.value)} />
                 </div>
-                <div className={styles.updateItem}>
-                  <label>Raza</label>
-                  <input type="text" placeholder={pets.breed} />
-                </div>
+                <div className={styles.selectBlock}>
+                    <select
+                      name="breed"
+                      id="breed"
+                    >
+                      <option value="">{pets.breed}</option>
+                      <option value="buldogue">Buldogue</option>
+                      <option value="pastor_alemao">Pastor Alemão</option>
+                      <option value="labrador">Labrador</option>
+                      <option value="husky_siberiano">Husky Siberiano</option>
+                      <option value="dachshund">Dachshund</option>
+                      <option value="yorkshire">Yorkshire</option>
+                      <option value="pug">Pug</option>
+                      <option value="maltes">Maltês</option>
+                      <option value="border_collie">Border Collie</option>
+                      <option value="cocker_spaniel">Cocker Spaniel</option>
+                      <option value="other">Outro..</option>
+                    </select>
+                  </div>
                 <div className={styles.updateItem}>
                   <label>Gênero</label>
                   <div className={styles.selectTypeContainer}>
@@ -162,12 +178,12 @@ export function UpdatePetModal({ isOpen, onRequestClose,idPet,validarNombreMasco
                   </div>
                 </div>
                 <div className={styles.updateItem}>
-                  <label>Fecha de nacimiento</label>
-                  <input type="date"/>
-                </div>
-                <div className={styles.updateItem}>
-                  <label>Dueño</label>
-                  <input type="text" placeholder="Juan" />
+                  <label htmlFor="yearOfBirth">Ano de Nacimento</label>
+                  <input
+                    type="number"
+                    id="yearOfBirth"
+                    placeholder={pets.year_of_birth}
+                  />
                 </div>
                 <div className={styles.updateItem}>
                   <label>Estado</label>
