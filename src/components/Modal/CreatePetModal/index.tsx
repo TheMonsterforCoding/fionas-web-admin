@@ -49,6 +49,7 @@ export function CreatePetModal({
   let customers_has_pets_customers_id
   const [owner, setOwner] = useState('')
 //validaciones
+//nombre
   var arrayValidarNombreMascota= validarNombreMascota(name);
   var nombreMascota=arrayValidarNombreMascota[0];
   var mensajeNombreMascota=arrayValidarNombreMascota[1];

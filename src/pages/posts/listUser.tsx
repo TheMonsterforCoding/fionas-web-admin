@@ -86,7 +86,6 @@ function validarMail(mail:string){
   return [mail,mensajeMail,validador]
 }
 //función para celular
-
 function validarMobileNumber(mobileNumber:string){
   var validador=false;
   var mensajeMobileNumber=""

@@ -26,6 +26,8 @@ interface UpdatePetModalProps {
   isOpen: boolean
   onRequestClose: () => void
   idPet: string
+  validarNombreMascota(nombreMascota: string):() => []
+
 }
 interface PetType {
   petId: string
@@ -40,7 +42,8 @@ interface PetType {
 }
 
 
-export function UpdatePetModal({ isOpen, onRequestClose,idPet }: UpdatePetModalProps) {
+
+export function UpdatePetModal({ isOpen, onRequestClose,idPet,validarNombreMascota }: UpdatePetModalProps) {
   
   const [pets, setPets] = useState<PetType>({
     petId: 'loading',
@@ -53,7 +56,11 @@ export function UpdatePetModal({ isOpen, onRequestClose,idPet }: UpdatePetModalP
     createAt: 'loading',
     dueñoMascota:'loading'
   })
-  
+  const [name, setName] = useState('')
+  var arrayValidarNombreMascota= validarNombreMascota(name);
+  var nombreMascota=arrayValidarNombreMascota[0];
+  var mensajeNombreMascota=arrayValidarNombreMascota[1];
+  var validadorNombreMascota=arrayValidarNombreMascota[2];
   
   useEffect(() => {
     async function loadPetsData() {
@@ -135,8 +142,9 @@ export function UpdatePetModal({ isOpen, onRequestClose,idPet }: UpdatePetModalP
             <form>
               <div className={styles.formLeft}>
                 <div className={styles.updateItem}>
+                  <label>{mensajeNombreMascota}</label>
                   <label>Nome</label>
-                  <input type="text" placeholder={pets.name} />
+                  <input type="text" placeholder={pets.name} onChange={event => setName(event.target.value)} />
                 </div>
                 <div className={styles.updateItem}>
                   <label>Raza</label>
