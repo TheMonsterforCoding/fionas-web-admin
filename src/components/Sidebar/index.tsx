@@ -52,7 +52,7 @@ export function Sidebar() {
                     <div className={styles.content}>
                       <div className={styles.contentLeft}>
                         <User />
-                        <span>Employee</span>
+                        <span>Trabalhadores</span>
                       </div>
                       <></>
                     </div>
@@ -69,7 +69,7 @@ export function Sidebar() {
                     <div className={styles.content}>
                       <div className={styles.contentLeft}>
                         <Users />
-                        <span>Customers</span>
+                        <span>Clientes</span>
                       </div>
                       <></>
                     </div>
@@ -85,7 +85,7 @@ export function Sidebar() {
                     <div className={styles.content}>
                       <div className={styles.contentLeft}>
                         <User />
-                        <span>Employee Type</span>
+                        <span>Tipo de trabalhador</span>
                       </div>
                       <></>
                     </div>
