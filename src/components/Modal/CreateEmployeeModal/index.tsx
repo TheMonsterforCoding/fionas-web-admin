@@ -26,7 +26,7 @@ interface CreateUserModalProps {
   validarYear: (year: string) => any[]
 }
 
-export function CreateUserModal({
+export function CreateEmployeeModal({
   isOpen,
   onRequestClose,
   validarFirstName,
@@ -54,7 +54,7 @@ export function CreateUserModal({
   var [mail, setMail] = useState('')
   var [mobileNumber, setMobileNumber] = useState('')
   const [state, setState] = useState(true)
-  const [userType, setUserType] = useState(true)
+  const [userType, setUserType] = useState(false)
   const [employeeTypeId, setEmployeeTypeId] = useState(0)
 
   //validaciones
@@ -409,8 +409,7 @@ export function CreateUserModal({
                   </div>
                 </div> */}
 
-                {userType ? (
-                  /* --------------- Employees Type --------------- */
+                {/* {userType ? (
                   <div className={styles.inputBlock}>
                     <label htmlFor="employeeType">Tipo de emprego</label>
                     <div className={styles.selectBlock}>
@@ -438,7 +437,7 @@ export function CreateUserModal({
                   </div>
                 ) : (
                   <></>
-                )}
+                )} */}
               </div>
 
               <div className={styles.createRight}>

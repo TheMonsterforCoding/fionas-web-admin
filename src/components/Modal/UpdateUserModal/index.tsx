@@ -24,14 +24,14 @@ type UpdateUserModalProps = {
   isOpen: boolean
   onRequestClose: () => void
   idUser: string
-  validarFirstName:(firstName: string) =>any[]
-  validarPassword:(password:string, password2:string)=> any[]
-  validarMail:(mail:string)=> any[]
-  validarMobileNumber:(mobileNumber:string)=> any[]
-  validarCpf:(cpf:string)=> any[]
-  validarAddress:(address:string)=> any[]
-  validarLastName:(lastName:string)=> any[]
-  validarYear:(year:string)=> any[]
+  validarFirstName: (firstName: string) => any[]
+  validarPassword: (password: string, password2: string) => any[]
+  validarMail: (mail: string) => any[]
+  validarMobileNumber: (mobileNumber: string) => any[]
+  validarCpf: (cpf: string) => any[]
+  validarAddress: (address: string) => any[]
+  validarLastName: (lastName: string) => any[]
+  validarYear: (year: string) => any[]
 }
 
 type UserType = {
@@ -79,42 +79,42 @@ export function UpdateUserModal({
     updated_at: 'loading'
   })
 
-var [cpf, setCpf] = useState('')
-var [firstName, setFirstName] = useState('')
-var [lastName, setLastName] = useState('')
-var [mail, setMail] = useState('')
-var [mobileNumber, setMobileNumber] = useState('')
-var [state, setState] = useState(false)
-var [userType, setUserType] = useState(false)
+  var [cpf, setCpf] = useState('')
+  var [firstName, setFirstName] = useState('')
+  var [lastName, setLastName] = useState('')
+  var [mail, setMail] = useState('')
+  var [mobileNumber, setMobileNumber] = useState('')
+  var [state, setState] = useState(false)
+  var [userType, setUserType] = useState(false)
 
-//validación nombre
-var firstNameArray= validarFirstName(firstName)
-firstName=firstNameArray[0]
-var mensajeFirstName=firstNameArray[1]
-var validadorFirstName=firstNameArray[2]
-//validación cpf
-var mensajeCpf="";
-var cpfArray=validarCpf(cpf)
-cpf=cpfArray[0]
-mensajeCpf=cpfArray[1]
-var validadorCpf=cpfArray[2]
-//validación mobile
-var mensajeMobileNumber="";
-var mobileNumberArray=validarMobileNumber(mobileNumber.toString())
-mobileNumber=mobileNumberArray[0]
-mensajeMobileNumber=mobileNumberArray[1]
-var validadorMobile=mobileNumberArray[2]
-//validación mail
-var mailArray=validarMail(mail)
-mail=mailArray[0]
-var mensajeMail=mailArray[1]
-var validadorMail=mailArray[2]
-//validación lasName
-var mensajeLastName="";
-var lastNameArray=validarLastName(lastName)
-lastName=lastNameArray[0]
-mensajeLastName=lastNameArray[1]
-var validadorLastName=lastNameArray[2]
+  //validación nombre
+  var firstNameArray = validarFirstName(firstName)
+  firstName = firstNameArray[0]
+  var mensajeFirstName = firstNameArray[1]
+  var validadorFirstName = firstNameArray[2]
+  //validación cpf
+  var mensajeCpf = ''
+  var cpfArray = validarCpf(cpf)
+  cpf = cpfArray[0]
+  mensajeCpf = cpfArray[1]
+  var validadorCpf = cpfArray[2]
+  //validación mobile
+  var mensajeMobileNumber = ''
+  var mobileNumberArray = validarMobileNumber(mobileNumber.toString())
+  mobileNumber = mobileNumberArray[0]
+  mensajeMobileNumber = mobileNumberArray[1]
+  var validadorMobile = mobileNumberArray[2]
+  //validación mail
+  var mailArray = validarMail(mail)
+  mail = mailArray[0]
+  var mensajeMail = mailArray[1]
+  var validadorMail = mailArray[2]
+  //validación lasName
+  var mensajeLastName = ''
+  var lastNameArray = validarLastName(lastName)
+  lastName = lastNameArray[0]
+  mensajeLastName = lastNameArray[1]
+  var validadorLastName = lastNameArray[2]
 
   useEffect(() => {
     async function selectUserById() {
@@ -134,99 +134,104 @@ var validadorLastName=lastNameArray[2]
   }
 
   async function handleSubmit() {
-
-    if(firstName===""){
-      validadorFirstName=true
-    }
-    if(lastName===""){
-      validadorLastName=true
-    }
-    if(cpf===""){
-      validadorCpf=true
-    }
-    if(mail===""){
-      validadorMail=true
-    }
-    if(mobileNumber===""){
-      validadorMobile=true
-    }
-    if(validadorFirstName==true && validadorLastName==true && validadorCpf==true && validadorMail==true && validadorMobile==true){
-    let newCpf = ''
-    let newFirstName = ''
-    let newLastName = ''
-    let newMail = ''
-    let newMobileNumber = ''
-    let newState = true
-    let newUserType = true
-
-    if (cpf === '') {
-      newCpf = user.cpf
-    } else {
-      newCpf = cpf
-    }
     if (firstName === '') {
-      newFirstName = user.first_name
-    } else {
-      newFirstName = firstName
+      validadorFirstName = true
     }
     if (lastName === '') {
-      newLastName = user.last_name
-    } else {
-      newLastName = lastName
+      validadorLastName = true
+    }
+    if (cpf === '') {
+      validadorCpf = true
     }
     if (mail === '') {
-      newMail = user.mail
-    } else {
-      newMail = mail
+      validadorMail = true
     }
     if (mobileNumber === '') {
-      newMobileNumber = user.mobile_number
-    } else {
-      newMobileNumber = mobileNumber
+      validadorMobile = true
     }
-    if (state === user.state) {
-      newState = user.state
-    } else {
-      newState = state
-    }
-    if (userType === user.user_type) {
-      newUserType = user.user_type
-    } else {
-      newUserType = userType
-    }
+    if (
+      validadorFirstName == true &&
+      validadorLastName == true &&
+      validadorCpf == true &&
+      validadorMail == true &&
+      validadorMobile == true
+    ) {
+      let newCpf = ''
+      let newFirstName = ''
+      let newLastName = ''
+      let newMail = ''
+      let newMobileNumber = ''
+      let newState = true
+      let newUserType = true
 
-    try {
-      const response = await api.put(`/users/${idUser}`, {
-        cpf: newCpf,
-        first_name: newFirstName,
-        last_name: newLastName,
-        mail: newMail,
-        mobile_number: newMobileNumber,
-        state: newState,
-        user_type: newUserType
-      })
-
-      const status = response.status
-
-      if (status === 200) {
-        toast.success('Usuário atualizado com susseso!')
-
-        setCpf('')
-        setFirstName('')
-        setLastName('')
-        setMail('')
-        setMobileNumber('')
-        setState(true)
-        setUserType(true)
-
-        onRequestClose()
+      if (cpf === '') {
+        newCpf = user.cpf
       } else {
-        toast.error('Usuário no fue atualizado!')
+        newCpf = cpf
       }
-    } catch (err) {
-      console.log(err)
-    }
-  }else{
+      if (firstName === '') {
+        newFirstName = user.first_name
+      } else {
+        newFirstName = firstName
+      }
+      if (lastName === '') {
+        newLastName = user.last_name
+      } else {
+        newLastName = lastName
+      }
+      if (mail === '') {
+        newMail = user.mail
+      } else {
+        newMail = mail
+      }
+      if (mobileNumber === '') {
+        newMobileNumber = user.mobile_number
+      } else {
+        newMobileNumber = mobileNumber
+      }
+      if (state === user.state) {
+        newState = user.state
+      } else {
+        newState = state
+      }
+      if (userType === user.user_type) {
+        newUserType = user.user_type
+      } else {
+        newUserType = userType
+      }
+
+      try {
+        const response = await api.put(`/users/${idUser}`, {
+          cpf: newCpf,
+          first_name: newFirstName,
+          last_name: newLastName,
+          mail: newMail,
+          mobile_number: newMobileNumber,
+          state: newState,
+          user_type: newUserType
+        })
+
+        const status = response.status
+
+        if (status === 200) {
+          toast.success('Usuário atualizado com susseso!')
+
+          setCpf('')
+          setFirstName('')
+          setLastName('')
+          setMail('')
+          setMobileNumber('')
+          setState(true)
+          setUserType(true)
+
+          onRequestClose()
+        } else {
+          toast.error('Usuário no fue atualizado!')
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    } else {
       toast.error('Por favor, verifique os campos em vermelho!')
       event.preventDefault()
     }
@@ -406,7 +411,7 @@ var validadorLastName=lastNameArray[2]
                   </div>
 
                   {/* --------------- User type --------------- */}
-                  <div className={styles.updateItem}>
+                  {/* <div className={styles.updateItem}>
                     <label>Tipo de usuario</label>
 
                     <div className={styles.selectTypeContainer}>
@@ -426,7 +431,7 @@ var validadorLastName=lastNameArray[2]
                         <span>Cliente</span>
                       </button>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className={styles.formRight}>
