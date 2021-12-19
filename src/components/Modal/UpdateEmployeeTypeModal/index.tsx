@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import Modal from 'react-modal'
-import { X, UserPlus, Edit2 } from '@styled-icons/feather'
+import { X, Edit2 } from '@styled-icons/feather'
 
 import { Button } from '../../Button'
 import styles from './styles.module.scss'
@@ -82,6 +82,7 @@ export function UpdateEmployeeTypeModal({
             <h2>Actualizar Cargo</h2>
             <X className={styles.buttonClose} onClick={onRequestClose} />
           </header>
+
           <form onSubmit={handleSubmit}>
             <fieldset>
               <span className={styles.subtitle}>Cargo a ser ocupado</span>
