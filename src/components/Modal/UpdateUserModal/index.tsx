@@ -86,6 +86,7 @@ export function UpdateUserModal({
   var [mobileNumber, setMobileNumber] = useState('')
   var [state, setState] = useState(false)
   var [userType, setUserType] = useState(false)
+  var [password, setPassword] = useState('')
 
   //validación nombre
   var firstNameArray = validarFirstName(firstName)
@@ -161,6 +162,7 @@ export function UpdateUserModal({
       let newLastName = ''
       let newMail = ''
       let newMobileNumber = ''
+      let newPassword = ''
       let newState = true
       let newUserType = true
 
@@ -178,6 +180,11 @@ export function UpdateUserModal({
         newLastName = user.last_name
       } else {
         newLastName = lastName
+      }
+      if (password === '') {
+        newPassword = user.password
+      } else {
+        newPassword = password
       }
       if (mail === '') {
         newMail = user.mail
@@ -208,7 +215,8 @@ export function UpdateUserModal({
           mail: newMail,
           mobile_number: newMobileNumber,
           state: newState,
-          user_type: newUserType
+          user_type: newUserType,
+          password: newPassword
         })
 
         const status = response.status
@@ -223,6 +231,7 @@ export function UpdateUserModal({
           setMobileNumber('')
           setState(true)
           setUserType(true)
+          setPassword('')
 
           onRequestClose()
         } else {
