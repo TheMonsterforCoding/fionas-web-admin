@@ -45,6 +45,7 @@ type UserType = {
   mail: string
   mobile_number: string
   state: boolean
+  user_type: boolean
   created_at: string
   updated_at: string
 }
@@ -71,6 +72,7 @@ export function UpdateUserModal({
     mail: 'loading',
     mobile_number: 'loading',
     state: false,
+    user_type: false,
     created_at: 'loading',
     updated_at: 'loading'
   })
@@ -123,6 +125,13 @@ var validadorLastName=lastNameArray[2]
     selectUserById()
   }, [idUser])
 
+  // Teste
+  if (user.user_type === true) {
+    console.log('Ativo')
+  } else {
+    console.log('Innativo')
+  }
+
   async function handleSubmit() {
 
     if(firstName===""){
@@ -147,6 +156,7 @@ var validadorLastName=lastNameArray[2]
     let newMail = ''
     let newMobileNumber = ''
     let newState = true
+    let newUserType = true
 
     if (cpf === '') {
       newCpf = user.cpf
@@ -178,6 +188,11 @@ var validadorLastName=lastNameArray[2]
     } else {
       newState = state
     }
+    if (userType === user.user_type) {
+      newUserType = user.user_type
+    } else {
+      newUserType = userType
+    }
 
     try {
       const response = await api.put(`/users/${idUser}`, {
@@ -186,7 +201,8 @@ var validadorLastName=lastNameArray[2]
         last_name: newLastName,
         mail: newMail,
         mobile_number: newMobileNumber,
-        state: newState
+        state: newState,
+        user_type: newUserType
       })
 
       const status = response.status
@@ -200,6 +216,7 @@ var validadorLastName=lastNameArray[2]
         setMail('')
         setMobileNumber('')
         setState(true)
+        setUserType(true)
 
         onRequestClose()
       } else {
@@ -254,7 +271,7 @@ var validadorLastName=lastNameArray[2]
               {/* ---------- Gênero ---------- */}
               <div className={styles.userInfo}>
                 <Gen />
-                {user.gender ? <span>masculino</span> : <span>Femenino</span>}
+                {user.gender ? <span>Masculino</span> : <span>Femenino</span>}
               </div>
               {/* ---------- Ano de nascimento ---------- */}
               <div className={styles.userInfo}>
@@ -285,6 +302,15 @@ var validadorLastName=lastNameArray[2]
                   <span>estado: Ativo</span>
                 ) : (
                   <span>estado: Inativo</span>
+                )}
+              </div>
+              {/* ---------- Tipo Usuario ---------- */}
+              <div className={styles.userInfo}>
+                <UserCheck />
+                {user.user_type ? (
+                  <span>Trabalhador</span>
+                ) : (
+                  <span>Cliente</span>
                 )}
               </div>
             </main>
@@ -374,6 +400,29 @@ var validadorLastName=lastNameArray[2]
                         className={!state ? styles.active : styles.disabled}
                       >
                         <span>Inativo</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* --------------- User type --------------- */}
+                  <div className={styles.updateItem}>
+                    <label>Tipo de usuario</label>
+
+                    <div className={styles.selectTypeContainer}>
+                      <button
+                        type="button"
+                        onClick={() => setUserType(true)}
+                        className={userType ? styles.active : styles.disabled}
+                      >
+                        <span>Trabalhador</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setUserType(false)}
+                        className={!userType ? styles.active : styles.disabled}
+                      >
+                        <span>Cliente</span>
                       </button>
                     </div>
                   </div>

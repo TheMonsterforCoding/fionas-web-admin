@@ -30,7 +30,8 @@ export function Sidebar() {
             <li>
               <Link href="/" passHref>
                 <a>
-                  <div id={styles.menuBox} className={styles.active}>
+                  {/* <div id={styles.menuBox} className={styles.active}> */}
+                  <div id={styles.menuBox}>
                     <div className={styles.content}>
                       <div className={styles.contentLeft}>
                         <Home />
@@ -51,7 +52,7 @@ export function Sidebar() {
                     <div className={styles.content}>
                       <div className={styles.contentLeft}>
                         <User />
-                        <span>Employee</span>
+                        <span>Trabalhadores</span>
                       </div>
                       <></>
                     </div>
@@ -60,15 +61,15 @@ export function Sidebar() {
               </Link>
             </li>
 
-             {/* Customers */}
-             <li>
+            {/* Customers */}
+            <li>
               <Link href="/posts/listCustomer" passHref>
                 <a>
                   <div id={styles.menuBox}>
                     <div className={styles.content}>
                       <div className={styles.contentLeft}>
                         <Users />
-                        <span>Customers</span>
+                        <span>Clientes</span>
                       </div>
                       <></>
                     </div>
@@ -84,7 +85,7 @@ export function Sidebar() {
                     <div className={styles.content}>
                       <div className={styles.contentLeft}>
                         <User />
-                        <span>Employee Type</span>
+                        <span>Tipo de trabalhador</span>
                       </div>
                       <></>
                     </div>
@@ -109,7 +110,7 @@ export function Sidebar() {
                 </a>
               </Link>
             </li>
-           {/* TaxiDog */}
+            {/* TaxiDog */}
             <li>
               <Link href="/posts/taxiDog" passHref>
                 <a>

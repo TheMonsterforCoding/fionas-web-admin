@@ -1,4 +1,4 @@
-import { Bell, Globe, Settings } from '@styled-icons/feather'
+import { Bell, Globe, Settings, LogOut } from '@styled-icons/feather'
 import Image from 'next/image'
 
 import AvatarImg from '../../../public/avatar.jpg'
@@ -9,18 +9,19 @@ export function Header() {
   return (
     <div className={styles.container}>
       <header>
-        <div className={styles.iconContainer}>
+        {/* <div className={styles.iconContainer}>
           <Bell />
           <span className={styles.topIconBadge}>2</span>
-        </div>
-        <div className={styles.iconContainer}>
-          <Globe />
-        </div>
+        </div> */}
+        <Image src={AvatarImg} alt="Avatar" />
+
         <div className={styles.iconContainer}>
           <Settings />
         </div>
 
-        <Image src={AvatarImg} alt="Avatar" />
+        <div className={styles.iconContainer}>
+          <LogOut />
+        </div>
       </header>
     </div>
   )
