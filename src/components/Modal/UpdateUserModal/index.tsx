@@ -77,12 +77,13 @@ export function UpdateUserModal({
     updated_at: 'loading'
   })
 
-  var [cpf, setCpf] = useState('')
-  var [firstName, setFirstName] = useState('')
-  var [lastName, setLastName] = useState('')
-  var [mail, setMail] = useState('')
-  var [mobileNumber, setMobileNumber] = useState('')
-  var [state, setState] = useState(false)
+var [cpf, setCpf] = useState('')
+var [firstName, setFirstName] = useState('')
+var [lastName, setLastName] = useState('')
+var [mail, setMail] = useState('')
+var [mobileNumber, setMobileNumber] = useState('')
+var [state, setState] = useState(false)
+var [userType, setUserType] = useState(false)
 
 //validación nombre
 var firstNameArray= validarFirstName(firstName)
