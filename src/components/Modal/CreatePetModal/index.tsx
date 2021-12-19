@@ -14,11 +14,17 @@ import styles from './styles.module.scss'
 interface CreatePetModalProps {
   isOpen: boolean
   onRequestClose: () => void
+  validarNombreMascota:(nombreMascota: string) => any[]
+  validarBreed:(breed: string)=> any[]
+  validarYear:(year: string)=> any[]
 }
 
 export function CreatePetModal({
   isOpen,
-  onRequestClose
+  onRequestClose,
+  validarNombreMascota,
+  validarBreed,
+  validarYear
 }: CreatePetModalProps) {
   const { createPet } = usePets()
   const { createCustomerHasPet } = useCustomerHasPets()
@@ -31,19 +37,32 @@ export function CreatePetModal({
     })
   })
 
-  const [name, setName] = useState('')
+  var [name, setName] = useState('')
   const [size, setSize] = useState('')
   const [gender, setGender] = useState(true)
-  const [yearOfBirth, setYearOfBirth] = useState(1980)
+  var [yearOfBirth, setYearOfBirth] = useState(1980)
   const [breed, setBreed] = useState('')
   const [state, setState] = useState(false)
   let customers_has_pets_pets_id
   let customers_has_pets_customers_id
   const [owner, setOwner] = useState('')
+//validaciones
+//nombre
+  var arrayValidarNombreMascota= validarNombreMascota(name);
+  name=arrayValidarNombreMascota[0];
+  var mensajeNombreMascota=arrayValidarNombreMascota[1];
+  var validadorNombreMascota=arrayValidarNombreMascota[2];
+
+  //validar año
+  var arrayValidarYear= validarYear(yearOfBirth.toString());
+  yearOfBirth=arrayValidarYear[0];
+  var mensajeYearMascota=arrayValidarYear[1];
+  var validadorYearMascota=arrayValidarYear[2];
+
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
-
+    if(validadorNombreMascota && validadorYearMascota){
     const data = {
       name,
       size,
@@ -74,7 +93,12 @@ export function CreatePetModal({
       handleCreateCustomerHasPet()
     } else {
       toast.error('Pet não registrado!')
-    }
+    }  
+  } else {
+    toast.error('Pet não registrado!')
+    event.preventDefault()
+  }  
+
   }
 
   async function handleCreateCustomerHasPet() {
@@ -115,6 +139,7 @@ export function CreatePetModal({
                 </span>
                 {/* --------------- Name --------------- */}
                 <div className={styles.inputBlock}>
+                  <label>{mensajeNombreMascota}</label>
                   <label htmlFor="name">Nome</label>
                   <input
                     type="text"
@@ -149,6 +174,7 @@ export function CreatePetModal({
 
                 {/* --------------- Year of Birth --------------- */}
                 <div className={styles.inputBlock}>
+                  <label>{mensajeYearMascota}</label>
                   <label htmlFor="yearOfBirth">Ano de Nacimento</label>
                   <input
                     type="number"
@@ -217,6 +243,7 @@ export function CreatePetModal({
 
                 {/* --------------- Size --------------- */}
                 <div className={styles.inputBlock}>
+
                   <label htmlFor="size">Tamanho</label>
                   <div className={styles.selectBlock}>
                     <select

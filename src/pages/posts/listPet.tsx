@@ -26,7 +26,65 @@ export default function listPet() {
   function handleCloseCreatePetModal() {
     setIsCreatePetModal(false)
   }
+  //validar nombre de la mascota
+  function validarNombreMascota(nombreMascota : string) {
+    var encontrarNumero=new RegExp(/\d/);
+    var validador=false
+    var mensajeNombreMascota = "";
+    if(encontrarNumero.test(nombreMascota)){
+      mensajeNombreMascota="El nombre de mascota no puede tener números"
+    }else if(!encontrarNumero.test(nombreMascota)){
+      validador=true
 
+    }else if(nombreMascota.length>=10){
+       mensajeNombreMascota="Un nombre de mascota no puede tener más de 10 caracteres"
+       validador=false
+  }else if(nombreMascota.length==0){
+    validador=false
+  }
+  var a=[]
+  a=[nombreMascota,mensajeNombreMascota,validador];
+  return a;
+  }
+
+  //validar raza
+  function validarBreed(breed:string){
+    var validador=false;
+    var mensajeBreed="";
+    var encontrarNumero=new RegExp(/\d/);
+    if(breed.length>1){
+    
+    if(breed.length>=12){
+      mensajeBreed="La raza no puede tener más de 12 caracteres"
+    }else if(breed.length<=2){
+      mensajeBreed="La raza no puede tener menos de 2 caracteres"
+    }else if(encontrarNumero.test(breed)){
+      mensajeBreed="La raza no puede tener números"
+    }else{
+      validador=true
+    }
+  }
+  var a=[]
+  a=[breed,mensajeBreed,validador];
+    return a
+  }
+//validar año de nacimiento
+function validarYear(year:string){
+  var validador=false;
+  var mensajeYear="";
+  var yearInt=parseInt(year)
+  var today = new Date();
+  var ano = today.getFullYear();
+  var anoValido=ano-yearInt;
+  if(anoValido>1 && anoValido<=20){
+    validador=true
+  }else{
+    validador=false
+    mensajeYear="La edad de nacimiento no puede ser mayor a 20 ni menor a 1"
+  }
+  var a=[year,mensajeYear,validador,];
+  return a
+}
   return (
     <>
       <Pets
@@ -38,10 +96,16 @@ export default function listPet() {
         isOpen={isUpdatePetModal}
         onRequestClose={handleCloseUpdatePetModal}
         idPet={idPetsToUpdate}
+        validarNombreMascota={validarNombreMascota}
+        validarYear={validarYear}
+        
       />
       <CreatePetModal
         isOpen={isCreatePetModal}
         onRequestClose={handleCloseCreatePetModal}
+        validarNombreMascota={validarNombreMascota}
+        validarBreed={validarBreed} 
+        validarYear={validarYear}
       />
     </>
   )

@@ -24,6 +24,14 @@ type UpdateUserModalProps = {
   isOpen: boolean
   onRequestClose: () => void
   idUser: string
+  validarFirstName:(firstName: string) =>any[]
+  validarPassword:(password:string, password2:string)=> any[]
+  validarMail:(mail:string)=> any[]
+  validarMobileNumber:(mobileNumber:string)=> any[]
+  validarCpf:(cpf:string)=> any[]
+  validarAddress:(address:string)=> any[]
+  validarLastName:(lastName:string)=> any[]
+  validarYear:(year:string)=> any[]
 }
 
 type UserType = {
@@ -46,7 +54,13 @@ type UserType = {
 export function UpdateUserModal({
   isOpen,
   onRequestClose,
-  idUser
+  idUser,
+  validarCpf,
+  validarFirstName,
+  validarLastName,
+  validarMail,
+  validarMobileNumber,
+  validarYear
 }: UpdateUserModalProps) {
   const [user, setUser] = useState<UserType>({
     id: 'loading',
@@ -65,13 +79,42 @@ export function UpdateUserModal({
     updated_at: 'loading'
   })
 
-  const [cpf, setCpf] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [mail, setMail] = useState('')
-  const [mobileNumber, setMobileNumber] = useState('')
-  const [state, setState] = useState(false)
-  const [userType, setUserType] = useState(false)
+var [cpf, setCpf] = useState('')
+var [firstName, setFirstName] = useState('')
+var [lastName, setLastName] = useState('')
+var [mail, setMail] = useState('')
+var [mobileNumber, setMobileNumber] = useState('')
+var [state, setState] = useState(false)
+var [userType, setUserType] = useState(false)
+
+//validación nombre
+var firstNameArray= validarFirstName(firstName)
+firstName=firstNameArray[0]
+var mensajeFirstName=firstNameArray[1]
+var validadorFirstName=firstNameArray[2]
+//validación cpf
+var mensajeCpf="";
+var cpfArray=validarCpf(cpf)
+cpf=cpfArray[0]
+mensajeCpf=cpfArray[1]
+var validadorCpf=cpfArray[2]
+//validación mobile
+var mensajeMobileNumber="";
+var mobileNumberArray=validarMobileNumber(mobileNumber.toString())
+mobileNumber=mobileNumberArray[0]
+mensajeMobileNumber=mobileNumberArray[1]
+var validadorMobile=mobileNumberArray[2]
+//validación mail
+var mailArray=validarMail(mail)
+mail=mailArray[0]
+var mensajeMail=mailArray[1]
+var validadorMail=mailArray[2]
+//validación lasName
+var mensajeLastName="";
+var lastNameArray=validarLastName(lastName)
+lastName=lastNameArray[0]
+mensajeLastName=lastNameArray[1]
+var validadorLastName=lastNameArray[2]
 
   useEffect(() => {
     async function selectUserById() {
@@ -91,6 +134,23 @@ export function UpdateUserModal({
   }
 
   async function handleSubmit() {
+
+    if(firstName===""){
+      validadorFirstName=true
+    }
+    if(lastName===""){
+      validadorLastName=true
+    }
+    if(cpf===""){
+      validadorCpf=true
+    }
+    if(mail===""){
+      validadorMail=true
+    }
+    if(mobileNumber===""){
+      validadorMobile=true
+    }
+    if(validadorFirstName==true && validadorLastName==true && validadorCpf==true && validadorMail==true && validadorMobile==true){
     let newCpf = ''
     let newFirstName = ''
     let newLastName = ''
@@ -165,6 +225,10 @@ export function UpdateUserModal({
       }
     } catch (err) {
       console.log(err)
+    }
+  }else{
+      toast.error('Por favor, verifique os campos em vermelho!')
+      event.preventDefault()
     }
   }
 
@@ -261,6 +325,7 @@ export function UpdateUserModal({
                 <div className={styles.formLeft}>
                   {/* ---------- CPF ---------- */}
                   <div className={styles.updateItem}>
+                    <label>{mensajeCpf}</label>
                     <label>CPF</label>
                     <input
                       type="text"
@@ -272,6 +337,7 @@ export function UpdateUserModal({
 
                   {/* ---------- Nome ---------- */}
                   <div className={styles.updateItem}>
+                    <label>{mensajeFirstName}</label>
                     <label>Nome</label>
                     <input
                       type="text"
@@ -283,6 +349,7 @@ export function UpdateUserModal({
 
                   {/* ---------- Sobrenome ---------- */}
                   <div className={styles.updateItem}>
+                    <label>{mensajeLastName}</label>
                     <label>Sobrenome</label>
                     <input
                       type="text"
@@ -294,6 +361,7 @@ export function UpdateUserModal({
 
                   {/* ---------- Email ---------- */}
                   <div className={styles.updateItem}>
+                    <label>{mensajeMail}</label>
                     <label>Email</label>
                     <input
                       type="email"
@@ -305,6 +373,7 @@ export function UpdateUserModal({
 
                   {/* ---------- Telefone ---------- */}
                   <div className={styles.updateItem}>
+                    <label>{mensajeMobileNumber}</label>
                     <label>Telefone</label>
                     <input
                       type="text"

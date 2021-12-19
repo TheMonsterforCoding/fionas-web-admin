@@ -12,6 +12,9 @@ type UpdatePetModalProps = {
   isOpen: boolean
   onRequestClose: () => void
   idPet: string
+  validarNombreMascota:(nombreMascota: string) => any[]
+  validarYear:(year: string) => any[]
+
 }
 
 type PetType = {
@@ -26,11 +29,10 @@ type PetType = {
   dueñoMascota: string
 }
 
-export function UpdatePetModal({
-  isOpen,
-  onRequestClose,
-  idPet
-}: UpdatePetModalProps) {
+
+
+export function UpdatePetModal({ isOpen, onRequestClose,idPet,validarNombreMascota, validarYear}: UpdatePetModalProps) {
+  
   const [pets, setPets] = useState<PetType>({
     petId: 'loading',
     name: 'loading',
@@ -43,13 +45,21 @@ export function UpdatePetModal({
     dueñoMascota: 'loading'
   })
 
-  const [name, setName] = useState('')
+  var [name, setName] = useState('')
   const [gender, setGender] = useState(true)
-  const [yearOfBirth, setYearOfBirth] = useState('')
+  var [yearOfBirth, setYearOfBirth] = useState('')
   const [size, setSize] = useState('')
   const [breed, setBreed] = useState('')
   const [state, setState] = useState(true)
-
+  var arrayValidarNombreMascota= validarNombreMascota(name);
+   name=arrayValidarNombreMascota[0];
+  var mensajeNombreMascota=arrayValidarNombreMascota[1];
+  var validadorNombreMascota=arrayValidarNombreMascota[2];
+  //validar año
+  var arrayValidarYear= validarYear(yearOfBirth);
+  yearOfBirth=arrayValidarYear[0];
+  var mensajeYearMascota=arrayValidarYear[1];
+  var validadorYearMascota=arrayValidarYear[2];
   useEffect(() => {
     async function loadPetsData() {
       await api.get(`/pets/${idPet}`).then(response => {

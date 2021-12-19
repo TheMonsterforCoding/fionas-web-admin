@@ -16,34 +16,107 @@ import styles from './styles.module.scss'
 interface CreateUserModalProps {
   isOpen: boolean
   onRequestClose: () => void
+  validarFirstName:(firstName: string) =>any[]
+  validarPassword:(password:string, password2:string)=> any[]
+  validarMail:(mail:string)=> any[]
+  validarMobileNumber:(mobileNumber:string)=> any[]
+  validarCpf:(cpf:string)=> any[]
+  validarAddress:(address:string)=> any[]
+  validarLastName:(lastName:string)=> any[]
+  validarYear:(year:string)=> any[]
 }
 
 export function CreateUserModal({
   isOpen,
-  onRequestClose
+  onRequestClose,
+  validarFirstName,
+  validarPassword,
+  validarMail,
+  validarCpf,
+  validarMobileNumber,
+  validarAddress,
+  validarLastName,
+  validarYear
 }: CreateUserModalProps) {
   const { createUser } = useUsers()
   const { employeesType } = useEmployessType()
   const { createEmployee } = useEmployees()
   const { createCustomer } = useCustomers()
 
-  const [cpf, setCpf] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [gender, setGender] = useState(true)
-  const [password, setPassword] = useState('')
-  const [password2, setPassword2] = useState('')
-  const [yearOfBirth, setYearOfBirth] = useState(1900)
-  const [address, setAddress] = useState('')
-  const [mail, setMail] = useState('')
-  const [mobileNumber, setMobileNumber] = useState('')
+  var [cpf, setCpf] = useState('')
+  var [firstName, setFirstName] = useState('')
+  var [lastName, setLastName] = useState('')
+  var [gender, setGender] = useState(true)
+  var [password, setPassword] = useState('')
+  var [password2, setPassword2] = useState('')
+  var [yearOfBirth, setYearOfBirth] = useState(2000)
+  var [address, setAddress] = useState('')
+  var [mail, setMail] = useState('')
+  var [mobileNumber, setMobileNumber] = useState('')
   const [state, setState] = useState(true)
   const [userType, setUserType] = useState(true)
   const [employeeTypeId, setEmployeeTypeId] = useState(0)
 
+
+//validaciones
+  var mensajePassword="";
+  var mensajePassword2="";
+  var mensajeFirstName="";
+  var mensajeMail="";
+  var passwordArray = validarPassword(password, password2)
+  password=passwordArray[0]
+  password2=passwordArray[1]
+  mensajePassword=passwordArray[2]
+  mensajePassword2=passwordArray[3]
+  var validadorPassword=passwordArray[3]
+  //validación nombre
+  var firstNameArray=validarFirstName(firstName)
+  firstName=firstNameArray[0]
+  mensajeFirstName=firstNameArray[1]
+  var validadorFirstName=firstNameArray[2]
+  //validación mail
+  var mailArray=validarMail(mail)
+  mail=mailArray[0]
+  mensajeMail=mailArray[1]
+  var validadorMail=mailArray[2]
+
+  //validación mobile
+  var mensajeMobileNumber="";
+  var mobileNumberArray=validarMobileNumber(mobileNumber.toString())
+  mobileNumber=mobileNumberArray[0]
+  mensajeMobileNumber=mobileNumberArray[1]
+  var validadorMobile=mobileNumberArray[2]
+  //validación cpf
+  var mensajeCpf="";
+  var cpfArray=validarCpf(cpf)
+  cpf=cpfArray[0]
+  mensajeCpf=cpfArray[1]
+  var validadorCpf=cpfArray[2]
+//validación address
+  var mensajeAddress="";
+  var addressArray=validarAddress(address)
+  address=addressArray[0]
+  mensajeAddress=addressArray[1]
+  var validadorAddress=addressArray[2]
+  //validación lasName
+  var mensajeLastName="";
+  var lastNameArray=validarLastName(lastName)
+  lastName=lastNameArray[0]
+  mensajeLastName=lastNameArray[1]
+  var validadorLastName=lastNameArray[2]
+//validar año
+var arrayValidarYear= validarYear(yearOfBirth.toString());
+yearOfBirth=arrayValidarYear[0];
+var mensajeYear=arrayValidarYear[1];
+var validadorYear=arrayValidarYear[2];
+
+
+
+
+
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
-
+    if(validadorCpf && validadorAddress && validadorFirstName && validadorLastName && validadorMail && validadorMobile && validadorPassword && validadorYear){
     const userData = {
       cpf,
       first_name: firstName,
@@ -99,6 +172,10 @@ export function CreateUserModal({
     } else {
       toast.error('Usuario não registrado!')
     }
+  }else{
+    toast.error('Dados de usuario incorreto!')
+    event.preventDefault()
+  }
   }
 
   return (
@@ -125,6 +202,7 @@ export function CreateUserModal({
                 </span>
                 {/* --------------- CPF --------------- */}
                 <div className={styles.inputBlock}>
+                <label id="mensajeCpf">{mensajeCpf}</label>
                   <label htmlFor="cpf">CPF</label>
                   <input
                     type="text"
@@ -138,6 +216,7 @@ export function CreateUserModal({
 
                 {/* --------------- First Name --------------- */}
                 <div className={styles.inputBlock}>
+                <label id="mensajeFirstName">{mensajeFirstName}</label>
                   <label htmlFor="firstName">Nome</label>
                   <input
                     type="text"
@@ -151,6 +230,7 @@ export function CreateUserModal({
 
                 {/* --------------- Last Name --------------- */}
                 <div className={styles.inputBlock}>
+                <label id="mensajeLastName">{mensajeLastName}</label>
                   <label htmlFor="lastName">Sobrenome</label>
                   <input
                     type="text"
@@ -164,6 +244,7 @@ export function CreateUserModal({
 
                 {/* --------------- Year of Birth --------------- */}
                 <div className={styles.inputBlock}>
+                <label id="mensajeYear">{mensajeYear}</label>
                   <label htmlFor="yearOfBirth">Ano de Nacimento</label>
                   <input
                     type="number"
@@ -202,6 +283,7 @@ export function CreateUserModal({
 
                 {/* --------------- Password --------------- */}
                 <div className={styles.inputBlock}>
+                <label id="mensajePassword">{mensajePassword}</label>
                   <label htmlFor="password">Contrasenha</label>
                   <input
                     type="password"
@@ -215,7 +297,7 @@ export function CreateUserModal({
 
                 {/* --------------- Password Validation --------------- */}
                 <div className={styles.inputBlock}>
-                  <label id="mensajePasword2"></label>
+                  <label>{mensajePassword2}</label>
                   <label htmlFor="password2">Repetir contrasenha</label>
                   <input
                     type="password"
@@ -234,6 +316,7 @@ export function CreateUserModal({
                 </span>
                 {/* --------------- Address --------------- */}
                 <div className={styles.inputBlock}>
+                <label id="mensajeAddress">{mensajeAddress}</label>
                   <label htmlFor="address">Endereço</label>
                   <input
                     type="text"
@@ -247,6 +330,7 @@ export function CreateUserModal({
 
                 {/* --------------- E-mail --------------- */}
                 <div className={styles.inputBlock}>
+                <label id="mensajeMail"> {mensajeMail} </label>
                   <label htmlFor="mail">Email</label>
                   <input
                     type="email"
@@ -260,6 +344,7 @@ export function CreateUserModal({
 
                 {/* --------------- Mobile Number --------------- */}
                 <div className={styles.inputBlock}>
+                <label id="mensajeMobileNumber">{mensajeMobileNumber} </label>
                   <label htmlFor="mobileNumber">Número celular</label>
                   <input
                     type="text"
