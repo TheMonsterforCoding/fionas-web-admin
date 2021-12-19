@@ -16,9 +16,6 @@ interface CreatePetModalProps {
   onRequestClose: () => void
 }
 
-
-
-
 export function CreatePetModal({
   isOpen,
   onRequestClose
@@ -28,11 +25,11 @@ export function CreatePetModal({
   const { users } = useUsers()
   const { customers } = useCustomers()
   const { pets } = usePets()
-  const customersFiltered = users.filter((user) => {
-    return customers.some((customer) => {
-      return customer.customers_users_id === user.id;
-    });
-  });
+  const customersFiltered = users.filter(user => {
+    return customers.some(customer => {
+      return customer.customers_users_id === user.id
+    })
+  })
 
   const [name, setName] = useState('')
   const [size, setSize] = useState('')
@@ -46,7 +43,7 @@ export function CreatePetModal({
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
-    
+
     const data = {
       name,
       size,
@@ -61,39 +58,37 @@ export function CreatePetModal({
     const status = response.status
 
     if (status === 200) {
-
       setName('')
       setSize('')
       setGender(true)
       setYearOfBirth(1900)
       setBreed('')
       setState(false)
-      customers_has_pets_pets_id = pets[pets.length - 1].id as unknown as number + 1
+      customers_has_pets_pets_id =
+        (pets[pets.length - 1].id as unknown as number) + 1
 
-      var customerId = customers.filter((user) => {
-        return user.customers_users_id === owner;
-      });
+      var customerId = customers.filter(user => {
+        return user.customers_users_id === owner
+      })
       customers_has_pets_customers_id = customerId[0].id
       handleCreateCustomerHasPet()
     } else {
       toast.error('Pet não registrado!')
-    }  
-
+    }
   }
 
-  async function handleCreateCustomerHasPet(){
+  async function handleCreateCustomerHasPet() {
     const data = {
       customers_has_pets_pets_id,
       customers_has_pets_customers_id
     }
-     const response = await createCustomerHasPet(data)
+    const response = await createCustomerHasPet(data)
 
     const status = response.status
     if (status === 200) {
       toast.success('Pet registrado!')
       onRequestClose()
-    } 
-
+    }
   }
 
   return (
@@ -233,7 +228,7 @@ export function CreatePetModal({
                       <option value="">Seleccione</option>
                       <option value="Grande">Grande</option>
                       <option value="Mediano">Mediano</option>
-                      <option value="Pequeño">Pequeño</option>
+                      <option value="Pequeño">Pequeno</option>
                     </select>
                   </div>
                 </div>
