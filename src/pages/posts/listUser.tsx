@@ -39,7 +39,9 @@ export default function listUser() {
         mensajeFirstName="No se permiten números en el nombre"
     }
    }
-    return [firstName,mensajeFirstName,validador];
+   var a=[]
+   a=[firstName,mensajeFirstName,validador];
+    return a;
  }
 
 
@@ -47,9 +49,9 @@ export default function listUser() {
  function validarPassword(password:string,password2:string){
    console.log(password)
    var validador=false;
-  var passwordValido = /^[a-zA-Z0-9]{6,}$/;
-  var  mensajePassword="";
-  if(password.length>=1){
+  var passwordValido = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,16}$/;
+  var mensajePassword="";
+  if(password.length>=1 || password2.length>=1){
 
     if(password!==password2){
       mensajePassword="las contraseña no son iguales"
@@ -59,16 +61,22 @@ export default function listUser() {
     mensajePassword="";
     validador=true;
 
-  }else if(!passwordValido.test(password)){
-    mensajePassword="la contraseña tiene que tener letras, números, un minimo de caractes de 6 y un máximo de 12 ";
+  } 
+  if(!passwordValido.test(password)){
+    mensajePassword="la contraseña tiene que tener letras, números, un minimo de caractes de 6 y un máximo de 16 ";
     validador=false;
   }
-  else if(password.length>12){
-    mensajePassword="La contraseña no puede ser mayor a 12 caracteres"
+  if(password.length>16){
+    mensajePassword="La contraseña no puede ser mayor a 16 caracteres"
     validador=false;
   }
+  if(password2!=password && password2.length>=1){
+    mensajePassword="Las contraseñas no coinciden"
+   }
 }
-  return [password,password2,mensajePassword,validador]
+var a=[]
+a=[password,password2,mensajePassword,validador];
+  return a
 }
 //Funcion para mail
 function validarMail(mail:string){
@@ -83,7 +91,9 @@ function validarMail(mail:string){
       mensajeMail="El formato tiene que ser un mail";
   }
 }
-  return [mail,mensajeMail,validador]
+var a=[]
+a=[mail,mensajeMail,validador];
+  return a
 }
 //función para celular
 function validarMobileNumber(mobileNumber:string){
@@ -98,7 +108,9 @@ function validarMobileNumber(mobileNumber:string){
       mensajeMobileNumber="El formato tiene que ser solo número";
   }
   }
-  return [mobileNumber,mensajeMobileNumber,validador]
+  var a=[]
+  a=[mobileNumber,mensajeMobileNumber,validador];
+  return a
   }
 //validar cpf
 function validarCpf(cpf:string){
@@ -113,7 +125,9 @@ function validarCpf(cpf:string){
       mensajeCPF="El formato del cpf es incorrecto xxx.xxx.xxx-xx";
   }
 }
-  return [cpf,mensajeCPF,validador]
+var a=[]
+a=[cpf,mensajeCPF,validador];
+  return a
   }
 //function validar address
 function validarAddress(address:string){
@@ -126,7 +140,9 @@ function validarAddress(address:string){
       validador=true;
     }
   }
-  return[address,mensajeAddress,validador]
+  var a=[]
+  a=[address,mensajeAddress,validador];
+  return a
 }
 //function validar apellido
 function validarLastName(lastName:string){
@@ -141,7 +157,9 @@ function validarLastName(lastName:string){
       mensajeLastName="No se puede tener menos de 3 caracteres o números. "
     }
   }
-  return [lastName,mensajeLastName,validador]
+  var a=[]
+  a=[lastName,mensajeLastName,validador];
+  return a
 }
 
 
@@ -157,11 +175,13 @@ function validarLastName(lastName:string){
         idUser={idUserToUpdate}
         isOpen={isUpdateUserModal}
         onRequestClose={handleCloseUpdateUserModal}
-        validarCpf={validarCpf}
-        validarMail={validarMail}
         validarFirstName={validarFirstName}
-        validarLastName={validarLastName}
+        validarPassword={validarPassword}
+        validarMail={validarMail}
+        validarCpf={validarCpf}
+        validarAddress={validarAddress}
         validarMobileNumber={validarMobileNumber}
+        validarLastName={validarLastName}
       />
 
       <CreateUserModal

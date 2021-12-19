@@ -16,13 +16,13 @@ import styles from './styles.module.scss'
 interface CreateUserModalProps {
   isOpen: boolean
   onRequestClose: () => void
-  validarFirstName(value:string):()=> []
-  validarPassword(password:string, password2:string):()=> []
-  validarMail(mail:string):()=> []
-  validarMobileNumber(mobileNumber:string):()=> []
-  validarCpf(cpf:string):()=> []
-  validarAddress(address:string):()=> []
-  validarLastName(lastName:string):()=> []
+  validarFirstName:(firstName: string) =>any[]
+  validarPassword:(password:string, password2:string)=> any[]
+  validarMail:(mail:string)=> any[]
+  validarMobileNumber:(mobileNumber:string)=> any[]
+  validarCpf:(cpf:string)=> any[]
+  validarAddress:(address:string)=> any[]
+  validarLastName:(lastName:string)=> any[]
 }
 
 export function CreateUserModal({
@@ -66,6 +66,7 @@ export function CreateUserModal({
   password=passwordArray[0]
   password2=passwordArray[1]
   mensajePassword=passwordArray[2]
+  mensajePassword2=passwordArray[3]
   var validadorPassword=passwordArray[3]
   //validación nombre
   var firstNameArray=validarFirstName(firstName)
@@ -75,7 +76,7 @@ export function CreateUserModal({
   //validación mail
   var mailArray=validarMail(mail)
   mail=mailArray[0]
-  var mensajeMail=mailArray[1]
+  mensajeMail=mailArray[1]
   var validadorMail=mailArray[2]
 
   //validación mobile
@@ -289,6 +290,7 @@ export function CreateUserModal({
 
                 {/* --------------- Password Validation --------------- */}
                 <div className={styles.inputBlock}>
+                  <label>{mensajePassword2}</label>
                   <label htmlFor="password2">Repetir contrasenha</label>
                   <input
                     type="password"

@@ -24,13 +24,13 @@ type UpdateUserModalProps = {
   isOpen: boolean
   onRequestClose: () => void
   idUser: string
-  validarCpf(cpf:string):()=> []
-  validarMail(mail:string):()=> []
-  validarMobileNumber(mobileNumber:string):()=> []
-  validarLastName(lastName:string):()=> []
-  validarFirstName(firstName:string):()=> []
-
-
+  validarFirstName:(firstName: string) =>any[]
+  validarPassword:(password:string, password2:string)=> any[]
+  validarMail:(mail:string)=> any[]
+  validarMobileNumber:(mobileNumber:string)=> any[]
+  validarCpf:(cpf:string)=> any[]
+  validarAddress:(address:string)=> any[]
+  validarLastName:(lastName:string)=> any[]
 }
 
 type UserType = {

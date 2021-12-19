@@ -35,7 +35,7 @@ export default function listUser() {
   function handleCloseViewCustomerHasPetModal() {
     setViewCustomerHasPetModal(false)
   }
-
+//funcion para validar el primer nombre
   function validarFirstName(firstName: string){
     var mensajeFirstName="";
     var validador=false;
@@ -54,30 +54,34 @@ export default function listUser() {
 
  //Funcion para validar las contraseñas
  function validarPassword(password:string,password2:string){
-   console.log(password)
-   var validador=false;
-  var passwordValido = /^[a-zA-Z0-9]{6,}$/;
-  var  mensajePassword="";
-  if(password.length>=1){
+  console.log(password)
+  var validador=false;
+ var passwordValido = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,16}$/;
+ var mensajePassword="";
+ if(password.length>=1 || password2.length>=1){
 
-    if(password!==password2){
-      mensajePassword="las contraseña no son iguales"
-      validador=false;
-    }
-    if(passwordValido.test(password) && password==password2){
-    mensajePassword="";
-    validador=true;
+   if(password!==password2){
+     mensajePassword="las contraseña no son iguales"
+     validador=false;
+   }
+   if(passwordValido.test(password) && password==password2){
+   mensajePassword="";
+   validador=true;
 
-  }else if(!passwordValido.test(password)){
-    mensajePassword="la contraseña tiene que tener letras, números, un minimo de caractes de 6 y un máximo de 12 ";
-    validador=false;
-  }
-  else if(password.length>12){
-    mensajePassword="La contraseña no puede ser mayor a 12 caracteres"
-    validador=false;
+ } 
+ if(!passwordValido.test(password)){
+   mensajePassword="la contraseña tiene que tener letras, números, un minimo de caractes de 6 y un máximo de 16 ";
+   validador=false;
+ }
+ if(password.length>16){
+   mensajePassword="La contraseña no puede ser mayor a 16 caracteres"
+   validador=false;
+ }
+ if(password2!=password && password2.length>=1){
+   mensajePassword="Las contraseñas no coinciden"
   }
 }
-  return [password,password2,mensajePassword,validador]
+ return [password,password2,mensajePassword,validador]
 }
 //Funcion para mail
 function validarMail(mail:string){
@@ -166,11 +170,13 @@ function validarLastName(lastName:string){
         idUser={idUserToUpdate}
         isOpen={isUpdateUserModal}
         onRequestClose={handleCloseUpdateUserModal}
-        validarCpf={validarCpf}
-        validarMail={validarMail}
         validarFirstName={validarFirstName}
-        validarLastName={validarLastName}
+        validarPassword={validarPassword}
+        validarMail={validarMail}
+        validarCpf={validarCpf}
+        validarAddress={validarAddress}
         validarMobileNumber={validarMobileNumber}
+        validarLastName={validarLastName}
       />
       <CreateUserModal
         isOpen={isCreateUserModal}

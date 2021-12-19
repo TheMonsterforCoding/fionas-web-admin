@@ -42,7 +42,9 @@ export default function listPet() {
   }else if(nombreMascota.length==0){
     validador=false
   }
-    return [nombreMascota,mensajeNombreMascota,validador]
+  var a=[]
+  a=[nombreMascota,mensajeNombreMascota,validador];
+  return a;
   }
 
   //validar raza
@@ -62,7 +64,9 @@ export default function listPet() {
       validador=true
     }
   }
-    return [breed,mensajeBreed, validador]
+  var a=[]
+  a=[breed,mensajeBreed,validador];
+    return a
   }
 
   return (

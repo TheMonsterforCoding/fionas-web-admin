@@ -14,9 +14,8 @@ import styles from './styles.module.scss'
 interface CreatePetModalProps {
   isOpen: boolean
   onRequestClose: () => void
-  validarNombreMascota(nombreMascota: string):() => []
-  validarBreed(breed: string):() => []
-  validarSize(size: string):() => []
+  validarNombreMascota:(nombreMascota: string) => any[]
+  validarBreed:(breed: string)=> any[]
 }
 
 

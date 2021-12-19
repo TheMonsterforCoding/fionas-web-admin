@@ -26,7 +26,7 @@ interface UpdatePetModalProps {
   isOpen: boolean
   onRequestClose: () => void
   idPet: string
-  validarNombreMascota(nombreMascota: string):() => []
+  validarNombreMascota:(nombreMascota: string) => any[]
 
 }
 interface PetType {
