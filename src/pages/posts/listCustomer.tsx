@@ -35,6 +35,7 @@ export default function listUser() {
   function handleCloseViewCustomerHasPetModal() {
     setViewCustomerHasPetModal(false)
   }
+
   function validarFirstName(firstName: string){
     var mensajeFirstName="";
     var validador=false;

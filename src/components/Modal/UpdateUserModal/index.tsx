@@ -28,7 +28,7 @@ type UpdateUserModalProps = {
   validarMail(mail:string):()=> []
   validarMobileNumber(mobileNumber:string):()=> []
   validarLastName(lastName:string):()=> []
-  validarFirstName(value:string):()=> []
+  validarFirstName(firstName:string):()=> []
 
 
 }
@@ -83,7 +83,7 @@ export function UpdateUserModal({
   var [state, setState] = useState(false)
 
 //validación nombre
-var firstNameArray=validarFirstName(firstName)
+var firstNameArray= validarFirstName(firstName)
 firstName=firstNameArray[0]
 var mensajeFirstName=firstNameArray[1]
 var validadorFirstName=firstNameArray[2]
@@ -125,6 +125,21 @@ var validadorLastName=lastNameArray[2]
 
   async function handleSubmit() {
 
+    if(firstName===""){
+      validadorFirstName=true
+    }
+    if(lastName===""){
+      validadorLastName=true
+    }
+    if(cpf===""){
+      validadorCpf=true
+    }
+    if(mail===""){
+      validadorMail=true
+    }
+    if(mobileNumber===""){
+      validadorMobile=true
+    }
     if(validadorFirstName==true && validadorLastName==true && validadorCpf==true && validadorMail==true && validadorMobile==true){
     let newCpf = ''
     let newFirstName = ''
