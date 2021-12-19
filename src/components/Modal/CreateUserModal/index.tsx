@@ -23,6 +23,7 @@ interface CreateUserModalProps {
   validarCpf:(cpf:string)=> any[]
   validarAddress:(address:string)=> any[]
   validarLastName:(lastName:string)=> any[]
+  validarYear:(year:string)=> any[]
 }
 
 export function CreateUserModal({
@@ -34,7 +35,8 @@ export function CreateUserModal({
   validarCpf,
   validarMobileNumber,
   validarAddress,
-  validarLastName
+  validarLastName,
+  validarYear
 }: CreateUserModalProps) {
   const { createUser } = useUsers()
   const { employeesType } = useEmployessType()
@@ -47,7 +49,7 @@ export function CreateUserModal({
   var [gender, setGender] = useState(true)
   var [password, setPassword] = useState('')
   var [password2, setPassword2] = useState('')
-  const [yearOfBirth, setYearOfBirth] = useState(1900)
+  var [yearOfBirth, setYearOfBirth] = useState(2000)
   var [address, setAddress] = useState('')
   var [mail, setMail] = useState('')
   var [mobileNumber, setMobileNumber] = useState('')
@@ -102,8 +104,11 @@ export function CreateUserModal({
   lastName=lastNameArray[0]
   mensajeLastName=lastNameArray[1]
   var validadorLastName=lastNameArray[2]
-
-
+//validar año
+var arrayValidarYear= validarYear(yearOfBirth.toString());
+yearOfBirth=arrayValidarYear[0];
+var mensajeYear=arrayValidarYear[1];
+var validadorYear=arrayValidarYear[2];
 
 
 
@@ -111,7 +116,7 @@ export function CreateUserModal({
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
-    if(validadorCpf && validadorAddress && validadorFirstName && validadorLastName && validadorMail && validadorMobile && validadorPassword){
+    if(validadorCpf && validadorAddress && validadorFirstName && validadorLastName && validadorMail && validadorMobile && validadorPassword && validadorYear){
     const userData = {
       cpf,
       first_name: firstName,
@@ -239,6 +244,7 @@ export function CreateUserModal({
 
                 {/* --------------- Year of Birth --------------- */}
                 <div className={styles.inputBlock}>
+                <label id="mensajeYear">{mensajeYear}</label>
                   <label htmlFor="yearOfBirth">Ano de Nacimento</label>
                   <input
                     type="number"

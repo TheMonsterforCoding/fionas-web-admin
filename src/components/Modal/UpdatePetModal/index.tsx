@@ -28,6 +28,7 @@ interface UpdatePetModalProps {
   onRequestClose: () => void
   idPet: string
   validarNombreMascota:(nombreMascota: string) => any[]
+  validarYear:(year: string) => any[]
 
 }
 interface PetType {
@@ -44,7 +45,7 @@ interface PetType {
 
 
 
-export function UpdatePetModal({ isOpen, onRequestClose,idPet,validarNombreMascota }: UpdatePetModalProps) {
+export function UpdatePetModal({ isOpen, onRequestClose,idPet,validarNombreMascota, validarYear}: UpdatePetModalProps) {
   
   const [pets, setPets] = useState<PetType>({
     petId: 'loading',
@@ -58,10 +59,17 @@ export function UpdatePetModal({ isOpen, onRequestClose,idPet,validarNombreMasco
     dueñoMascota:'loading'
   })
   const [name, setName] = useState('')
+  const [year, setYear] = useState('')
   var arrayValidarNombreMascota= validarNombreMascota(name);
   var nombreMascota=arrayValidarNombreMascota[0];
   var mensajeNombreMascota=arrayValidarNombreMascota[1];
   var validadorNombreMascota=arrayValidarNombreMascota[2];
+  //validar año
+  var arrayValidarYear= validarYear(year);
+  var yearMascota=arrayValidarYear[0];
+  var mensajeYearMascota=arrayValidarYear[1];
+  var validadorYearMascota=arrayValidarYear[2];
+
   
   useEffect(() => {
     async function loadPetsData() {

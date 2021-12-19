@@ -44,6 +44,22 @@ export default function listUser() {
     return a;
  }
 
+ function validarYear(year:string){
+  var validador=false;
+  var mensajeYear="";
+  var yearInt=parseInt(year)
+  var today = new Date();
+  var ano = today.getFullYear();
+  var anoValido=ano-yearInt;
+  if(anoValido>7 && anoValido<=100){
+    validador=true
+  }else{
+    validador=false
+    mensajeYear="La edad de nacimiento no puede ser mayor a 100 ni menor a 7"
+  }
+  var a=[year,mensajeYear,validador,];
+  return a
+}
 
  //Funcion para validar las contraseñas
  function validarPassword(password:string,password2:string){
@@ -182,6 +198,7 @@ function validarLastName(lastName:string){
         validarAddress={validarAddress}
         validarMobileNumber={validarMobileNumber}
         validarLastName={validarLastName}
+        validarYear={validarYear}
       />
 
       <CreateUserModal
@@ -194,6 +211,7 @@ function validarLastName(lastName:string){
         validarAddress={validarAddress}
         validarMobileNumber={validarMobileNumber}
         validarLastName={validarLastName}
+        validarYear={validarYear}
       />
     </div>
   )

@@ -68,7 +68,23 @@ export default function listPet() {
   a=[breed,mensajeBreed,validador];
     return a
   }
-
+//validar año de nacimiento
+function validarYear(year:string){
+  var validador=false;
+  var mensajeYear="";
+  var yearInt=parseInt(year)
+  var today = new Date();
+  var ano = today.getFullYear();
+  var anoValido=ano-yearInt;
+  if(anoValido>1 && anoValido<=20){
+    validador=true
+  }else{
+    validador=false
+    mensajeYear="La edad de nacimiento no puede ser mayor a 20 ni menor a 1"
+  }
+  var a=[year,mensajeYear,validador,];
+  return a
+}
   return (
     <>
       <Pets
@@ -81,6 +97,7 @@ export default function listPet() {
         onRequestClose={handleCloseUpdatePetModal}
         idPet={idPetsToUpdate}
         validarNombreMascota={validarNombreMascota}
+        validarYear={validarYear}
         
       />
       <CreatePetModal
@@ -88,6 +105,7 @@ export default function listPet() {
         onRequestClose={handleCloseCreatePetModal}
         validarNombreMascota={validarNombreMascota}
         validarBreed={validarBreed} 
+        validarYear={validarYear}
       />
     </>
   )

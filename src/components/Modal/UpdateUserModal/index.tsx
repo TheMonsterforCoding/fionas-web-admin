@@ -31,6 +31,7 @@ type UpdateUserModalProps = {
   validarCpf:(cpf:string)=> any[]
   validarAddress:(address:string)=> any[]
   validarLastName:(lastName:string)=> any[]
+  validarYear:(year:string)=> any[]
 }
 
 type UserType = {
@@ -58,7 +59,8 @@ export function UpdateUserModal({
   validarFirstName,
   validarLastName,
   validarMail,
-  validarMobileNumber
+  validarMobileNumber,
+  validarYear
 }: UpdateUserModalProps) {
   const [user, setUser] = useState<UserType>({
     id: 'loading',
@@ -113,8 +115,6 @@ var lastNameArray=validarLastName(lastName)
 lastName=lastNameArray[0]
 mensajeLastName=lastNameArray[1]
 var validadorLastName=lastNameArray[2]
-
-
 
   useEffect(() => {
     async function selectUserById() {
