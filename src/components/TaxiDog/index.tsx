@@ -2,6 +2,7 @@ import styles from './styles.module.scss'
 import {
   DirectionsRenderer,
   DirectionsService,
+  DistanceMatrixService,
   GoogleMap,
   LoadScript,
   Marker
@@ -31,7 +32,7 @@ export function TaxiDog() {
   const [travelMode, setTravelMode] = useState('DRIVING')
   const [origin, setOrigin] = useState('-25.074948,-50.129583')
   const [destination, setDestination] = useState('')
-  const destinationRef = useRef(null)
+  const [route, setRoute] = useState('')
   const waypts: google.maps.DirectionsWaypoint[] = []
   const { users } = useUsers()
   const { customers } = useCustomers()
@@ -40,6 +41,7 @@ export function TaxiDog() {
       return customer.customers_users_id === user.id
     })
   })
+
 
   const directionsCallback = React.useCallback(res => {
     console.log(res)
@@ -53,33 +55,30 @@ export function TaxiDog() {
     }
   }, [])
 
-  /*   const checkboxArray = document.getElementById(
-    'waypoints'
-  ) as HTMLSelectElement */
+
   function addWaypoint(id) {
+    console.log(id)
     if (customersFiltered.some(e => e.id === id)) {
+      const newList2 = customersFiltered.filter(item => item.id === id)
+      console.log(newList2)
       const newList = customersFiltered.filter(item => item.id !== id)
       customersFiltered = newList
-      console.log(customersFiltered)
       toast.success('Usuário selecionado com susseso!')
+      if(destination === ''){
+        setDestination(newList2[0].address) 
+        console.log(destination)
+      }
     } else {
       toast.error('Usuário ya selecionado!')
     }
   }
 
   const onClick = useCallback(() => {
-    if (destinationRef.current.value !== '') {
-      /*       for (let i = 0; i < checkboxArray.length; i++) {
-        if (checkboxArray.options[i].selected) {
-          waypts.push({
-            location: (checkboxArray[i] as HTMLOptionElement).value,
-            stopover: true,
-          });
-        }
-      } */
-      setDestination(destinationRef.current.value)
+    setRoute('go')
+/*     if (destination !== '') {
+      setDestination()
       console.log(waypts)
-    }
+    } */
   }, [])
 
   const columns: GridColDef[] = [
@@ -100,9 +99,9 @@ export function TaxiDog() {
       width: 150
     },
     {
-      field: 'mobile_number',
-      headerName: 'Celular',
-      width: 150
+      field: 'address',
+      headerName: 'Endereço',
+      width: 250
     },
     {
       field: 'actionDog',
@@ -124,13 +123,6 @@ export function TaxiDog() {
 
   return (
     <div className={styles.container}>
-      <input
-        id="DESTINATION"
-        className="form-control"
-        type="text"
-        ref={destinationRef}
-      />
-
       <div className={styles.chart}>
         <LoadScript googleMapsApiKey={ApiKey}>
           <GoogleMap
@@ -138,7 +130,7 @@ export function TaxiDog() {
             center={center}
             zoom={20}
           >
-            {destination !== '' && (
+            {route !== '' && (
               <DirectionsService
                 options={{
                   destination: destination,
@@ -149,7 +141,6 @@ export function TaxiDog() {
                 callback={directionsCallback}
               />
             )}
-
             {response !== null && (
               <DirectionsRenderer
                 options={{
@@ -196,3 +187,24 @@ disableSelectionOnClick
 className={styles.datagrid}
 /> */
 }
+  /*   const checkboxArray = document.getElementById(
+    'waypoints'
+  ) as HTMLSelectElement */
+
+
+      /*       for (let i = 0; i < checkboxArray.length; i++) {
+        if (checkboxArray.options[i].selected) {
+          waypts.push({
+            location: (checkboxArray[i] as HTMLOptionElement).value,
+            stopover: true,
+          });
+        }
+      } */
+
+      {/*       <input
+        id="DESTINATION"
+        className="form-control"
+        type="text"
+        ref={destinationRef}
+      />
+ */}
