@@ -1,0 +1,103 @@
+.buttonClose {
+  height: 24px;
+  width: 24px;
+  color: var(--separator);
+  stroke-width: 2px;
+
+  cursor: pointer;
+}
+
+.Modal {
+  position: absolute;
+  background-color: var(--background);
+  border-radius: 0.5rem;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.5rem;
+  gap: 1rem;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    gap: 1rem;
+
+    fieldset {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2rem;
+
+      .subtitle {
+        display: flex;
+        justify-content: center;
+        font-weight: 500;
+        color: var(--separator);
+      }
+
+      .inputBlock {
+        display: flex;
+        flex-direction: column;
+
+        label {
+          margin-bottom: 0.3rem;
+          font-size: 0.875rem;
+        }
+
+        input {
+          border: none;
+          height: 1.875rem;
+          background: var(--background);
+          border-bottom: 1px solid var(--separator);
+
+          margin-bottom: 1rem;
+        }
+
+        input:focus {
+          box-shadow: 0 0 0 0;
+          border: 0 none;
+          outline: 0;
+        }
+      }
+    }
+  }
+
+  footer {
+    .ButtonAction {
+      display: flex;
+      justify-content: right;
+
+      button {
+        display: flex;
+        justify-content: center;
+
+        svg {
+          fill: #fff;
+        }
+      }
+    }
+  }
+}
