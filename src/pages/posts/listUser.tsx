@@ -64,7 +64,7 @@ export default function listUser() {
  //Funcion para validar las contraseñas
  function validarPassword(password:string,password2:string){
    console.log(password)
-   var validador=false;
+  var validador=false;
   var passwordValido = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,16}$/;
   var mensajePassword="";
   if(password.length>=1 || password2.length>=1){

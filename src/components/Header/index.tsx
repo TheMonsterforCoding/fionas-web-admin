@@ -1,5 +1,6 @@
+import { Button } from '@material-ui/core'
 import { Bell, Globe, Settings, LogOut } from '@styled-icons/feather'
-import Image from 'next/image'
+import Link from 'next/link'
 
 import AvatarImg from '../../../public/avatar.jpg'
 
@@ -13,14 +14,17 @@ export function Header() {
           <Bell />
           <span className={styles.topIconBadge}>2</span>
         </div> */}
-        <Image src={AvatarImg} alt="Avatar" />
+        {/*    <Image src={AvatarImg} alt="Avatar" />
 
         <div className={styles.iconContainer}>
           <Settings />
         </div>
+           */}
 
         <div className={styles.iconContainer}>
-          <LogOut />
+          <Link href={'http://localhost:3000/'}>
+            <LogOut />
+          </Link>
         </div>
       </header>
     </div>
