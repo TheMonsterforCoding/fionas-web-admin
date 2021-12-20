@@ -3,12 +3,25 @@ import Image from 'next/image'
 import AvatarImg from '../../../public/avatar.jpg'
 
 import styles from './styles.module.scss'
+import { useUsers } from '../../hooks/useUsers'
+import { useServicesApply } from '../../hooks/useServicesApply'
+import { useEffect, useState } from 'react'
 
 export function WidgetLarge() {
+  const {servicesApply} = useServicesApply()
+  const [isLoading, setIsLoading] = useState(true)
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+
+    }, 2000);
+  }, [])
+
   return (
+    
     <div className={styles.container}>
       <h3>Ultimas Transações</h3>
-
+      {!isLoading ? (
       <div className={styles.table}>
         <div className={styles.lineTitle}>
           <h4>Cliente</h4>
@@ -59,6 +72,10 @@ export function WidgetLarge() {
           <span>R$ 97,30</span>
         </div>
       </div>
+          ) : (
+            <>
+              <span>Carregando...</span>
+            </>)}
     </div>
   )
 }
