@@ -27,7 +27,6 @@ export function Pets({
   onOpenCreatePetModal
 }: PetsProps) {
   const { pets } = usePets()
-
   const columns: GridColDef[] = [
     {
       field: 'name',

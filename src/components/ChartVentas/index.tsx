@@ -6,8 +6,24 @@ import {
   Tooltip,
   ResponsiveContainer
 } from 'recharts'
-
+import { usePets } from '../../hooks/usePets'
+import { useServices } from '../../hooks/useServices'
 import styles from './styles.module.scss'
+
+// id: number
+// price: string
+// description: string
+// created_at: string
+// updated_at: string
+
+
+export function serviceContador() {
+const {services}=useServices()
+for (let i = 0; i < services.length; i++) {
+  const element = services[i];
+  console.log(element.)
+}
+}
 
 const data = [
   {
@@ -64,7 +80,7 @@ export function ChartVentas() {
   return (
     <div className={styles.container}>
       <h3>Ventas</h3>
-
+      {serviceContador()}
       <ResponsiveContainer width="100%" aspect={4 / 1}>
         <LineChart data={data}>
           <XAxis dataKey="name" stroke="var(--pink-300)" />
