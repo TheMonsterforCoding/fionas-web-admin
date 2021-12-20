@@ -128,7 +128,7 @@ export function Sidebar() {
             </li>
             {/* Statics */}
             <li>
-              <Link href="/post/estadisticas">
+              <Link href="/posts/estadisticas">
                 <a href="#">
                   <div id={styles.menuBox}>
                     <div className={styles.content}>

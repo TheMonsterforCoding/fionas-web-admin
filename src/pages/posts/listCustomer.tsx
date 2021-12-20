@@ -79,6 +79,7 @@ export default function listUser() {
       }
       if (password2 != password && password2.length >= 1) {
         mensajePassword = 'Las contraseñas no coinciden'
+        validador=false;
       }
     }
     var a = []
