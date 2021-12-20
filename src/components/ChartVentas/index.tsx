@@ -8,28 +8,21 @@ import {
   Tooltip,
   ResponsiveContainer
 } from 'recharts'
+import React, { useState } from 'react'
 import { useServicesApply } from '../../hooks/useServicesApply'
 import styles from './styles.module.scss'
-import React, { useState, FormEvent } from 'react'
 
 
-// id: number
-// price: string
-// description: string
-// created_at: string
-// updated_at: string
 
 
 export function serviceContadorDinero(anioActual) {
-console.log(anioActual)
 if(anioActual === ''){
   anioActual = new Date().getFullYear()
 }
 const {servicesApply} = useServicesApply()
 var precioTotalAnio=0
-
-var precios=[0,0,0,0,0,0,0,0,0,0,0,0,0]
-
+var precioAnual=0
+var precios=[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 if(servicesApply.length>0){
 for (let i = 0; i < servicesApply.length; i++) {
   const element = servicesApply[i];
@@ -44,13 +37,17 @@ for (let i = 0; i < servicesApply.length; i++) {
     if(fecha[0]==anioActual && fecha[1]==(j+1).toString()){
       if(element.services_apply_services_id==1){
         precios[j]=precios[j]+45
+        precioAnual=precioAnual+45
       }else if(element.services_apply_services_id==2){
         precios[j]=precios[j]+15
+        precioAnual=precioAnual+15
       }
     }
   }
 }
 }
+precios[0]=precioTotalAnio
+precios[13]=precioAnual
 return precios
 }
 
@@ -64,53 +61,54 @@ export function ChartVentas() {
   const data = [
     {
       name: 'Jan',
-      Ativos: precios[1]
+      BRL: precios[1] 
     },
     {
       name: 'Fev',
-      Ativos: precios[2]
+      BRL: precios[2]
     },
     {
       name: 'Mar',
-      Ativos: precios[3]
+      BRL: precios[3]
     },
     {
       name: 'Abr',
-      Ativos: precios[4]
+      BRL: precios[4]
     },
     {
       name: 'Mai',
-      Ativos: precios[5]
+      BRL: precios[5]
     },
     {
       name: 'Jun',
-      Ativos: precios[6]
+      BRL: precios[6]
     },
     {
       name: 'Jul',
-      Ativos: precios[7]
+      BRL: precios[7]
     },
     {
       name: 'Ago',
-      Ativos: precios[8]
+      BRL: precios[8]
     },
     {
       name: 'Set',
-      Ativos: precios[9]
+      BRL: precios[9]
     },
     {
       name: 'Out',
-      Ativos: precios[10]
+      BRL: precios[10]
     },
     {
       name: 'Nov',
-      Ativos: precios[11]
+      BRL: precios[11]
     },
     {
       name: 'Dez',
-      Ativos: precios[12]
+      BRL: precios[12]
     }
   ]
+  var precioAnual=precios[13].toString()
   return (
     
     <div className={styles.container}>
@@ -129,13 +127,14 @@ export function ChartVentas() {
       <ResponsiveContainer width="100%" aspect={4 / 1}>
         <LineChart data={data}>
           <XAxis dataKey="name" stroke="var(--pink-300)" />
-          <Line type="monotone" dataKey="Ativos" stroke="var(--pink-300)" />
+          <Line type="monotone" dataKey="BRL" stroke="var(--pink-300)" />
           <Tooltip labelStyle={{ fontSize: '10px' }} />
           <CartesianGrid stroke="var(--separator)" strokeDasharray="5 5" />
         </LineChart>
       </ResponsiveContainer>
 
-      <h3>Ventas totales: {precios[0]} BRL </h3>
+      <h3>Vendas totais nos últimos 3 anos: {precios[0]} BRL </h3>
+      <h3>Vendas anuais: {precioAnual} BRL</h3>
     </div>
     
   )
