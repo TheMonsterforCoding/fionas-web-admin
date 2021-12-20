@@ -16,6 +16,7 @@ import { useCustomers } from '../../hooks/useCustomers'
 import { useServicesApply } from '../../hooks/useServicesApply'
 import { useCustomerHasPets } from '../../hooks/useCustomerHasPets'
 import toast, { Toaster } from 'react-hot-toast'
+import api from '../../services/api'
 
 const containerStyle = {
   width: '100%',
@@ -26,6 +27,8 @@ const center = {
   lng: -50.129583
 }
 let customersFilter = []
+let saveRoute = []
+let customerRoute = []
 const waypt: google.maps.DirectionsWaypoint[] = []
 
 let ApiKey = 'AIzaSyDbq1JX-Wx8o_FpYKaDV-Xu7_t_m28VlPI'
@@ -47,19 +50,16 @@ export function TaxiDog() {
       service.services_apply_services_state_id === 1
     )
   })
-
   let customerHasPetsFiltered = customerHasPets.filter(cHPets => {
     return customersTaxiFiltered.some(customer => {
       return customer.services_apply_customers_has_pets_id === cHPets.id
     })
   })
-
   let customersF = customers.filter(cstmr => {
     return customerHasPetsFiltered.some(customer => {
       return customer.customers_has_pets_customers_id === (cstmr.id as unknown)
     })
   })
-
   let customersFiltered = users.filter(user => {
     return customersF.some(customer => {
       return customer.customers_users_id === user.id
@@ -87,8 +87,10 @@ export function TaxiDog() {
       toast.success('Usuário selecionado com susseso!')
       if (destination === '') {
         setDestination(newList2[0].address)
+        saveRoute.push({ customers_users_id: newList2[0].id })
       } else {
         customersFilter.push(newList2[0])
+        saveRoute.push({ customers_users_id: newList2[0].id })
       }
     } else {
       toast.error('Usuário ya selecionado!')
@@ -104,19 +106,44 @@ export function TaxiDog() {
       })
     }
     setRoute('go')
-
   }, [])
 
   const onClick2 = useCallback(() => {
-    if (gerarRouta === 'No' ) {
+    if (gerarRouta === 'No') {
       toast.error('Debe gerar routa')
     } else {
+    /*   for (let x = 0; x < saveRoute.length; x++) {
+        var id : String = saveRoute[x].customers_users_id
+        console.log(id)
+        console.log(customers)
+        let a = customers.filter(service => {
+          return service.customers_users_id === id
+        })
+        console.log(a)
+        customerRoute.push(a)
+      }
+      console.log(customerRoute) */
       toast.success('Routa confirmada')
-
-
-      
     }
   }, [])
+
+  async function handleSubmit(idServiceApply) {
+    try {
+      const response = await api.put(`/services_apply/${idServiceApply}`, {
+        services_apply_services_state_id: 4
+      })
+
+      const status = response.status
+
+      if (status === 200) {
+        toast.success('Cargo atualizado com susseso!')
+      } else {
+        toast.error('Cargo não atualizado!')
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   const columns: GridColDef[] = [
     {
@@ -198,13 +225,13 @@ export function TaxiDog() {
             </td>
             <td>
               &nbsp;
-              <button
+             {/*  <button
                 type="submit"
                 className={styles.button}
                 onClick={onClick2}
               >
                 Confirmar Rota
-              </button>
+              </button> */}
             </td>
           </tr>
         </tbody>
