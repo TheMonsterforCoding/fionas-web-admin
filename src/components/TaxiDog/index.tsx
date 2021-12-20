@@ -24,6 +24,8 @@ const center = {
   lat: -25.074948,
   lng: -50.129583
 }
+let customersFilter = []
+const waypt: google.maps.DirectionsWaypoint[] = []
 
 let ApiKey = 'AIzaSyDbq1JX-Wx8o_FpYKaDV-Xu7_t_m28VlPI'
 
@@ -33,9 +35,9 @@ export function TaxiDog() {
   const [origin, setOrigin] = useState('-25.074948,-50.129583')
   const [destination, setDestination] = useState('')
   const [route, setRoute] = useState('')
-  const waypts: google.maps.DirectionsWaypoint[] = []
   const { users } = useUsers()
   const { customers } = useCustomers()
+
   let customersFiltered = users.filter(user => {
     return customers.some(customer => {
       return customer.customers_users_id === user.id
@@ -55,18 +57,16 @@ export function TaxiDog() {
     }
   }, [])
 
-
   function addWaypoint(id) {
-    console.log(id)
     if (customersFiltered.some(e => e.id === id)) {
       const newList2 = customersFiltered.filter(item => item.id === id)
-      console.log(newList2)
       const newList = customersFiltered.filter(item => item.id !== id)
       customersFiltered = newList
       toast.success('Usuário selecionado com susseso!')
-      if(destination === ''){
-        setDestination(newList2[0].address) 
-        console.log(destination)
+      if (destination === '') {
+        setDestination(newList2[0].address)
+      } else {
+        customersFilter.push(newList2[0])
       }
     } else {
       toast.error('Usuário ya selecionado!')
@@ -74,8 +74,16 @@ export function TaxiDog() {
   }
 
   const onClick = useCallback(() => {
+    console.log(customersFilter)
+    for (let i = 0; i < customersFilter.length; i++) {
+      waypt.push({
+        location: customersFilter[i].address,
+        stopover: true,
+      });
+    }
+    console.log(waypt)
     setRoute('go')
-/*     if (destination !== '') {
+    /*     if (destination !== '') {
       setDestination()
       console.log(waypts)
     } */
@@ -136,7 +144,7 @@ export function TaxiDog() {
                   destination: destination,
                   origin: origin,
                   travelMode: travelMode as any,
-                  waypoints: waypts
+                  waypoints: waypt
                 }}
                 callback={directionsCallback}
               />
@@ -187,12 +195,11 @@ disableSelectionOnClick
 className={styles.datagrid}
 /> */
 }
-  /*   const checkboxArray = document.getElementById(
+/*   const checkboxArray = document.getElementById(
     'waypoints'
   ) as HTMLSelectElement */
 
-
-      /*       for (let i = 0; i < checkboxArray.length; i++) {
+/*       for (let i = 0; i < checkboxArray.length; i++) {
         if (checkboxArray.options[i].selected) {
           waypts.push({
             location: (checkboxArray[i] as HTMLOptionElement).value,
@@ -201,10 +208,12 @@ className={styles.datagrid}
         }
       } */
 
-      {/*       <input
+{
+  /*       <input
         id="DESTINATION"
         className="form-control"
         type="text"
         ref={destinationRef}
       />
- */}
+ */
+}
