@@ -10,6 +10,8 @@ import '../styles/global.scss'
 import styles from '../styles/app.module.scss'
 import { UsersProvider } from '../hooks/useUsers'
 import { PetsProvider } from '../hooks/usePets'
+import { ServicesProvider } from '../hooks/useServices'
+import { ServicesApplyProvider } from '../hooks/useServicesApply'
 import { EmployeesTypeProvider } from '../hooks/useEmployeesType'
 import { EmployeesProvider } from '../hooks/useEmployees'
 import { CustomersProvider } from '../hooks/useCustomers'
@@ -24,6 +26,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         <EmployeesTypeProvider>
           <CustomersProvider>
             <PetsProvider>
+              <ServicesProvider>
+               <ServicesApplyProvider>
               <CustomerHasPetsProvider>
                 <div className={styles.container}>
                   <Sidebar />
@@ -33,6 +37,8 @@ function MyApp({ Component, pageProps }: AppProps) {
                   </div>
                 </div>
               </CustomerHasPetsProvider>
+            </ServicesApplyProvider>
+            </ServicesProvider>
             </PetsProvider>
           </CustomersProvider>
         </EmployeesTypeProvider>
