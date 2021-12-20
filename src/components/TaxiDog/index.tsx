@@ -9,12 +9,14 @@ import {
 } from '@react-google-maps/api'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from '../Button'
-import { Edit, Users } from '@styled-icons/feather'
+import { Edit } from '@styled-icons/feather'
 import { DataGrid, GridColDef } from '@material-ui/data-grid'
 import { useUsers } from '../../hooks/useUsers'
 import { useCustomers } from '../../hooks/useCustomers'
-import { randomInt } from 'crypto'
+import { useServicesApply } from '../../hooks/useServicesApply'
+import { useCustomerHasPets } from '../../hooks/useCustomerHasPets'
 import toast, { Toaster } from 'react-hot-toast'
+import api from '../../services/api'
 
 const containerStyle = {
   width: '100%',
@@ -25,6 +27,8 @@ const center = {
   lng: -50.129583
 }
 let customersFilter = []
+let saveRoute = []
+let customerRoute = []
 const waypt: google.maps.DirectionsWaypoint[] = []
 
 let ApiKey = 'AIzaSyDbq1JX-Wx8o_FpYKaDV-Xu7_t_m28VlPI'
@@ -37,13 +41,30 @@ export function TaxiDog() {
   const [route, setRoute] = useState('')
   const { users } = useUsers()
   const { customers } = useCustomers()
-
+  const { servicesApply } = useServicesApply()
+  const { customerHasPets } = useCustomerHasPets()
+  let gerarRouta = 'No'
+  let customersTaxiFiltered = servicesApply.filter(service => {
+    return (
+      service.services_apply_services_id === 2 &&
+      service.services_apply_services_state_id === 1
+    )
+  })
+  let customerHasPetsFiltered = customerHasPets.filter(cHPets => {
+    return customersTaxiFiltered.some(customer => {
+      return customer.services_apply_customers_has_pets_id === cHPets.id
+    })
+  })
+  let customersF = customers.filter(cstmr => {
+    return customerHasPetsFiltered.some(customer => {
+      return customer.customers_has_pets_customers_id === (cstmr.id as unknown)
+    })
+  })
   let customersFiltered = users.filter(user => {
-    return customers.some(customer => {
+    return customersF.some(customer => {
       return customer.customers_users_id === user.id
     })
   })
-
 
   const directionsCallback = React.useCallback(res => {
     console.log(res)
@@ -51,6 +72,7 @@ export function TaxiDog() {
     if (res !== null) {
       if (res.status === 'OK') {
         setResponse(res)
+        gerarRouta = 'Si'
       } else {
         console.log('response: ', res)
       }
@@ -65,8 +87,10 @@ export function TaxiDog() {
       toast.success('Usuário selecionado com susseso!')
       if (destination === '') {
         setDestination(newList2[0].address)
+        saveRoute.push({ customers_users_id: newList2[0].id })
       } else {
         customersFilter.push(newList2[0])
+        saveRoute.push({ customers_users_id: newList2[0].id })
       }
     } else {
       toast.error('Usuário ya selecionado!')
@@ -78,16 +102,48 @@ export function TaxiDog() {
     for (let i = 0; i < customersFilter.length; i++) {
       waypt.push({
         location: customersFilter[i].address,
-        stopover: true,
-      });
+        stopover: true
+      })
     }
-    console.log(waypt)
     setRoute('go')
-    /*     if (destination !== '') {
-      setDestination()
-      console.log(waypts)
-    } */
   }, [])
+
+  const onClick2 = useCallback(() => {
+    if (gerarRouta === 'No') {
+      toast.error('Debe gerar routa')
+    } else {
+    /*   for (let x = 0; x < saveRoute.length; x++) {
+        var id : String = saveRoute[x].customers_users_id
+        console.log(id)
+        console.log(customers)
+        let a = customers.filter(service => {
+          return service.customers_users_id === id
+        })
+        console.log(a)
+        customerRoute.push(a)
+      }
+      console.log(customerRoute) */
+      toast.success('Routa confirmada')
+    }
+  }, [])
+
+  async function handleSubmit(idServiceApply) {
+    try {
+      const response = await api.put(`/services_apply/${idServiceApply}`, {
+        services_apply_services_state_id: 4
+      })
+
+      const status = response.status
+
+      if (status === 200) {
+        toast.success('Cargo atualizado com susseso!')
+      } else {
+        toast.error('Cargo não atualizado!')
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   const columns: GridColDef[] = [
     {
@@ -131,53 +187,67 @@ export function TaxiDog() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.chart}>
-        <LoadScript googleMapsApiKey={ApiKey}>
-          <GoogleMap
-            mapContainerStyle={containerStyle}
-            center={center}
-            zoom={20}
-          >
-            {route !== '' && (
-              <DirectionsService
-                options={{
-                  destination: destination,
-                  origin: origin,
-                  travelMode: travelMode as any,
-                  waypoints: waypt
-                }}
-                callback={directionsCallback}
-              />
-            )}
-            {response !== null && (
-              <DirectionsRenderer
-                options={{
-                  directions: response
-                }}
-              />
-            )}
-            <Marker
-              position={center}
-              icon={'https://i.ibb.co/k2dJnTw/icono-fionas.png'}
+      <LoadScript googleMapsApiKey={ApiKey}>
+        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={20}>
+          {route !== '' && (
+            <DirectionsService
+              options={{
+                destination: destination,
+                origin: origin,
+                travelMode: travelMode as any,
+                waypoints: waypt
+              }}
+              callback={directionsCallback}
             />
-          </GoogleMap>
-        </LoadScript>
-        <br></br>
-        <button className={styles.button} type="button" onClick={onClick}>
-          Gerar Rota
-        </button>
-        <h3>Clientes em espera</h3>
-        <div className={styles.widget}>
-          <div className={styles.table}>
-            <DataGrid
-              rows={customersFiltered}
-              rowsPerPageOptions={[3]}
-              columns={columns}
-              pageSize={3}
-              className={styles.datagrid}
-              autoHeight
+          )}
+          {response !== null && (
+            <DirectionsRenderer
+              options={{
+                directions: response
+              }}
             />
-          </div>
+          )}
+          <Marker
+            position={center}
+            icon={'https://i.ibb.co/k2dJnTw/icono-fionas.png'}
+          />
+        </GoogleMap>
+      </LoadScript>
+
+      <table className={styles.center}>
+        <tbody>
+          <tr>
+            <td>
+              &nbsp;
+              <button type="submit" className={styles.button} onClick={onClick}>
+                Gerar Rota
+              </button>
+            </td>
+            <td>
+              &nbsp;
+             {/*  <button
+                type="submit"
+                className={styles.button}
+                onClick={onClick2}
+              >
+                Confirmar Rota
+              </button> */}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Clientes em espera</h3>
+      <div className={styles.widget}>
+        <div className={styles.table}>
+          <DataGrid
+            rows={customersFiltered}
+            rowsPerPageOptions={[3]}
+            columns={columns}
+            pageSize={3}
+            className={styles.datagrid}
+            autoHeight
+          />
         </div>
       </div>
       <Toaster position="top-center" reverseOrder={true} />
