@@ -23,6 +23,7 @@ export function Customers({
   const { users } = useUsers()
   const { customers } = useCustomers()
 
+  console.log(customers)
   const customersFiltered = users.filter((user) => {
     return customers.some((customer) => {
       return customer.customers_users_id === user.id;
