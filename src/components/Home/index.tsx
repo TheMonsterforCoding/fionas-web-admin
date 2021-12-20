@@ -10,23 +10,20 @@ export function Home() {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-
-
         <div className={styles.repositionWidgetSmall}>
           <WidgetSmall />
         </div>
-
       </div>
 
-    <div className={styles.chart}>
-      <Chart />
-    </div>
+      <div className={styles.chart}>
+        <Chart />
+      </div>
 
       <div className={styles.widget}>
         <div className={styles.temporalWidgetSmall}>
           <WidgetSmall />
         </div>
-        <WidgetLarge />
+        {/* <WidgetLarge /> */}
       </div>
     </div>
   )

@@ -16,8 +16,8 @@ import { EmployeesTypeProvider } from '../hooks/useEmployeesType'
 import { EmployeesProvider } from '../hooks/useEmployees'
 import { CustomersProvider } from '../hooks/useCustomers'
 import { CustomerHasPetsProvider } from '../hooks/useCustomerHasPets'
-import { ServicesApplyProvider } from '../hooks/useServicesApply'
-import { ServicesProvider } from '../hooks/useServices'
+// import { ServicesApplyProvider } from '../hooks/useServicesApply'
+// import { ServicesProvider } from '../hooks/useServices'
 
 Modal.setAppElement('#__next')
 
@@ -29,22 +29,22 @@ function MyApp({ Component, pageProps }: AppProps) {
           <CustomersProvider>
             <PetsProvider>
               <ServicesProvider>
-               <ServicesApplyProvider>
-              <CustomerHasPetsProvider>
                 <ServicesApplyProvider>
-                  <ServicesProvider>
-                    <div className={styles.container}>
-                      <Sidebar />
-                      <div className={styles.wrapper}>
-                        <Header />
-                        <Component {...pageProps} />
-                      </div>
-                    </div>
-                  </ServicesProvider>
+                  <CustomerHasPetsProvider>
+                    <ServicesApplyProvider>
+                      <ServicesProvider>
+                        <div className={styles.container}>
+                          <Sidebar />
+                          <div className={styles.wrapper}>
+                            <Header />
+                            <Component {...pageProps} />
+                          </div>
+                        </div>
+                      </ServicesProvider>
+                    </ServicesApplyProvider>
+                  </CustomerHasPetsProvider>
                 </ServicesApplyProvider>
-              </CustomerHasPetsProvider>
-            </ServicesApplyProvider>
-            </ServicesProvider>
+              </ServicesProvider>
             </PetsProvider>
           </CustomersProvider>
         </EmployeesTypeProvider>
