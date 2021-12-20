@@ -5,7 +5,8 @@ import {
   PieChart,
   Heart,
   MapPin,
-  Users
+  Users,
+  Archive
 } from '@styled-icons/feather'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -121,6 +122,21 @@ export function Sidebar() {
                         <span>Taxi Dog</span>
                       </div>
                       <></>
+                    </div>
+                  </div>
+                </a>
+              </Link>
+            </li>
+            {/* ServiceApply */}
+            <li>
+              <Link href="/posts/listServiceApply" passHref>
+                <a>
+                  <div id={styles.menuBox}>
+                    <div className={styles.content}>
+                      <div className={styles.contentLeft}>
+                        <Archive />
+                        <span>Service Apply</span>
+                      </div>
                     </div>
                   </div>
                 </a>
