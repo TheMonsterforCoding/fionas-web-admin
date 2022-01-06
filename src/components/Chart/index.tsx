@@ -11,47 +11,42 @@ import { useUsers } from '../../hooks/useUsers'
 
 import styles from './styles.module.scss'
 
-
 export function serviceContadorDinero(anioActual) {
-  if(anioActual === ''){
+  if (anioActual === '') {
     anioActual = new Date().getFullYear()
   }
-  const {users} = useUsers()
-  var usuarioCreadoTotal=0
-  var usuariosAnual=0
-  var usuariosCreados=[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-  if(users.length>0){
-  for (let i = 0; i < users.length; i++) {
-    const element = users[i];
-    usuarioCreadoTotal=usuarioCreadoTotal+1
-    var fecha=element.created_at.split('-')
-    fecha[2]=fecha[2].split('T')[0]
-    for (let j = 1; j < 12; j++) {
-      if(fecha[0]==anioActual && fecha[1]==(j+1).toString()){
-          usuariosCreados[j]=usuariosCreados[j]+1
-          usuariosAnual=usuariosAnual+1
+  const { users } = useUsers()
+  var usuarioCreadoTotal = 0
+  var usuariosAnual = 0
+  var usuariosCreados = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  if (users.length > 0) {
+    for (let i = 0; i < users.length; i++) {
+      const element = users[i]
+      usuarioCreadoTotal = usuarioCreadoTotal + 1
+      var fecha = element.created_at.split('-')
+      fecha[2] = fecha[2].split('T')[0]
+      for (let j = 1; j < 12; j++) {
+        if (fecha[0] == anioActual && fecha[1] == (j + 1).toString()) {
+          usuariosCreados[j] = usuariosCreados[j] + 1
+          usuariosAnual = usuariosAnual + 1
+        }
       }
     }
   }
-  }
-  usuariosCreados[0]=usuarioCreadoTotal
-  usuariosCreados[13]=usuariosAnual
+  usuariosCreados[0] = usuarioCreadoTotal
+  usuariosCreados[13] = usuariosAnual
   return usuariosCreados
-  }
-  
-
-
-
+}
 
 export function Chart() {
   var [anio, setAnio] = useState('')
   var usuariosCreados = serviceContadorDinero(anio)
-  var today = new Date();
-  var anioActual = today.getFullYear();
+  var today = new Date()
+  var anioActual = today.getFullYear()
   const data = [
     {
       name: 'Jan',
-      USERS: usuariosCreados[1] 
+      USERS: usuariosCreados[0]
     },
     {
       name: 'Fev',
@@ -98,8 +93,7 @@ export function Chart() {
       USERS: usuariosCreados[12]
     }
   ]
-  var usuariosAnual=usuariosCreados[13].toString()
-
+  var usuariosAnual = usuariosCreados[13].toString()
 
   return (
     <div className={styles.container}>
@@ -111,8 +105,8 @@ export function Chart() {
           onChange={event => setAnio(event.target.value)}
         >
           <option value={anioActual}>{anioActual}</option>
-          <option value={anioActual-1}>{anioActual-1}</option>
-          <option value={anioActual+1}>{anioActual+1}</option>
+          <option value={anioActual - 1}>{anioActual - 1}</option>
+          <option value={anioActual + 1}>{anioActual + 1}</option>
         </select>
       </div>
       <ResponsiveContainer width="100%" aspect={4 / 1}>
@@ -124,7 +118,8 @@ export function Chart() {
         </LineChart>
       </ResponsiveContainer>
       <h3>usuários criados nos últimos 3 anos: {usuariosCreados[0]} </h3>
-      <h3>usuários anuais criados: {usuariosAnual} </h3>
+      {/* <h3>usuários anuais criados: {usuariosAnual} </h3> */}
+      <h3>usuários anuais criados: {usuariosCreados[0]} </h3>
     </div>
   )
 }

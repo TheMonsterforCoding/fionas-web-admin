@@ -21,9 +21,7 @@ export function ServiceApply({
   const { customerHasPets } = useCustomerHasPets()
 
   let customersTaxiFiltered = servicesApply.filter(service => {
-    return (
-      service.services_apply_services_state_id === 1
-    )
+    return service.services_apply_services_state_id === 1
   })
 
   let customerHasPetsFiltered = customerHasPets.filter(cHPets => {
@@ -44,11 +42,8 @@ export function ServiceApply({
     })
   })
 
-
   let customersTaxiFiltered2 = servicesApply.filter(service => {
-    return (
-      service.services_apply_services_state_id === 2
-    )
+    return service.services_apply_services_state_id === 2
   })
 
   let customerHasPetsFiltered2 = customerHasPets.filter(cHPets => {
@@ -70,9 +65,7 @@ export function ServiceApply({
   })
 
   let customersTaxiFiltered3 = servicesApply.filter(service => {
-    return (
-      service.services_apply_services_state_id === 3
-    )
+    return service.services_apply_services_state_id === 3
   })
 
   let customerHasPetsFiltered3 = customerHasPets.filter(cHPets => {
@@ -92,9 +85,6 @@ export function ServiceApply({
       return customer.customers_users_id === user.id
     })
   })
-
-
-
 
   const columns: GridColDef[] = [
     {
@@ -126,6 +116,7 @@ export function ServiceApply({
       renderCell: user => {
         return (
           <>
+            <Button>Confirmar</Button>
           </>
         )
       }
@@ -134,10 +125,10 @@ export function ServiceApply({
 
   return (
     <div className={styles.container}>
-      <div >
-        <div >
+      <div>
+        <div>
           <h3>Clientes em espera</h3>
-          <div >
+          <div>
             <div className={styles.table}>
               <DataGrid
                 rows={customersFiltered}
@@ -150,10 +141,12 @@ export function ServiceApply({
             </div>
           </div>
         </div>
+
         <br></br>
-        <div >
+
+        <div>
           <h3>Confirmados</h3>
-          <div >
+          <div>
             <div className={styles.table}>
               <DataGrid
                 rows={customersFiltered2}
@@ -166,10 +159,12 @@ export function ServiceApply({
             </div>
           </div>
         </div>
+
         <br></br>
-        <div >
+
+        <div>
           <h3>Taxi em ruta</h3>
-          <div >
+          <div>
             <div className={styles.table}>
               <DataGrid
                 rows={customersFiltered3}
@@ -185,7 +180,7 @@ export function ServiceApply({
       </div>
     </div>
   )
-} /* 
+} /*
 <div className={styles.container}>
 <h3>Clientes em espera</h3>
 <div className={styles.widget}>

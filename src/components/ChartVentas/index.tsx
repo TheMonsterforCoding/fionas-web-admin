@@ -12,56 +12,51 @@ import React, { useState } from 'react'
 import { useServicesApply } from '../../hooks/useServicesApply'
 import styles from './styles.module.scss'
 
-
-
-
 export function serviceContadorDinero(anioActual) {
-if(anioActual === ''){
-  anioActual = new Date().getFullYear()
-}
-const {servicesApply} = useServicesApply()
-var precioTotalAnio=0
-var precioAnual=0
-var precios=[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-if(servicesApply.length>0){
-for (let i = 0; i < servicesApply.length; i++) {
-  const element = servicesApply[i];
-  if(element.services_apply_services_id==1){
-    precioTotalAnio= precioTotalAnio + 45
-  }else if(element.services_apply_services_id==2){
-    precioTotalAnio= precioTotalAnio + 15
+  if (anioActual === '') {
+    anioActual = new Date().getFullYear()
   }
-  var fecha=element.created_at.split('-')
-  fecha[2]=fecha[2].split('T')[0]
-  for (let j = 1; j < 12; j++) {
-    if(fecha[0]==anioActual && fecha[1]==(j+1).toString()){
-      if(element.services_apply_services_id==1){
-        precios[j]=precios[j]+45
-        precioAnual=precioAnual+45
-      }else if(element.services_apply_services_id==2){
-        precios[j]=precios[j]+15
-        precioAnual=precioAnual+15
+  const { servicesApply } = useServicesApply()
+  var precioTotalAnio = 0
+  var precioAnual = 0
+  var precios = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  if (servicesApply.length > 0) {
+    for (let i = 0; i < servicesApply.length; i++) {
+      const element = servicesApply[i]
+      if (element.services_apply_services_id == 1) {
+        precioTotalAnio = precioTotalAnio + 45
+      } else if (element.services_apply_services_id == 2) {
+        precioTotalAnio = precioTotalAnio + 15
+      }
+      var fecha = element.created_at.split('-')
+      fecha[2] = fecha[2].split('T')[0]
+      for (let j = 1; j < 12; j++) {
+        if (fecha[0] == anioActual && fecha[1] == (j + 1).toString()) {
+          if (element.services_apply_services_id == 1) {
+            precios[j] = precios[j] + 45
+            precioAnual = precioAnual + 45
+          } else if (element.services_apply_services_id == 2) {
+            precios[j] = precios[j] + 15
+            precioAnual = precioAnual + 15
+          }
+        }
       }
     }
   }
+  precios[0] = precioTotalAnio
+  precios[13] = precioAnual
+  return precios
 }
-}
-precios[0]=precioTotalAnio
-precios[13]=precioAnual
-return precios
-}
-
-
 
 export function ChartVentas() {
   var [anio, setAnio] = useState('')
   var precios = serviceContadorDinero(anio)
-  var today = new Date();
-  var anioActual = today.getFullYear();
+  var today = new Date()
+  var anioActual = today.getFullYear()
   const data = [
     {
       name: 'Jan',
-      BRL: precios[1] 
+      BRL: precios[1]
     },
     {
       name: 'Fev',
@@ -108,9 +103,8 @@ export function ChartVentas() {
       BRL: precios[12]
     }
   ]
-  var precioAnual=precios[13].toString()
+  var precioAnual = precios[13].toString()
   return (
-    
     <div className={styles.container}>
       <h3>Ventas de servicios</h3>
       <div className={styles.selectBlock}>
@@ -120,8 +114,8 @@ export function ChartVentas() {
           onChange={event => setAnio(event.target.value)}
         >
           <option value={anioActual}>{anioActual}</option>
-          <option value={anioActual-1}>{anioActual-1}</option>
-          <option value={anioActual+1}>{anioActual+1}</option>
+          <option value={anioActual - 1}>{anioActual - 1}</option>
+          <option value={anioActual + 1}>{anioActual + 1}</option>
         </select>
       </div>
       <ResponsiveContainer width="100%" aspect={4 / 1}>
@@ -136,6 +130,5 @@ export function ChartVentas() {
       <h3>Vendas totais nos últimos 3 anos: {precios[0]} BRL </h3>
       <h3>Vendas anuais: {precioAnual} BRL</h3>
     </div>
-    
   )
 }

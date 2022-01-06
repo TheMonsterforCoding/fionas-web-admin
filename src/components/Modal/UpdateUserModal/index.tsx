@@ -84,7 +84,7 @@ export function UpdateUserModal({
   var [lastName, setLastName] = useState('')
   var [mail, setMail] = useState('')
   var [mobileNumber, setMobileNumber] = useState('')
-  var [state, setState] = useState(false)
+  var [state, setState] = useState(true)
   var [userType, setUserType] = useState(false)
   var [password, setPassword] = useState('')
 
